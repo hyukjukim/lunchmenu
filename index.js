@@ -4,7 +4,21 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+var mongoose = require("mongoose")
 const token = process.env.FB_TOKEN // 환경변수 갖고 오는 곳.
+
+
+// DB setting
+mongoose.connect(process.env.MONGO_DB); // 1
+var db = mongoose.connection; // 2
+// 3﻿
+db.once("open", function(){
+ console.log("DB connected");
+});
+// 4
+db.on("error", function(err){
+ console.log("DB ERROR : ", err);
+});
 
 
 app.set('port', (process.env.PORT || 5000))
