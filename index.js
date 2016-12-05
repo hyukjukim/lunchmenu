@@ -38,3 +38,15 @@ app.get('/keyboard/', function (req, res) {
 app.post('/message', function (req, res) {
   res.sendStatus(200)
 })
+
+app.post('/friend', function (req, res) {
+  res.sendStatus(200)
+})
+
+app.delete('/friend', function (req, res) {
+  res.sendStatus(200)
+})
+
+app.delete('/chat_room/:user_key', function (req, res) {
+  res.sendStatus(200)
+})
