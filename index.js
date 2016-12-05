@@ -28,7 +28,7 @@ app.listen(app.get('port'), function() {
 
 
 // 카카오톡 연결 1
-app.get('/keyboard/', function (req, res) {
+app.get('/keyboard', function (req, res) {
     res.send({
 "type" : "buttons",
 "buttons" : ["선택 1", "선택 2", "선택 3"]
@@ -43,7 +43,7 @@ app.post('/friend', function (req, res) {
   res.sendStatus(200)
 })
 
-app.delete('/friend', function (req, res) {
+app.delete('/friend/:user_key', function (req, res) {
   res.sendStatus(200)
 })
 
