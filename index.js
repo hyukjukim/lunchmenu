@@ -1,7 +1,11 @@
+'use strict'
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const token = process.env.FB_TOKEN // 환경변수 갖고 오는 곳.
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -43,7 +47,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-const token = process.env.FB_TOKEN // 환경변수 갖고 오는 곳.
+
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
