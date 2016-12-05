@@ -62,7 +62,7 @@ app.post('/message', function (req, res) {
     }
 }
 );
-Contact.create({ name:  "req.body.entry[0].messaging[0].message.text.substring(0, 200)" }, function(error, doc) {
+Contact.create({ name:  "req0)" }, function(error, doc) {
 // doc.children[0]._id will be undefined
 });
   res.sendStatus(200)
