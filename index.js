@@ -36,6 +36,11 @@ app.get('/keyboard', function (req, res) {
 })
 
 app.post('/message', function (req, res) {
+  res.send({
+    "message":{
+        "text" : "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!"
+    }
+});
   res.sendStatus(200)
 })
 
