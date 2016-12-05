@@ -62,9 +62,12 @@ app.post('/message', function (req, res) {
     }
 }
 );
+
+console.log(req.body.entry[0]);
+/*
 Contact.create({ name:  "req0)" }, function(error, doc) {
 // doc.children[0]._id will be undefined
-});
+});*/
   res.sendStatus(200)
 })
 
