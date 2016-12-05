@@ -20,6 +20,8 @@ db.on("error", function(err){
  console.log("DB ERROR : ", err);
 });
 
+var Contact = mongoose.model("contact", contactSchema); //5
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -60,6 +62,8 @@ app.post('/webhook/', function (req, res) {
           continue
       }
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+      Contact.create({ name:  text.substring(0, 200) }, function(error, doc) {
+  // doc.children[0]._id will be undefined
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
