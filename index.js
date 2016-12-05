@@ -19,7 +19,12 @@ db.once("open", function(){
 db.on("error", function(err){
  console.log("DB ERROR : ", err);
 });
-
+// DB schema // 4
+var contactSchema = mongoose.Schema({
+ name:{type:String, required:true, unique:true},
+ email:{type:String},
+ phone:{type:String}
+});
 var Contact = mongoose.model("contact", contactSchema); //5
 
 
