@@ -61,7 +61,7 @@ app.post('/message', function (req, res) {
         "text" : "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!"
     }
   });
-console.log(req.body);
+console.log(req.body.content);
 /*
 Contact.create({ name:  "req0)" }, function(error, doc) {
 // doc.children[0]._id will be undefined
