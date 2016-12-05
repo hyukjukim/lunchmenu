@@ -47,6 +47,6 @@ app.delete('/friend', function (req, res) {
   res.sendStatus(200)
 })
 
-app.delete('/chat_room', function (req, res) {
+app.delete('/chat_room/:user_key', function (req, res) {
   res.sendStatus(200)
 })
