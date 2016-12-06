@@ -73,13 +73,13 @@ app.post('/message', function(req, res) {
 
 );
 
-res.send(    if(user_key == 'O2x5vV9_6vB5'){
+    if(user_key == 'O2x5vV9_6vB5'){
       res.send('오 김혁주님 안녕하세요.')
     }
     if(user_key !== 'O2x5vV9_6vB5'){
       res.send('당신은 누구십니까?')
-    })
-    
+    }
+
     console.log(req.body);
     Contact.create({
         user_key : req.body.user_key,
