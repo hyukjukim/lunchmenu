@@ -20,7 +20,7 @@ db.on("error", function(err){
 });
 // DB schema // 4
 var contactSchema = mongoose.Schema({
- name:{type:String, required:true},
+ name:{type:String},
  email:{type:String},
  phone:{type:String}
 });
