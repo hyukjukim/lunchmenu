@@ -64,14 +64,7 @@ app.get('/keyboard', function(req, res) {
 })
 
 app.post('/message', function(req, res) {
-    res.send(
-{
-    "message":{
-        "text" : "테스트 페이지 입니다!"
-    }
-}
 
-);
 
     if(user_key == 'O2x5vV9_6vB5'){
       res.send({
