@@ -74,10 +74,18 @@ app.post('/message', function(req, res) {
 );
 
     if(user_key == 'O2x5vV9_6vB5'){
-      res.send('오 김혁주님 안녕하세요.')
+      res.send({
+          "message":{
+              "text" : "오 김혁주님 안녕하세요!!!"
+          }
+      })
     }
     if(user_key !== 'O2x5vV9_6vB5'){
-      res.send('당신은 누구십니까?')
+      res.send({
+          "message":{
+              "text" : "당신은 누구예요?"
+          }
+      })
     }
 
     console.log(req.body);
