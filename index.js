@@ -11,18 +11,24 @@ var mongoose = require("mongoose")
 mongoose.connect(process.env.MONGO_DB); // 1
 var db = mongoose.connection; // 2
 // 3﻿
-db.once("open", function(){
- console.log("DB connected");
+db.once("open", function() {
+    console.log("DB connected");
 });
 // 4
-db.on("error", function(err){
- console.log("DB ERROR : ", err);
+db.on("error", function(err) {
+    console.log("DB ERROR : ", err);
 });
 // DB schema // 4
 var contactSchema = mongoose.Schema({
- name:{type:String},
- email:{type:String},
- phone:{type:String}
+    user_key: {
+        type: String, required:true, unique:true
+    }, //name:{type:String, required:true, unique:true},
+    type: {
+        type: String
+    },
+    content: {
+        type: String
+    }
 });
 var Contact = mongoose.model("contact", contactSchema); //5
 
@@ -31,13 +37,15 @@ var Contact = mongoose.model("contact", contactSchema); //5
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 
 // Process application/json
 app.use(bodyParser.json())
 
 // Index route
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send('Hello world, I am a chat bot')
 })
 
@@ -48,34 +56,42 @@ app.listen(app.get('port'), function() {
 
 
 // 카카오톡 연결 1
-app.get('/keyboard', function (req, res) {
+app.get('/keyboard', function(req, res) {
     res.send({
-"type" : "buttons",
-"buttons" : ["선택 1", "선택 2", "선택 3"]
-})
+        "type": "buttons",
+        "buttons": ["선택 1", "선택 2", "선택 3"]
+    })
 })
 
-app.post('/message', function (req, res) {
-  res.send({
+app.post('/message', function(req, res) {
+    res.send(
+{
     "message":{
-        "text" : "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!"
+        "text" : "오예 축하합니다!"
     }
-  });
+}
+);
 
-Contact.create({ name:  req.body.content }, function(error, doc) {
-// doc.children[0]._id will be undefined
-});
-  res.sendStatus(200)
+
+    console.log(req.body);
+    Contact.create({
+  //      user_key : req.body.user_key,
+  //      type    : req.body.type,
+        content: req.body.content
+    }, function(error, doc) {
+        // doc.children[0]._id will be undefined
+    });
+   res.sendStatus(200)
 })
 
-app.post('/friend', function (req, res) {
-  res.sendStatus(200)
+app.post('/friend', function(req, res) {
+    res.sendStatus(200)
 })
 
-app.delete('/friend/:user_key', function (req, res) {
-  res.sendStatus(200)
+app.delete('/friend/:user_key', function(req, res) {
+    res.sendStatus(200)
 })
 
-app.delete('/chat_room/:user_key', function (req, res) {
-  res.sendStatus(200)
+app.delete('/chat_room/:user_key', function(req, res) {
+    res.sendStatus(200)
 })
