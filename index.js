@@ -75,8 +75,8 @@ app.post('/message', function(req, res) {
 
     console.log(req.body);
     Contact.create({
-        user_key : req.body.user_key,
-        type    : req.body.type,
+  //      user_key : req.body.user_key,
+  //      type    : req.body.type,
         content: req.body.content
     }, function(error, doc) {
         // doc.children[0]._id will be undefined
