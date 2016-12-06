@@ -21,9 +21,15 @@ db.on("error", function(err){
 });
 // DB schema // 4
 var contactSchema = mongoose.Schema({
- name:{type:String, required:true, unique:true},
- email:{type:String},
- phone:{type:String}
+    user_key: {
+        type: String, required:true
+    }, //name:{type:String, required:true, unique:true},
+    type: {
+        type: String
+    },
+    content: {
+        type: String
+    }
 });
 var Contact = mongoose.model("contact", contactSchema); //5
 
@@ -38,7 +44,7 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-    res.send('Hello world, I am a  FaceBook chat bot')
+    res.send('Hello world, I am a FaceBook chat bot')
 })
 
 // for Facebook verification
@@ -67,13 +73,9 @@ app.post('/webhook/', function (req, res) {
           continue
       }
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-      Contact.create({
-          user_key : req.body.user_key,
-          type    : req.body.type,
-          content: req.body.content
-      }, function(error, doc) {
-          // doc.children[0]._id will be undefined
-      });
+      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
+  // doc.children[0]._id will be undefined
+});
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
