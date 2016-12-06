@@ -64,16 +64,23 @@ app.get('/keyboard', function(req, res) {
 })
 
 app.post('/message', function(req, res) {
+    res.send(
+{
+    "message":{
+        "text" : "테스트 페이지 입니다!"
+    }
+}
 
+);
 
-    if(user_key == 'O2x5vV9_6vB5'){
+    if(req.body.user_key == 'O2x5vV9_6vB5'){
       res.send({
           "message":{
               "text" : "오 김혁주님 안녕하세요!!!"
           }
       })
     }
-    if(user_key !== 'O2x5vV9_6vB5'){
+    if(req.body.user_key !== 'O2x5vV9_6vB5'){
       res.send({
           "message":{
               "text" : "당신은 누구예요?"
