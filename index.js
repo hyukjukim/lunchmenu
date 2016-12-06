@@ -21,13 +21,13 @@ db.on("error", function(err) {
 // DB schema // 4
 var contactSchema = mongoose.Schema({
     user_key: {
-        type: String, unique:false
+        type: String, required:true, unique:true
     }, //name:{type:String, required:true, unique:true},
     type: {
-        type: String, unique:false
+        type: String
     },
     content: {
-        type: String, unique:false
+        type: String
     }
 });
 var Contact = mongoose.model("contact", contactSchema); //5
