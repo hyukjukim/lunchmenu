@@ -65,23 +65,24 @@ app.get('/keyboard', function(req, res) {
 })
 
 app.post('/message', function(req, res) {
-    res.send({
-        "keyboard": {
-            "type": "buttons",
-            "buttons": [
-                "처음으로",
-                "다시 등록하기",
-                "취소하기"
-            ]
-        }
-    });
+    res.send(
+{
+    "message":{
+        "text" : "오예 축하합니다!"
+    }
+}
+);
+
+
     console.log(req.body);
-/*    Contact.create({
-        name: req.body.content
+    Contact.create({
+        user_key : req.body.user_key,
+        type    : req.body.type,
+        content: req.body.content
     }, function(error, doc) {
         // doc.children[0]._id will be undefined
     });
-*/    res.sendStatus(200)
+   res.sendStatus(200)
 })
 
 app.post('/friend', function(req, res) {
