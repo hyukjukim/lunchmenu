@@ -22,7 +22,6 @@ db.on("error", function(err) {
 var contactSchema = mongoose.Schema({
     user_key: {
         type: String,
-        required: true
     }, //name:{type:String, required:true, unique:true},
     type: {
         type: String
