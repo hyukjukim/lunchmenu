@@ -21,7 +21,7 @@ db.on("error", function(err) {
 // DB schema // 4
 var contactSchema = mongoose.Schema({
     user_key: {
-        type: String, required:true, unique:true
+        type: String, required:true
     }, //name:{type:String, required:true, unique:true},
     type: {
         type: String
@@ -75,8 +75,8 @@ app.post('/message', function(req, res) {
 
     console.log(req.body);
     Contact.create({
-  //      user_key : req.body.user_key,
-  //      type    : req.body.type,
+        user_key : req.body.user_key,
+        type    : req.body.type,
         content: req.body.content
     }, function(error, doc) {
         // doc.children[0]._id will be undefined
