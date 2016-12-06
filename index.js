@@ -22,7 +22,7 @@ db.on("error", function(err){
 // DB schema // 4
 var contactSchema = mongoose.Schema({
     user_key: {
-        type: String, required:true
+        type: String
     }, //name:{type:String, required:true, unique:true},
     type: {
         type: String
