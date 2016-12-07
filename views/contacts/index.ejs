@@ -1,21 +1,19 @@
-<!-- views/contacts/index.ejs -->
+<!-- views/contacts/index.html-->
 
 <!DOCTYPE html>
 <html>
  <head>
-  <% include ../partials/head %> <!-- 1 -->
+  <% include ../partials/head %>
  </head>
  <body>
-  <% include ../partials/nav %> <!-- 2 -->
+  <% include ../partials/nav %>
 
   <div class="contact contact-index">
    <h2>Index</h2>
    <ul>
-    <% contacts.forEach(function(contact) { %> <!-- 3 -->
+    <% contacts.forEach(function(contact) { %>
      <li>
-      name  : <%= contact.name %>
-      email : <%= contact.email %>
-      phone :<%= contact.phone %>
+      <a href="/contacts/<%= contact._id %>"><%= contact.name %></a> <!-- 1 -->
      </li>
     <% }) %>
    </ul>
