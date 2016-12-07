@@ -65,8 +65,6 @@ app.get('/keyboard', function(req, res) {
 });
 
 app.post('/message', function(req, res) {
-
-
     if(req.body.user_key == 'O2x5vV9_6vB5'){
       res.send({
           "message":{
