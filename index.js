@@ -38,7 +38,7 @@ var contactSchema = mongoose.Schema({
 //mongoose.model함수를 사용하여 contact schema의 model을 생성합니다
 var Contact = mongoose.model("contact", contactSchema); //5
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
 
 //Other setttings
 app.set("view engine", "ejs");
@@ -154,5 +154,5 @@ app.listen(5000, function(){
 
 // Spin up the server
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
-})
+    console.log('running on port', app.get('port'));
+});
