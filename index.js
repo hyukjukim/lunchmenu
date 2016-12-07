@@ -55,57 +55,43 @@ app.get("/", function(req, res){
  res.redirect("/contacts");
 });
 
-//INDEX
+//INDEX //1
+//views/partials/nav.ejs 에서 href로 접근 (href로 접근하는 것은 get만 호출 가능하다.)
 app.get("/contacts",function(req, res){
   Contact.find({},function(err,contacts){
     if(err) return res.json(err);
     res.render("contacts/index", {contacts:contacts});
-    console.log(req.body);
-   console.log('********************다음**************');
-   console.log(req.query);
-   console.log('********************다음**************');
-   console.log(req.cookies);
-   console.log('********************다음**************');
-   console.log(req.url);
   });
 });
 
-// NEW
+// NEW //2
+//views/partials/nav.ejs 에서 href로 접근 (href로 접근하는 것은 get만 호출 가능하다.)
 app.get("/contacts/new", function(req, res){
  res.render("contacts/new");
- console.log(req.body);
-console.log('********************다음**************');
-console.log(req.query);
-console.log('********************다음**************');
-console.log(req.cookies);
-console.log('********************다음**************');
-console.log(req.url);
 });
 
-// CREATE
+// CREATE //3
+//views/contacts/new.ejs 에서 post로 접근 create는 post로만 가능하다. submit 버튼 누르면 날아옴
 app.post("/contacts", function(req, res){
  Contact.create(req.body, function(err, contact){
   if(err) return res.json(err);
   res.redirect("/contacts");
-  console.log(req.body);
- console.log('********************다음**************');
- console.log(req.query);
- console.log('********************다음**************');
- console.log(req.cookies);
- console.log('********************다음**************');
- console.log(req.url);
  });
 });
 
-// Contacts - show // 3
+// Contacts - show // 4
+//req.params.id는 MONGO_DB에서 사용하는 ROWID 같은 개념이다.
+// views/contacts/index.ejs 에서 herf로 접근 이름을 클릭하면 MONGO_DB _id를 return으로 날려준다.
 app.get("/contacts/:id", function(req, res){
  Contact.findOne({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
   res.render("contacts/show", {contact:contact});
+  console.log('id' + req.params.id);
  });
 });
 
-// Contacts - edit // 4
+// Contacts - edit // 5
+// views/contacts/show.ejs  에서 herf로 접근. 한 개의 Data만 표출 되므로 따로 선택은 필요 없음
 app.get("/contacts/:id/edit", function(req, res){
  Contact.findOne({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
@@ -113,7 +99,8 @@ app.get("/contacts/:id/edit", function(req, res){
  });
 });
 
-// Contacts - update // 5
+// Contacts - update // 6
+// views/contacts/edit.ejs 에서
 app.put("/contacts/:id", function(req, res){
  Contact.findOneAndUpdate({_id:req.params.id}, req.body, function(err, contact){
   if(err) return res.json(err);
@@ -121,7 +108,7 @@ app.put("/contacts/:id", function(req, res){
  });
 });
 
-// Contacts - destroy // 6
+// Contacts - destroy // 7
 app.delete("/contacts/:id", function(req, res){
  Contact.remove({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
