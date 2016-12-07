@@ -134,7 +134,7 @@ app.post('/message', function(req, res) {
     if(req.body.user_key == 'O2x5vV9_6vB5'){
       res.send({
           "message":{
-              "text" : "오 김혁주님 안녕하세요!!!"
+              "text" : "김혁주 님의 메세지가 저장되었습니다. https://khj.herokuapp.com 으로 가서 확인하세요."
           }
       });
     }
