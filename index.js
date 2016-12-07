@@ -29,12 +29,12 @@ db.on('error', function(err){
 });
 
 //mongoose.Schema 함수를 사용해서 schema(data구조를 미리 정의해 놓는 것) object를 생성합니다
-/*var contactSchema = mongoose.Schema({
+var contactSchema = mongoose.Schema({
  name:{type:String, required:true, unique:true},
  email:{type:String},
  phone:{type:String},
 });
-*/
+
 var contactSchema2 = mongoose.Schema({
   user_key: {type: String},
   type: {type: String},
@@ -42,7 +42,7 @@ var contactSchema2 = mongoose.Schema({
 });
 
 //mongoose.model함수를 사용하여 contact schema의 model을 생성합니다
-//var Contact = mongoose.model("contact", contactSchema); //5
+var Contact = mongoose.model("contact", contactSchema); //5
 var Contact2 = mongoose.model("contact", contactSchema2); //5
 
 
@@ -153,13 +153,13 @@ app.post('/message', function(req, res) {
     }
 
     console.log(req.body);
-/*
-    Contact1.create({
+
+    Contact.create({
         name : req.body.content,
         email: req.body.type,
         phone: req.body.user_key
     }, function(error, doc) {
-    });*/
+    });
     Contact2.create({
         user_key : req.body.user_key,
         type    : req.body.type,
