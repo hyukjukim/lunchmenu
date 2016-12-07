@@ -1,105 +1,49 @@
-'use strict'
+/* 기본 로그 보는 구문
+  console.log(req.body);
+ console.log('********************다음**************');
+ console.log(req.query);
+ console.log('********************다음**************');
+ console.log(req.cookies);
+ console.log('********************다음**************');
+ console.log(req.url);
+ */
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
-var mongoose = require("mongoose")
+var express = require('express');
+var mongoose = require('mongoose');
+var app = express();
 
+//DB Setting
+mongoose.connect(process.env.MONGO_DB);
+var db = mongoose.connection;
 
-// DB setting
-mongoose.connect(process.env.MONGO_DB); // 1
-var db = mongoose.connection; // 2
-// 3﻿
-db.once("open", function() {
-    console.log("DB connected");
+db.once("open", function(){
+  console.log("****************** MONGO_DB CONNECTED ******************");
 });
-// 4
-db.on("error", function(err) {
-    console.log("DB ERROR : ", err);
+
+db.on('error', function(err){
+  console.log("****************** DB CONNECTION ERR : ******************" ,err);
 });
-// DB schema // 4
-var contactSchema = mongoose.Schema({
-    user_key: {
-        type: String, required:true
-    }, //name:{type:String, required:true, unique:true},
-    type: {
-        type: String
-    },
-    content: {
-        type: String
-    }
+
+
+//Other setttings
+app.set("view engine", "ejs");
+app.use(express.static(__dirname+"/public"));
+
+// 2
+app.get("/hello", function(req,res){
+ res.render("hello", {name:req.query.nameQuery}); //{nameQuery:'value'}를 뽑아주는 구문. 주소 끝에 ?nameQuery='value'써줘야 한다.
+console.log(req.query);
 });
-var Contact = mongoose.model("contact", contactSchema); //5
+
+// 3
+app.get("/hello/:nameParam", function(req,res){
+ res.render("hello", {name:req.params.nameParam}); //파라미터에 입력하는 값을 name value로 넣는 구문
+ console.log(req.query);
+});
 
 
 
-app.set('port', (process.env.PORT || 5000))
-
-// Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
-
-// Process application/json
-app.use(bodyParser.json())
-
-// Index route
-app.get('/', function(req, res) {
-    res.send('Hello world, I am a KAKAO chat bot')
-})
-
-// Spin up the server
-app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
-})
-
-
-// 카카오톡 연결 1
-app.get('/keyboard', function(req, res) {
-    res.send({
-        "type": "buttons",
-        "buttons": ["선택 1", "선택 2", "선택 3"]
-    })
-})
-
-app.post('/message', function(req, res) {
-
-
-    if(req.body.user_key == 'O2x5vV9_6vB5'){
-      res.send({
-          "message":{
-              "text" : "오 김혁주님 안녕하세요!!!"
-          }
-      })
-    }
-    if(req.body.user_key !== 'O2x5vV9_6vB5'){
-      res.send({
-          "message":{
-              "text" : "당신은 누구예요?"
-          }
-      })
-    }
-
-    console.log(req.body);
-    Contact.create({
-        user_key : req.body.user_key,
-        type    : req.body.type,
-        content: req.body.content
-    }, function(error, doc) {
-        // doc.children[0]._id will be undefined
-    });
-   res.sendStatus(200)
-})
-
-app.post('/friend', function(req, res) {
-    res.sendStatus(200)
-})
-
-app.delete('/friend/:user_key', function(req, res) {
-    res.sendStatus(200)
-})
-
-app.delete('/chat_room/:user_key', function(req, res) {
-    res.sendStatus(200)
-})
+//Port Setting
+app.listen(3000, function(){
+  console.log("Server on!");
+});
