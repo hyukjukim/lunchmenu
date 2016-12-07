@@ -15,9 +15,9 @@
     <% contacts.forEach(function(contact) { %>
      <li class="list-group-item">
       <a href="/contacts/<%= contact._id %>"><%= contact.user_key %>
-       <%= contact.type %>
-       <%= contact.content%> 
      </li>
+     <%= contact.type %>
+     <%= contact.content%> 
     <% }) %>
    </ul>
   </div>
