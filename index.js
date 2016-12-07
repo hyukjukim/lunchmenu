@@ -42,7 +42,7 @@ var contactSchema2 = mongoose.Schema({
 });
 
 //mongoose.model함수를 사용하여 contact schema의 model을 생성합니다
-var Contact = mongoose.model("contact", contactSchema); //5
+//var Contact = mongoose.model("contact", contactSchema); //5
 var Contact2 = mongoose.model("contact", contactSchema2); //5
 
 
