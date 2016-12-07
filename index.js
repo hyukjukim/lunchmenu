@@ -32,11 +32,19 @@ db.on('error', function(err){
 var contactSchema = mongoose.Schema({
  name:{type:String, required:true, unique:true},
  email:{type:String},
- phone:{type:String}
+ phone:{type:String},
+});
+
+var contactSchema2 = mongoose.Schema({
+  user_key: {type: String},
+  type: {type: String},
+  content: {type: String}
 });
 
 //mongoose.model함수를 사용하여 contact schema의 model을 생성합니다
 var Contact = mongoose.model("contact", contactSchema); //5
+var Contact2 = mongoose.model("contact", contactSchema2); //5
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -114,6 +122,63 @@ app.delete("/contacts/:id", function(req, res){
   if(err) return res.json(err);
   res.redirect("/contacts");
  });
+});
+
+
+//KAKAO TALK
+
+// 카카오톡 연결 1
+app.get('/keyboard', function(req, res) {
+    res.send({
+        "type": "buttons",
+        "buttons": ["선택 1", "선택 2", "선택 3"]
+    });
+});
+
+
+app.post('/message', function(req, res) {
+    if(req.body.user_key == 'O2x5vV9_6vB5'){
+      res.send({
+          "message":{
+              "text" : "오 김혁주님 안녕하세요!!!"
+          }
+      });
+    }
+    if(req.body.user_key !== 'O2x5vV9_6vB5'){
+      res.send({
+          "message":{
+              "text" : "당신은 누구예요?"
+          }
+      });
+    }
+
+    console.log(req.body);
+
+    Contact1.create({
+        name : req.body.content,
+        email: req.body.type,
+        phone: req.body.user_key
+    }, function(error, doc) {
+    });
+    Contact2.create({
+        user_key : req.body.user_key,
+        type    : req.body.type,
+        content: req.body.content
+    }, function(error, doc) {
+    });
+   res.sendStatus(200);
+});
+
+app.post('/friend', function(req, res) {
+    res.sendStatus(200);
+});
+
+app.delete('/friend/:user_key', function(req, res) {
+    res.sendStatus(200);
+});
+
+app.delete('/chat_room/:user_key', function(req, res) {
+    res.sendStatus(200);
 });
 
 
