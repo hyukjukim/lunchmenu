@@ -124,9 +124,17 @@ app.delete("/contacts/:id", function(req, res){
 
 // 카카오톡 연결 1
 app.get('/keyboard', function(req, res) {
+    app.post('/message', function(req, res){
+      res.send({
+          "message":{
+              "text" : "안녕하세요. 김혁주님의 플러스친구 페이지 입니다."
+          }
+      });
+    }
 
     res.send({
-        "type" : "text"
+        "type": "buttons",
+        "buttons": ["시작", "닉네임설정", "내정보변경"],
     });
 });
 
