@@ -8,6 +8,7 @@
  console.log(req.url);
  */
 
+
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
@@ -123,6 +124,11 @@ app.delete("/contacts/:id", function(req, res){
 
 // 카카오톡 연결 1
 app.get('/keyboard', function(req, res) {
+  res.send({
+      "type": "text",
+      "buttons": ["시작", "닉네임설정", "내정보변경"]
+  });
+
     res.send({
         "type": "buttons",
         "buttons": ["시작", "닉네임설정", "내정보변경"]
@@ -131,6 +137,8 @@ app.get('/keyboard', function(req, res) {
 
 
 app.post('/message', function(req, res) {
+
+
     if(req.body.content == '시작'){
       res.send({
           "message":{
@@ -138,6 +146,9 @@ app.post('/message', function(req, res) {
           }
       });
     }
+
+
+
     if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
@@ -145,6 +156,8 @@ app.post('/message', function(req, res) {
           }
       });
     }
+
+
 
     if(req.body.content === '내정보변경'){
       res.send({
