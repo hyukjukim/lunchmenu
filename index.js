@@ -126,7 +126,7 @@ app.delete("/contacts/:id", function(req, res){
 app.get('/keyboard', function(req, res) {
 
     res.send({
-        "type": "buttons",
+        "type": "buttons","안녕하세요. 김혁주님의 플러스친구 페이지 입니다.",
         "buttons": ["시작", "닉네임설정", "내정보변경"]
     });
 });
