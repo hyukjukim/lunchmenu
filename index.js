@@ -141,7 +141,7 @@ app.post('/message', function(req, res) {
     if(req.body.user_key !== 'O2x5vV9_6vB5'){
       res.send({
           "message":{
-              "text" : "당신은 누구예요?"
+              "text" : "미가입 회원 이시군요. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
           }
       });
     }
