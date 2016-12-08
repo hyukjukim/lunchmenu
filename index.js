@@ -124,9 +124,6 @@ app.delete("/contacts/:id", function(req, res){
 
 // 카카오톡 연결 1
 app.get('/keyboard', function(req, res) {
-  res.send({
-      "type": "김혁주 님 안녕하세요",
-  });
 
     res.send({
         "type": "buttons",
