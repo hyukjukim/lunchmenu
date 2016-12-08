@@ -125,23 +125,31 @@ app.delete("/contacts/:id", function(req, res){
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["선택 1", "선택 2", "선택 3"]
+        "buttons": ["시작", "닉네임설정", "내정보변경"]
     });
 });
 
 
 app.post('/message', function(req, res) {
-    if(req.body.user_key == 'O2x5vV9_6vB5'){
+    if(req.body.content == '시작'){
       res.send({
           "message":{
-              "text" : "김혁주 님의 메세지가 저장되었습니다. https://khj.herokuapp.com 으로 가서 확인하세요."
+              "text" : "시작 버튼을 누르셨습니다. https://khj.herokuapp.com 으로 가서 확인하세요."
           }
       });
     }
-    if(req.body.user_key !== 'O2x5vV9_6vB5'){
+    if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
-              "text" : "미가입 회원 이시군요. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
+              "text" : "사용하실 닉네임을 입력해주세요. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
+          }
+      });
+    }
+
+    if(req.body.content === '내정보변경'){
+      res.send({
+          "message":{
+              "text" : "정보 변경을 입력하셨습니다. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
           }
       });
     }
