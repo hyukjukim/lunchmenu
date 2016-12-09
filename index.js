@@ -1,20 +1,8 @@
-/* 기본 로그 보는 구문
-  console.log(req.body);
- console.log('********************다음**************');
- console.log(req.query);
- console.log('********************다음**************');
- console.log(req.cookies);
- console.log('********************다음**************');
- console.log(req.url);
- */
-
-
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override"); // 1
 var app = express();
-
 
 //DB Setting
 mongoose.connect(process.env.MONGO_DB);
@@ -43,6 +31,10 @@ app.use(methodOverride("_method"));
 app.use("/", require("./routes/home"));
 app.use("/contacts", require("./routes/contacts"));
 app.use("/kakao", require("./routes/kakao"));
+// Spin up the server
+app.listen(app.get('port'), function() {
+    console.log('running on port', app.get('port'));
+});
 
 /******************************************************************************
 
@@ -58,15 +50,13 @@ app.get("/hello/:nameParam", function(req,res){
  console.log(req.query);
 });
 ******************************************************************************/
-
-/*
-//Port Setting
-app.listen(5000, function(){
-  console.log("Server on!");
-});
-*/
-
-// Spin up the server
-app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'));
-});
+/******************************************************************************
+// 기본 로그 보는 구문
+  console.log(req.body);
+ console.log('********************다음**************');
+ console.log(req.query);
+ console.log('********************다음**************');
+ console.log(req.cookies);
+ console.log('********************다음**************');
+ console.log(req.url);
+******************************************************************************/

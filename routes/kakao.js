@@ -1,14 +1,8 @@
-
-
-// routes/contacts.js
-
+// routes/kakao.js
 var express = require("express");
 var router = express.Router();
 var Contact = require("../models/Contact")
 
-
-
-//KAKAO TALK
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -18,10 +12,7 @@ router.get('/keyboard', function(req, res) {
     });
 });
 
-
 router.post('/message', function(req, res) {
-
-
     if(req.body.content == '시작'){
       res.send({
           "message":{
@@ -29,7 +20,6 @@ router.post('/message', function(req, res) {
           }
       });
     }
-
     if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
@@ -37,7 +27,6 @@ router.post('/message', function(req, res) {
           }
       });
     }
-
     if(req.body.content === '내정보변경'){
       res.send({
           "message":{
@@ -45,9 +34,7 @@ router.post('/message', function(req, res) {
           }
       });
     }
-
     console.log(req.body);
-
     Contact.create({
         user_key : req.body.user_key,
         type    : req.body.type,
@@ -61,7 +48,6 @@ router.post('/friend', function(req, res) {
     res.sendStatus(200);
 });
 
-
 router.delete('/friend/:user_key', function(req, res) {
     res.sendStatus(200);
 });
@@ -69,6 +55,5 @@ router.delete('/friend/:user_key', function(req, res) {
 router.delete('/chat_room/:user_key', function(req, res) {
     res.sendStatus(200);
 });
-
 
 module.exports = router;
