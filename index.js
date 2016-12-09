@@ -6,10 +6,11 @@ var bodyParser  = require("body-parser");
 var methodOverride = require("method-override");
 var flash     = require("connect-flash");
 var session    = require("express-session");
+var passport   = require("./config/passport");
 var app = express();
 
 // DB setting
-mongoose.connect(process.env.MONGO_DB); // 1
+mongoose.connect(process.env.MONGO_DB);
 var db = mongoose.connection;
 db.once("open", function(){
  console.log("DB connected");
@@ -26,8 +27,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(session({secret:"MySecret"})); 
-
+app.use(session({secret:"MySecret"}));
+// Passport //
+app.use(passport.initialize());
+app.use(passport.session());
+// Custom Middlewares //
+app.use(function(req,res,next){
+ res.locals.isAuthenticated = req.isAuthenticated();
+ res.locals.user = req.user;
+ next();
+});
 
 // Routes
 app.use("/", require("./routes/home"));
