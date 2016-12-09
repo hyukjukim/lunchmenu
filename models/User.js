@@ -5,13 +5,33 @@ var bcrypt = require("bcrypt-nodejs"); // 1
 
 // schema // 1
 var userSchema = mongoose.Schema({
- username:{type:String, required:[true,"Username is required!"], unique:true},
- password:{type:String, required:[true,"Password is required!"], select:false},
- name:{type:String, required:[true,"Name is required!"]},
- email:{type:String}
+ username:{
+  type:String,
+  required:[true,"Username is required!"],
+  match:[/^.{4,12}$/,"Should be 4-12 characters!"],
+  trim:true,
+  unique:true
+ },
+ password:{
+  type:String,
+  required:[true,"Password is required!"],
+  select:false
+ },
+ name:{
+  type:String,
+  required:[true,"Name is required!"],
+  match:[/^.{4,12}$/,"Should be 4-12 characters!"],
+  trim:true
+ },
+ email:{
+  type:String,
+  match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Should be a vaild email address!"],
+  trim:true
+ }
 },{
  toObject:{virtuals:true}
 });
+
 
 // virtuals // 2
 userSchema.virtual("passwordConfirmation")
@@ -30,35 +50,39 @@ userSchema.virtual("newPassword")
 .get(function(){ return this._newPassword; })
 .set(function(value){ this._newPassword=value; });
 
-// password validation // 3
+// password validation // 2
+var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/; // 2-1
+var passwordRegexErrorMessage = "Should be minimum 8 characters of alphabet and number combination!"; // 2-2
 userSchema.path("password").validate(function(v) {
- var user = this; // 3-1
+ var user = this;
 
- // create user // 3-3
- if(user.isNew){ // 3-2
-  if(!user.passwordConfirmation){
-   user.invalidate("passwordConfirmation", "Password Confirmation is required!");
+  // create user
+  if(user.isNew){
+   if(!user.passwordConfirmation){
+    user.invalidate("passwordConfirmation", "Password Confirmation is required!");
+   }
+   if(!passwordRegex.test(user.password)){ // 2-3
+    user.invalidate("password", passwordRegexErrorMessage);
+   } else if(user.password !== user.passwordConfirmation) {
+    user.invalidate("passwordConfirmation", "Password Confirmation does not matched!");
+   }
   }
-  if(user.password !== user.passwordConfirmation) {
-   user.invalidate("passwordConfirmation", "Password Confirmation does not matched!");
-  }
- }
 
-
- // update user // 3-4
- if(!user.isNew){
-  if(!user.currentPassword){
-   user.invalidate("currentPassword", "Current Password is required!");
+  // update user
+  if(!user.isNew){
+   if(!user.currentPassword){
+    user.invalidate("currentPassword", "Current Password is required!");
+   }
+   if(user.currentPassword && !user.authenticate(user.currentPassword, user.originalPassword)){
+    user.invalidate("currentPassword", "Current Password is invalid!");
+   }
+   if(user.newPassword && !passwordRegex.test(user.newPassword)){ // 2-3
+    user.invalidate("newPassword", passwordRegexErrorMessage);
+   } else if(user.newPassword !== user.passwordConfirmation) {
+    user.invalidate("passwordConfirmation", "Password Confirmation does not matched!");
+   }
   }
-  if(user.currentPassword && user.currentPassword != user.originalPassword){
-   user.invalidate("currentPassword", "Current Password is invalid!");
-  }
-  if(user.newPassword !== user.passwordConfirmation) {
-   user.invalidate("passwordConfirmation", "Password Confirmation does not matched!");
-  }
- }
-});
-
+ });
 
 // hash password // 2
 userSchema.pre("save", function (next){
@@ -70,7 +94,6 @@ userSchema.pre("save", function (next){
   return next();
  }
 });
-
 
 // model methods // 3
 userSchema.methods.authenticate = function (password) {
