@@ -3,6 +3,7 @@
 var express = require("express");
 var router = express.Router();
 var User  = require("../models/User");
+var util  = require("../util");
 
 // Index // 1
 router.route("/").get(function(req, res){
@@ -26,7 +27,7 @@ router.post("/", function(req, res){
  User.create(req.body, function(err, user){
   if(err){
    req.flash("user", req.body);
-   req.flash("errors", parseError(err));
+   req.flash("errors", util.parseError(err)); // 1
    return res.redirect("/users/new");
   }
   res.redirect("/users");
@@ -55,7 +56,7 @@ router.get("/:username/edit", function(req, res){
  }
 });
 
-// update // 2
+// update
 router.put("/:username",function(req, res, next){
  User.findOne({username:req.params.username})
  .select({password:1})
@@ -74,13 +75,14 @@ router.put("/:username",function(req, res, next){
   user.save(function(err, user){
    if(err){
     req.flash("user", req.body);
-    req.flash("errors", parseError(err));
+    req.flash("errors", util.parseError(err)); // 1
     return res.redirect("/users/"+req.params.username+"/edit");
    }
    res.redirect("/users/"+req.params.username);
   });
  });
 });
+
 
 module.exports = router;
 

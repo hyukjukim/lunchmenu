@@ -2,36 +2,38 @@
 
 // models/Post.js
 var mongoose = require("mongoose");
+var util  = require("../util"); // 1
 
 // schema
-var postSchema = mongoose.Schema({ // 1
- title:{type:String, required:true},
- body:{type:String},
- createdAt:{type:Date, default:Date.now}, // 2
+var postSchema = mongoose.Schema({
+ title:{type:String, required:[true,"Title is required!"]}, // 2
+ body:{type:String, required:[true,"Body is required!"]}, // 2
+ createdAt:{type:Date, default:Date.now},
  updatedAt:{type:Date},
 },{
- toObject:{virtuals:true} // 4
+ toObject:{virtuals:true}
 });
 
-// virtuals : virtuals은 실제 DB에 저장되진 않지만 model에서는 db에 있는 다른 항목들과 동일하게 사용할 수 있음
+
+// virtuals
 postSchema.virtual("createdDate")
 .get(function(){
- return getDate(this.createdAt);
+ return util.getDate(this.createdAt); // 1
 });
 
 postSchema.virtual("createdTime")
 .get(function(){
- return getTime(this.createdAt);
+ return util.getTime(this.createdAt); // 1
 });
 
 postSchema.virtual("updatedDate")
 .get(function(){
- return getDate(this.updatedAt);
+ return util.getDate(this.updatedAt); // 1
 });
 
 postSchema.virtual("updatedTime")
 .get(function(){
- return getTime(this.updatedAt);
+ return util.getTime(this.updatedAt); // 1
 });
 
 // model & export
