@@ -53,9 +53,6 @@ app.listen(app.get('port'), function() {
 
 
 
-
-
-
 /******************************************************************************
 //{nameQuery:'value'}를 뽑아주는 구문. 주소 끝에 ?nameQuery='value'써줘야 한다.
 app.get("/hello", function(req,res){
