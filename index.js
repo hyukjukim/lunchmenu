@@ -27,10 +27,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
-//Routes
+// Routes
 app.use("/", require("./routes/home"));
-app.use("/contacts", require("./routes/contacts"));
-app.use("/kakao", require("./routes/kakao"));
+//app.use("/kakao", require("./routes/kakao"));
+
 // Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
