@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
 //Routes
-app.use("/", require("/routes/home"));
+app.use("/", require("./routes/home"));
 app.use("/contacts", require("./routes/contacts"));
 
 
