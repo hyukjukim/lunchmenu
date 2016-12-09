@@ -42,7 +42,7 @@ app.use(methodOverride("_method"));
 //Routes
 app.use("/", require("./routes/home"));
 app.use("/contacts", require("./routes/contacts"));
-
+app.use("/kakao", require("./routes/kakao"));
 
 // Spin up the server
 app.listen(app.get('port'), function() {
