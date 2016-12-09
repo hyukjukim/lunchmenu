@@ -28,8 +28,8 @@ app.use(methodOverride("_method"));
 app.use("/", require("./routes/home"));
 app.use("/posts", require("./routes/posts"));
 //app.use("/contacts", require("./routes/contacts"));
+app.use("/users", require("./routes/users"));
 app.use("/kakao", require("./routes/kakao"));
-
 // Port setting
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
