@@ -26,6 +26,8 @@ app.use(methodOverride("_method"));
 
 // Routes
 app.use("/", require("./routes/home"));
+app.use("/contacts", require("./routes/contacts"));
+app.use("/kakao", require("./routes/kakao"));
 
 // Port setting
 app.listen(app.get('port'), function() {
