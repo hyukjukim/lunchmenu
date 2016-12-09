@@ -11,7 +11,7 @@ var Contact = require("../models/Contact")
 //KAKAO TALK
 
 // 카카오톡 연결 1
-app.get('/keyboard', function(req, res) {
+router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
         "buttons": ["시작", "닉네임설정", "내정보변경"],
@@ -19,7 +19,7 @@ app.get('/keyboard', function(req, res) {
 });
 
 
-app.post('/message', function(req, res) {
+router.post('/message', function(req, res) {
 
 
     if(req.body.content == '시작'){
@@ -57,16 +57,16 @@ app.post('/message', function(req, res) {
    res.sendStatus(200);
 });
 
-app.post('/friend', function(req, res) {
+router.post('/friend', function(req, res) {
     res.sendStatus(200);
 });
 
 
-app.delete('/friend/:user_key', function(req, res) {
+router.delete('/friend/:user_key', function(req, res) {
     res.sendStatus(200);
 });
 
-app.delete('/chat_room/:user_key', function(req, res) {
+router.delete('/chat_room/:user_key', function(req, res) {
     res.sendStatus(200);
 });
 
