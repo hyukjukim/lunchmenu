@@ -1,6 +1,7 @@
 // models/User.js
 
 var mongoose = require("mongoose");
+var bcrypt = require("bcrypt-nodejs"); // 1
 
 // schema // 1
 var userSchema = mongoose.Schema({
@@ -43,6 +44,7 @@ userSchema.path("password").validate(function(v) {
   }
  }
 
+
  // update user // 3-4
  if(!user.isNew){
   if(!user.currentPassword){
@@ -56,6 +58,25 @@ userSchema.path("password").validate(function(v) {
   }
  }
 });
+
+
+// hash password // 2
+userSchema.pre("save", function (next){
+ var user = this;
+ if(!user.isModified("password")){ // 2-1
+  return next();
+ } else {
+  user.password = bcrypt.hashSync(user.password); // 2-2
+  return next();
+ }
+});
+
+
+// model methods // 3
+userSchema.methods.authenticate = function (password) {
+ var user = this;
+ return bcrypt.compareSync(password,user.password);
+};
 
 // model & export
 var User = mongoose.model("user",userSchema);
