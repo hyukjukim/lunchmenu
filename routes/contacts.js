@@ -1,5 +1,5 @@
 
-/*
+
 // routes/contacts.js
 
 var express = require("express");
@@ -73,4 +73,3 @@ router.delete("/:id", function(req, res){
 
 
 module.exports = router;
-*/
