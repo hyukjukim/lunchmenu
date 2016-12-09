@@ -16,7 +16,7 @@ router.post('/message', function(req, res) {
     if(req.body.content == '시작'){
       res.send({
           "message":{
-              "text" : "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)"
+              "text" : "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)\n월요일에 추가 구현 할 예정 입니다."
           }
       });
     }
