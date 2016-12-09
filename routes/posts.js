@@ -3,7 +3,7 @@
 var express = require("express");
 var router = express.Router();
 var Post  = require("../models/Post");
-            
+
 // Index
 router.get("/", function(req, res){
  Post.find({}, function(err, posts){
