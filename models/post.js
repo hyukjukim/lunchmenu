@@ -33,9 +33,7 @@ postSchema.virtual("updatedTime")
  return getTime(this.updatedAt);
 });
 
-// model & export
-var Post = mongoose.model("post", postSchema);
-module.exports = Post;
+
 
 // functions
 function getDate(dateObj){
@@ -51,3 +49,7 @@ function getTime(dateObj){
 function get2digits(num){
  return ("0" + num).slice(-2);
 }
+
+// model & export
+var Post = mongoose.model("post", postSchema);
+module.exports = Post;
