@@ -41,7 +41,7 @@ app.use(function(req,res,next){
 // Routes
 app.use("/", require("./routes/home"));
 app.use("/posts", require("./routes/posts"));
-app.use("/contacts", require("./routes/contacts"));
+//app.use("/contacts", require("./routes/contacts"));
 app.use("/users", require("./routes/users"));
 app.use("/kakao", require("./routes/kakao"));
 // Port setting
