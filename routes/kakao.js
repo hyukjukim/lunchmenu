@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express.Router();
 var Contact = require("../models/Contact");
-
+var User  = require("../models/User"); //유저 ID 매칭을 위한 작업
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
