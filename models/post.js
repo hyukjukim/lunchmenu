@@ -36,7 +36,7 @@ postSchema.virtual("updatedTime")
 
 // model & export
 var Post = mongoose.model("post", postSchema);
-module.exports = Post;
+module.exports = Postkk;
 
 // functions
 function getDate(dateObj){
