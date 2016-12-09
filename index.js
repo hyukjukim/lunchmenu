@@ -15,7 +15,6 @@ var bodyParser = require("body-parser");
 var methodOverride = require("method-override"); // 1
 var app = express();
 
-
 //DB Setting
 mongoose.connect(process.env.MONGO_DB);
 var db = mongoose.connection;
@@ -42,7 +41,6 @@ app.use(methodOverride("_method"));
 //Routes
 app.use("/", require("./routes/home"));
 app.use("/contacts", require("./routes/contacts"));
-app.use("/kakao", require("./routes/kakao"));
 
 // Spin up the server
 app.listen(app.get('port'), function() {
