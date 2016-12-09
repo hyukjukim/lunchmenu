@@ -1,7 +1,7 @@
 // routes/kakao.js
 var express = require("express");
 var router = express.Router();
-var Contact = require("../models/Contact")
+var Contact = require("../models/Contact");
 
 
 // 카카오톡 연결 1
