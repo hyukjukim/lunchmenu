@@ -16,21 +16,21 @@ router.post('/message', function(req, res) {
     if(req.body.content == '시작'){
       res.send({
           "message":{
-              "text" : "시작 버튼을 누르셨습니다. https://khj.herokuapp.com 으로 가서 확인하세요."
+              "text" : "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)"
           }
       });
     }
     if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
-              "text" : "사용하실 닉네임을 입력해주세요. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
+              "text" : "사용하실 닉네임을 입력해주세요. 아직 기능 구현 중 입니다.(2016.12.9)."
           }
       });
     }
     if(req.body.content === '내정보변경'){
       res.send({
           "message":{
-              "text" : "정보 변경을 입력하셨습니다. 당신의 대화 내용은 https://khj.herokuapp.com 에 모두 기록 됩니다. 가서 확인하세요."
+              "text" : "정보 변경을 입력하셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)."
           }
       });
     }
