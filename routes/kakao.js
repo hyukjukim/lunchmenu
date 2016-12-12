@@ -13,6 +13,14 @@ router.get('/keyboard', function(req, res) {
 });
 
 router.post('/message', function(req, res) {
+
+
+  User.findOne({ 'users.username': 'guitar84' }, 'name occupation', function (err, person) {
+    if (err) return handleError(err);
+    console.log('%s %s is a %s.', User.users.username, User.occupation) ;
+  });
+
+
     if(req.body.content == '시작'){
       res.send({
           "message":{
@@ -20,6 +28,10 @@ router.post('/message', function(req, res) {
           }
       });
     }
+
+
+
+
     if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
@@ -27,6 +39,10 @@ router.post('/message', function(req, res) {
           }
       });
     }
+
+
+
+
     if(req.body.content === '내정보변경'){
       res.send({
           "message":{
@@ -35,12 +51,26 @@ router.post('/message', function(req, res) {
       });
     }
     console.log(req.body);
+
+    /*
+    //유저 이름을 기억하는 부분
+    User.create({
+        username : req.body.user_key, //이름은 고유값
+        name    : req.body.type, //닉네임은 아무거나
+        password : req.body.content //비밀번호 설정
+    }, function(error, doc) {
+    });
+    */
+
+    //메세지를 기록하는 부분
     Contact.create({
         user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
     }, function(error, doc) {
     });
+
+
    res.sendStatus(200);
 });
 
