@@ -15,9 +15,9 @@ router.get('/keyboard', function(req, res) {
 router.post('/message', function(req, res) {
 
 
-  User.findOne({ 'users.username': 'guitar84' }, 'name occupation', function (err, person) {
+  User.findOne({ 'userSchema.username': 'guitar84' }, 'name occupation', function (err, person) {
     if (err) return handleError(err);
-    console.log('%s %s is a %s.', User.users.username, User.occupation) ;
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', User.users.username, User.occupation) ;
   });
 
 
@@ -50,7 +50,7 @@ router.post('/message', function(req, res) {
           }
       });
     }
-    console.log(req.body);
+    //console.log(req.body);
 
     /*
     //유저 이름을 기억하는 부분
