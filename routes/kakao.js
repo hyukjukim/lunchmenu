@@ -65,7 +65,7 @@ router.post('/message', function(req, res) {
 
     //메세지를 기록하는 부분
     Contact.create({
-        user_key : req.body.user_keya,
+        user_keya : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
     }, function(error, doc) {

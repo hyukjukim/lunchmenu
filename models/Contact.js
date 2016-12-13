@@ -8,6 +8,6 @@ var contactaSchema = mongoose.Schema({
   content: {type: String}
 });
 
-var Contact = mongoose.model("contact", contactaSchema);
+var Contact = mongoose.model("contacta", contactaSchema);
 
 module.exports = Contact;
