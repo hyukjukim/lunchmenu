@@ -23,9 +23,11 @@ router.post('/message', function(req, res) {
 
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
 //메세지를 기록하는 부분
-KakaoUser.create({
+
+
+KakaoUser.update({
     user_key : req.body.user_key,
-    name_flag : '0'
+    name_flag : '1'
 }, function(error, doc) {
 });
 
