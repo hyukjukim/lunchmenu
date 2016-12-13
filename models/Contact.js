@@ -2,12 +2,12 @@
 
 var mongoose = require("mongoose");
 
-var contactSchema = mongoose.Schema({
-  user_key: {type: String},
+var contactaSchema = mongoose.Schema({
+  user_keya: {type: String},
   type: {type: String},
   content: {type: String}
 });
 
-var Contact = mongoose.model("contact", contactSchema);
+var Contact = mongoose.model("contact", contactaSchema);
 
 module.exports = Contact;
