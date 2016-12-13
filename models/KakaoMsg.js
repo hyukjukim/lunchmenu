@@ -2,12 +2,12 @@
 
 var mongoose = require("mongoose");
 
-var KakaoMsgschema = mongoose.Schema({
+var kakaomsgSchema = mongoose.Schema({
   user_key: {type: String},
   type: {type: String},
   content: {type: String}
 });
 
-var KakaoMsg = mongoose.model("kakaoMsg", KakaoMsgSchema);
+var KakaoMsg = mongoose.model("kakaoMsg", kakaomsgSchema);
 
 module.exports = KakaoMsg;
