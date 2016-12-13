@@ -10,11 +10,7 @@ router.get('/keyboard', function(req, res) {
         "type": "buttons",
         "buttons": ["시작", "닉네임설정", "내정보변경"],
     });
-    //메세지를 기록하는 부분
-    KakaoUser.create({
-        user_key : req.body.user_key
-    }, function(error, doc) {
-    });
+
 });
 
 router.post('/message', function(req, res) {
@@ -26,7 +22,11 @@ router.post('/message', function(req, res) {
   });
 
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
-
+//메세지를 기록하는 부분
+KakaoUser.create({
+    user_key : req.body.user_key
+}, function(error, doc) {
+});
 
       KakaoUser.findOne({'name':'김혁주ㅁ'}, function (err, users) {
         if (err) return res.json(err);
