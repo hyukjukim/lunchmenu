@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser  = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var Contact = require("../models/Contact");
+
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
@@ -58,7 +58,7 @@ router.post('/message', function(req, res) {
     */
 
     //메세지를 기록하는 부분
-    Contact.create({
+    KakaoMsg.create({
         user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
