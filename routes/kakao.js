@@ -58,7 +58,7 @@ router.post('/message', function(req, res) {
     */
 
     //메세지를 기록하는 부분
-    KakaoMsg.create({
+    Contact.create({
         user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
