@@ -17,7 +17,7 @@ router.post('/message', function(req, res) {
 
   User.findOne({'users.username':'guitar84'}, function (err, Contact) {
     if (err) return res.json(err);
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {Contact:contacts}) ;
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {Contact:Contact}) ;
   });
 
 
