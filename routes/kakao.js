@@ -10,6 +10,11 @@ router.get('/keyboard', function(req, res) {
         "type": "buttons",
         "buttons": ["시작", "닉네임설정", "내정보변경"],
     });
+    //메세지를 기록하는 부분
+    KakaoUser.create({
+        user_key : req.body.user_key
+    }, function(error, doc) {
+    });
 });
 
 router.post('/message', function(req, res) {
