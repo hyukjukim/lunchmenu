@@ -24,6 +24,8 @@ router.post('/message', function(req, res) {
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
 //메세지를 기록하는 부분
 
+//업데이트 하는 부분
+console.log(req.body);
 KakaoUser.findOneAndUpdate({'user_key': 'O2yX5hJ_6vB5'},{'name_flag':'1'},{new: true}, function(err, doc){
     if(err){
         console.log("Something wrong when updating data!");
@@ -35,8 +37,8 @@ KakaoUser.findOneAndUpdate({'user_key': 'O2yX5hJ_6vB5'},{'name_flag':'1'},{new: 
 
       KakaoUser.findOne({'name':'김혁주ㅁ'}, function (err, users) {
         if (err) return res.json(err);
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
+        //console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
+        //console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
       });
 
     if(req.body.content == '시작'){
