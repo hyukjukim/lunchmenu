@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
-var Kuser  = require("../models/Kuser"); //유저 ID 매칭을 위한 작업
+var KakaoUser  = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -15,7 +15,7 @@ router.get('/keyboard', function(req, res) {
 router.post('/message', function(req, res) {
 
 
-  Kuser.findOne({'name':'guitar84'}, function (err, users) {
+  KakaoUser.findOne({'name':'guitar84'}, function (err, users) {
     if (err) return res.json(err);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
     //console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
