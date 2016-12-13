@@ -15,7 +15,7 @@ router.get('/keyboard', function(req, res) {
 router.post('/message', function(req, res) {
 
 
-  User.findOne({'users.username':'guitar84'}, 'name occupation', function (err, person) {
+  User.findOne({'users.username':'guitar84'}, function (err, person) {
     if (err) return res.json(err);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', User.users.username, User.occupation) ;
   });
