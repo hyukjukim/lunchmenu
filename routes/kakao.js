@@ -13,14 +13,21 @@ router.get('/keyboard', function(req, res) {
 });
 
 router.post('/message', function(req, res) {
-
-
+/*
   KakaoUser.findOne({'name':'guitar84'}, function (err, users) {
     if (err) return res.json(err);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-    //console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
   });
 
+*///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
+
+
+      KakaoUser.findOne({'name':'김혁주짱'}, function (err, users) {
+        if (err) return res.json(err);
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
+      });
 
     if(req.body.content == '시작'){
       res.send({
