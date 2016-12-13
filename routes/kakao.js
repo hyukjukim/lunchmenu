@@ -25,7 +25,7 @@ router.post('/message', function(req, res) {
 //메세지를 기록하는 부분
 
 //업데이트 하는 부분
-console.log(req.body);
+console.log('************************************'+req.body);
 KakaoUser.findOneAndUpdate({'user_key': 'O2yX5hJ_6vB5'},{'name_flag':'1'},{new: true}, function(err, doc){
     if(err){
         console.log("Something wrong when updating data!");
