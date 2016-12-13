@@ -1,8 +1,8 @@
 // routes/kakao.js
 var express = require("express");
 var router = express.Router();
-var Contact = require("../models/Contact");
-var User  = require("../models/User"); //유저 ID 매칭을 위한 작업
+var KakaoMsg = require("../models/KakaoMsg");
+var KakaoUser  = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -15,10 +15,10 @@ router.get('/keyboard', function(req, res) {
 router.post('/message', function(req, res) {
 
 
-  User.findOne({'username':'guitar84'}, function (err, users) {
+  KakaoUser.findOne({'username':'guitar84'}, function (err, users) {
     if (err) return res.json(err);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', users:users.name) ;
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
   });
 
 
@@ -30,9 +30,6 @@ router.post('/message', function(req, res) {
       });
     }
 
-
-
-
     if(req.body.content === '닉네임설정'){
       res.send({
           "message":{
@@ -40,9 +37,6 @@ router.post('/message', function(req, res) {
           }
       });
     }
-
-
-
 
     if(req.body.content === '내정보변경'){
       res.send({
@@ -64,7 +58,7 @@ router.post('/message', function(req, res) {
     */
 
     //메세지를 기록하는 부분
-    Contact.create({
+    KakaoMsg.create({
         user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
