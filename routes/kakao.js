@@ -23,7 +23,7 @@ router.post('/message', function(req, res) {
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
 
 
-      KakaoUser.findOne({'name':'김혁주짱'}, function (err, users) {
+      KakaoUser.findOne({'name':'김혁주ㅁ'}, function (err, users) {
         if (err) return res.json(err);
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
