@@ -1,8 +1,8 @@
 // routes/kakao.js
 var express = require("express");
 var router = express.Router();
-var KakaoMsg = require("../models/kakaoMsg");
-var KakaoUser  = require("../models/kakaoUser"); //유저 ID 매칭을 위한 작업
+var KakaoMsg = require("../models/KakaoMsg");
+var KakaoUser  = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
