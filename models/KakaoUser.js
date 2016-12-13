@@ -12,6 +12,6 @@ var KakaoUserschema = mongoose.Schema({
   email_flag: {type: String}
 });
 
-var KakaoUser = mongoose.model("KakaoUser", KakaoMsgSchema);
+var KakaoUser = mongoose.model("KakaoUser", KakaoUserschema);
 
 module.exports = KakaoUser;

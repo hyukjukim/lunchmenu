@@ -8,6 +8,6 @@ var KakaoMsgschema = mongoose.Schema({
   content: {type: String}
 });
 
-var KakaoMsg = mongoose.model("KakaoMsg", KakaoMsgSchema);
+var KakaoMsg = mongoose.model("KakaoMsg", KakaoMsgschema);
 
 module.exports = KakaoMsg;
