@@ -2,7 +2,7 @@
 
 var mongoose = require("mongoose");
 
-var KakaoUserschema = mongoose.Schema({
+var kakaoUserschema = mongoose.Schema({
   user_key: {type: String, unique:true},
   name: {type: String},
   password: {type: String},
@@ -12,6 +12,6 @@ var KakaoUserschema = mongoose.Schema({
   email_flag: {type: String}
 });
 
-var KakaoUser = mongoose.model("KakaoUser", KakaoUserschema);
+var kakaoUser = mongoose.model("kakaoUser", kakaoUserschema);
 
-module.exports = KakaoUser;
+module.exports = kakaoUser;
