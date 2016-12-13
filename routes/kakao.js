@@ -24,7 +24,11 @@ router.post('/message', function(req, res) {
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
 //메세지를 기록하는 부분
 
-KakaoUser.findOneAndUpdate({_id: req.body.id},{'name_flag':'1'});
+KakaoUser.findOneAndUpdate({_id: req.body.id},{'name_flag':'1'},{new: true}, function(err, doc){
+    if(err){
+        console.log("Something wrong when updating data!");
+    }
+});
 
 
 
