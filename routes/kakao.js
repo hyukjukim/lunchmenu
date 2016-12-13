@@ -18,7 +18,7 @@ router.post('/message', function(req, res) {
   User.findOne({'username':'guitar84'}, function (err, users) {
     if (err) return res.json(err);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', users:users.name) ;
   });
 
 
@@ -65,7 +65,7 @@ router.post('/message', function(req, res) {
 
     //메세지를 기록하는 부분
     Contact.create({
-        user_keya : req.body.user_key,
+        user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
     }, function(error, doc) {
