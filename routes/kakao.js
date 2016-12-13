@@ -10,10 +10,19 @@ router.get('/keyboard', function(req, res) {
         "type": "buttons",
         "buttons": ["시작", "닉네임설정", "내정보변경"],
     });
-
 });
 
 router.post('/message', function(req, res) {
+
+
+  KakaoUser.create({
+      user_key : req.body.user_key,
+      name_flag:'0',
+      password_flag:'0' ,
+      email_flag:'0'
+  }, function(error, doc) {
+  });
+
 /*
   KakaoUser.findOne({'name':'guitar84'}, function (err, users) {
     if (err) return res.json(err);
@@ -24,7 +33,9 @@ router.post('/message', function(req, res) {
 *///req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
 //메세지를 기록하는 부분
 
-//업데이트 하는 부분
+
+
+//KAKAO TALK USER_KEY를 받아와서 업데이트 하는 부분
 console.log('************************************'+ req.body.user_key);
 KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'},{new: true}, function(err, doc){
     if(err){
