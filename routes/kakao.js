@@ -49,6 +49,7 @@ router.post('/message', function(req, res) {
 //유저 flag 변수 관리
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
 if (err) return res.json(err);
+console.log("gggggggggggggggggggg"+{users}.users.name_flag);
     name_flag_cnt = {users}.users.name_flag;
 });
 
