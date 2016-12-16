@@ -4,6 +4,7 @@ var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
 var temp_array = new Array("");
+var temp_array2 = new Array("");
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -58,7 +59,7 @@ if (req.body.content === '시작') {
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
             if (err) return res.json(err);
             console.log("gggggggggggggggggggg"+{users}.users.name);
-            temp_array.push({users}.users.name);
+            temp_array2.push({users}.users.name);
             });
 
 }
@@ -66,7 +67,7 @@ if (req.body.content === '시작') {
 
             res.send({
                         "message": {
-                              "text": "안녕하세요. " + temp_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
+                              "text": "안녕하세요. " + temp_array2.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
                         }
               });
 /*
