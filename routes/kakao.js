@@ -22,6 +22,8 @@ router.post('/message', function(req, res) {
         password_flag: '0',
         email_flag: '0'
     }, function(error, doc) {});
+
+
 /*
     //닉네임설정 버튼을 누른 경우
     if (req.body.content === '닉네임설정') {
@@ -43,14 +45,14 @@ router.post('/message', function(req, res) {
       });
       }
 }
-
+*/
 //유저 flag 변수 관리
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
 if (err) return res.json(err);
     name_flag_cnt = {users}.users.name_flag;
 });
 
-*/
+
 //유저 flag 변수 사용
 console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 if(name_flag_cnt === 1){
