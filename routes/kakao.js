@@ -46,8 +46,14 @@ router.post('/message', function(req, res) {
           });
         }
 
+
         if({users}.users.name_flag ==='1'){
             console.log('22222222222222222222222222222222222222222222', {users}) ;
+            res.send({
+                "message": {
+                    "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
+                }
+            });
         }
       });
   }
