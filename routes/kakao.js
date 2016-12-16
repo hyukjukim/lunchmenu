@@ -46,18 +46,24 @@ router.post('/message', function(req, res) {
 }
 */
 //유저 flag 변수 관리
-KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-if (err) return res.json(err);
-console.log("gggggggggggggggggggg"+{users}.users.name_flag);
-array_cnt.push({users}.users.name_flag);
-});
+if (req.body.content === '닉네임설정') {
+      KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
+          if (err) {console.log("Something wrong when updating data!");}
 
-if(array_cnt.pop()==='1'){
-  res.send({
-      "message": {
-          "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
-      }
-  });
+      });
+/*          KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+          if (err) return res.json(err);
+          console.log("gggggggggggggggggggg"+{users}.users.name_flag);
+          array_cnt.push({users}.users.name_flag);
+          });
+
+          if(array_cnt.pop()==='1'){
+            res.send({
+                "message": {
+                    "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+                }
+            });
+          }*/
 }
 //유저 flag 변수 사용
 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
@@ -98,7 +104,7 @@ console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
     });
     */
 
-    //메세지를 기록하는 부분
+    //상대가 말하는 메세지를 기록하는 부분
     KakaoMsg.create({
         user_key: req.body.user_key,
         type: req.body.type,
