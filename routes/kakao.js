@@ -26,7 +26,7 @@ router.post('/message', function(req, res) {
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name_flag}, ({users:users.name_flag})) ;
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', users.users.name_flag, ({users:users.name_flag})) ;
       });
 
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
