@@ -10,7 +10,7 @@ var name_array = new Array("");
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임설정", "내정보변경"],
+        "buttons": ["시작", "닉네임생성/변경"],
     });
 });
 
@@ -28,7 +28,7 @@ router.post('/message', function(req, res) {
 
 
 //닉네임설정 버튼을 누르면
-if (req.body.content === '닉네임설정') {
+if (req.body.content === '닉네임생성/변경') {
       //닉네임 변경 스타트,
       KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
@@ -67,9 +67,13 @@ if (req.body.content === '시작') {
                               "text": "안녕하세요. 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
                         }
               });
+              name_array.pop();
 }
 
-
+KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+      if (err) return res.json(err);
+      name_array.push({users}.users.name);
+      });
 res.send({
             "message": {
                   "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
