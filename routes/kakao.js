@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-
+var array_cnt = new Array();
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
@@ -49,16 +49,18 @@ router.post('/message', function(req, res) {
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
 if (err) return res.json(err);
 console.log("gggggggggggggggggggg"+{users}.users.name_flag);
-
+array_cnt.push({users}.users.name_flag);
 });
 
-res.send({
-    "message": {
-        "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
-    }
-});
+if(array_cnt.pop()==='1'){
+  res.send({
+      "message": {
+          "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+      }
+  });
+}
 //유저 flag 변수 사용
-console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
+console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
