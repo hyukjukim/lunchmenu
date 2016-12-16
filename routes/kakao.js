@@ -15,16 +15,6 @@ router.get('/keyboard', function(req, res) {
 
 router.post('/message', function(req, res) {
 
-    //상대가 처음 말을 걸었을 경우 동작. 상대의 USER KEY 값과 FLAG 정보를 입력한다.
-    KakaoUser.create({
-        user_key: req.body.user_key,
-        name_flag: '0',
-        password_flag: '0',
-        email_flag: '0'
-    }, function(error, doc) {});
-
-
-    //메세지를 기록하는 부분
     KakaoMsg.create({
         user_key: req.body.user_key,
         type: req.body.type,
