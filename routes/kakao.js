@@ -28,7 +28,7 @@ router.post('/message', function(req, res) {
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users}.users.name_flag) ; //json 객체 접근
 
-        if({users}.users.name_flag ==='0' && req.body.content === '닉네임설정'){
+        if({users}.users.name_flag ===0 && req.body.content === '닉네임설정'){
           res.send({
               "message": {
                   "text": "사용하실 닉네임을 입력해주세요. 아직 기능 구현 중 입니다.(2016.12.16)."
@@ -50,7 +50,7 @@ router.post('/message', function(req, res) {
           });
         }
 
-        if({users}.users.name_flag ==='1'){
+        if({users}.users.name_flag ===1){
           if(req.body.content === '닉네임설정'){
             res.send({
                 "message": {
