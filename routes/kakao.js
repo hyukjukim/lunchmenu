@@ -59,7 +59,7 @@ if (req.body.content === '시작') {
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
             if (err) return res.json(err);
             console.log("gggggggggggggggggggg"+{users}.users.name);
-            name_array.push("dydy");
+            name_array.push({users}.users.name);
             });
 
             res.send({
