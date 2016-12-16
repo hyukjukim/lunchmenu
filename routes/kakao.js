@@ -198,6 +198,7 @@ router.delete('/friend/:user_key', function(req, res) {
 
 router.delete('/chat_room/:user_key', function(req, res) {
     console.log("Stack is Cleared");
+    
     name_flag_array.clear();
     name_array.clear();
     res.sendStatus(200);
