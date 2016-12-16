@@ -49,14 +49,14 @@ router.post('/message', function(req, res) {
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
 if (err) return res.json(err);
 console.log("gggggggggggggggggggg"+{users}.users.name_flag);
+
+});
+
 res.send({
     "message": {
         "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
     }
 });
-});
-
-
 //유저 flag 변수 사용
 console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 
