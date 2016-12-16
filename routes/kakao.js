@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var temp_array = new Array();
+var temp_array = new Array("");
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -20,7 +20,8 @@ router.post('/message', function(req, res) {
         user_key: req.body.user_key,
         name_flag: '0',
         password_flag: '0',
-        email_flag: '0'
+        email_flag: '0',
+        name: '낯선손'
     }, function(error, doc) {});
 
 
@@ -45,13 +46,26 @@ if(temp_array.pop()==='name_make'){
     KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
       if (err) {console.log("Something wrong when updating data!");}
     });
-
-    //이름 바꿀 것인지 질문
+    //생성된 이름 표출
     res.send({
                 "message": {
-                      "text": "닉네임생성이 완료 되었습니다. 앞으로 들어오시면 님은" + req.body.content +" 님으로 불리게 될 것입니다."
+                      "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
                 }
             });
+}
+
+if (req.body.content === '시작') {
+      KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+            if (err) return res.json(err);
+            console.log("gggggggggggggggggggg"+{users}.users.name);
+            temp_array.push({users}.users.name);
+            });
+
+            res.send({
+                        "message": {
+                              "text": "안녕하세요. " +   temp_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
+                        }
+              });
 }
 
 /*
@@ -90,9 +104,6 @@ if(temp_array.pop()==='name_make'){
                 }
             });
           }*/
-
-//유저 flag 변수 사용
-console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
