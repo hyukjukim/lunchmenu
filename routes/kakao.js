@@ -25,7 +25,7 @@ router.post('/message', function(req, res) {
     if (req.body.content === '닉네임설정') {
 
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        users.send({
+        res.render({
             "message": {
                 "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
             }
