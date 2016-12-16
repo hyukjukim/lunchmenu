@@ -48,7 +48,7 @@ if (req.body.content === '닉네임설정') {
       name_array.push({users}.users.name_flag);
 
 }
-
+}
 
     //상대가 말하는 메세지를 기록하는 부분
     KakaoMsg.create({
@@ -56,7 +56,6 @@ if (req.body.content === '닉네임설정') {
         type: req.body.type,
         content: req.body.content
     }, function(error, doc) {});
-
 
     res.sendStatus(200);
 });
