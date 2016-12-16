@@ -10,7 +10,7 @@ var name_array = new Array("");
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임설정", "내정보변경"],
+        "buttons": ["시작", "닉네임생성/변경"],
     });
 });
 
@@ -79,8 +79,11 @@ if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
 
 res.send({
             "message": {
-                  "text": "반가와요! " +name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
-                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)"
+                  "text":  +name_array.pop() +"님. \n오늘은 여기까지만 개발 하겠습니다."+
+                  "\n이 페이지는 님의 개인정보는 전혀 \n저장하지 않습니다.(혹시 걱정하실까봐^^;)"+
+                  "\n단 닉네임 정보만 저장을 합니다. \n따로 저장되어 다양한 컨텐츠에 활용할 예정입니다"+
+                  "\n궁금하시다면 한번 테스트 해보세요.\n\n\n1.페이지 방을 나간 후 다시 들어와보세요"+
+                  "2.님의 닉네임이 그대로 인식됩니다.\n자유롭게 변경 가능하며 탈퇴시 모든 정보가 사라집니다."
             }
   });
   name_flag_array.push("name_made");
