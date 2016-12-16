@@ -69,14 +69,7 @@ if (req.body.content === '시작') {
                               "text": "안녕하세요. " + name_array.pop() +"님.."
                         }
               });
-            }else {
-              res.send({
-                          "message": {
-                                "text": "안녕하세요. 낯선손님..닉네임 생성해줘요"
-                          }
-                });
             }
-
 }
 
 if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
@@ -198,7 +191,6 @@ router.delete('/friend/:user_key', function(req, res) {
 
 router.delete('/chat_room/:user_key', function(req, res) {
     console.log("Stack is Cleared");
-
     name_flag_array.clear();
     name_array.clear();
     res.sendStatus(200);
