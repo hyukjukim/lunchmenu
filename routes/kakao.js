@@ -24,7 +24,6 @@ router.post('/message', function(req, res) {
 
     if (req.body.content === '닉네임설정') {
 
-
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
       //  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
@@ -32,11 +31,6 @@ router.post('/message', function(req, res) {
 
         if({users}.users.name_flag ==='0'){
           console.log('111111111111111111111111111111111111111111', {users}) ;
-          res.send({
-              "message": {
-                  "text": "사용하실 닉네임을 입력해주세요. 아직 기능 구현 중 입니다.(2016.12.16)."
-              }
-          });
           //KAKAO TALK USER_KEY를 받아와서 업데이트 하는 부분
           console.log('************************************' + req.body.user_key);
           KakaoUser.findOneAndUpdate({
@@ -54,14 +48,7 @@ router.post('/message', function(req, res) {
 
         if({users}.users.name_flag ==='1'){
             console.log('22222222222222222222222222222222222222222222', {users}) ;
-            res.send({
-                "message": {
-                    "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
-                }
-            });
         }
-
-
       });
   }
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
