@@ -53,22 +53,23 @@ if(name_flag_array.pop()==='name_make'){
                       "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
                 }
             });
-
-            //생성된 이름 저장
-            name_array.push({users}.users.name);
-            name_flag_array.push("name_made");
 }
 
-if (req.body.content === '시작'&& name_flag_array.pop()==='name_made') {
+if (req.body.content === '시작') {
+        KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+        if (err) return res.json(err);
+        //console.log("gggggggggggggggggggg"+{users}.users.name);
+        name_array.push({users}.users.name);
+        });
+
             res.send({
                         "message": {
                               "text": "안녕하세요. " + name_array.pop() +"님. 닉네임 생성에 감사 드립니다."
                         }
               });
-              name_flag_array.push("name_made");
 }
 
-if(name_flag_array.pop()==='name_made'){
+if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
 
   KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
