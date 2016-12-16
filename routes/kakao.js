@@ -25,12 +25,12 @@ router.post('/message', function(req, res) {
 
     if (req.body.content === '닉네임설정') {
       if(name_flag_cnt === 0){
-        res.send({
-            "message": {
-                "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
-            }
-        });
-      KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+            res.send({
+                "message": {
+                    "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+                }
+            });
+            KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         if({users}.users.name_flag ==='0'){
           console.log('111111111', {users}) ; //전체 객체
@@ -38,11 +38,6 @@ router.post('/message', function(req, res) {
               if (err) {console.log("Something wrong when updating data!");}
               name_flag_cnt = 1;
           });
-        }
-
-        if({users}.users.name_flag ==='1'){
-              name_flag_cnt = 1;
-
         }
       });
       }
@@ -52,7 +47,8 @@ router.post('/message', function(req, res) {
               "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
           }
       });
-  }
+          console.log(req.body.content);
+      }
 }
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
