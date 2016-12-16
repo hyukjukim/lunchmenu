@@ -63,10 +63,10 @@ if (req.body.content === '시작') {
             });
 
 }
-
+            var name = name_array.pop();
             res.send({
                         "message": {
-                              "text": "안녕하세요. " + name_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
+                              "text": "안녕하세요. " + name +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
                         }
               });
 /*
