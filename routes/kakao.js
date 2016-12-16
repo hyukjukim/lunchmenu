@@ -34,7 +34,7 @@ router.post('/message', function(req, res) {
           console.log('111111111', {users}) ; //전체 객체
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
               if (err) {console.log("Something wrong when updating data!");}
-              console.log(req.body.user_key+'*****************');
+              //console.log(req.body.user_key+'*****************');
           });
         }
 
