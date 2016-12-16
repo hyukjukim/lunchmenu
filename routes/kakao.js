@@ -3,14 +3,14 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var name_flag_array = new Array("");
-var name_array = new Array("");
+var temp_array = new Array("");
+var temp_array2 = new Array("");
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성/변경"],
+        "buttons": ["시작", "닉네임설정", "내정보변경"],
     });
 });
 
@@ -26,13 +26,14 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
 
+
 //닉네임설정 버튼을 누르면
 if (req.body.content === '닉네임설정') {
       //닉네임 변경 스타트,
       KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
           //이름 바꿨다는 뜻으로 name_flag
-          name_flag_array.push("name_make");
+          temp_array.push("name_make");
       });
 
       //이름 바꿀 것인지 질문
@@ -43,7 +44,7 @@ if (req.body.content === '닉네임설정') {
               });
   }
 
-if(name_flag_array.pop()==='name_make'){
+if(temp_array.pop()==='name_make'){
     KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
       if (err) {console.log("Something wrong when updating data!");}
     });
@@ -53,59 +54,29 @@ if(name_flag_array.pop()==='name_make'){
                       "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
                 }
             });
-    name_flag_array.push("name_made");
 }
 
 if (req.body.content === '시작') {
-    if(name_flag_array.pop()==='name_made'){
-        KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        if (err) return res.json(err);
-        //console.log("gggggggggggggggggggg"+{users}.users.name);
-        name_array.push({users}.users.name);
-        });
-
+      KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+            if (err) return res.json(err);
+            console.log("gggggggggggggggggggg"+{users}.users.name);
+            temp_array2.push({users}.users.name);
+            });
             res.send({
                         "message": {
-                              "text": "안녕하세요. " + name_array.pop() +"님.."
+                              "text": "안녕하세요. 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
                         }
               });
-            }
-if(name_flag_array.pop()!=='name_made')
-            {
-              res.send({
-                          "message": {
-                                "text": "안녕하세요. 낯선손님..닉네임을 만드심이.."
-                          }
-                });
-            }
 }
 
-if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
-
-  KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        if (err) return res.json(err);
-        //console.log("gggggggggggggggggggg"+{users}.users.name);
-        name_array.push({users}.users.name);
-        });
 
 res.send({
             "message": {
-                  "text":  +name_array.pop() +"님. \n오늘은 여기까지만 개발 하겠습니다."+
-                  "\n이 페이지는 님의 개인정보는 전혀 \n저장하지 않습니다.(혹시 걱정하실까봐^^;)"+
-                  "\n단 닉네임 정보만 저장을 합니다. \n따로 저장되어 다양한 컨텐츠에 활용할 예정입니다"+
-                  "\n궁금하시다면 한번 테스트 해보세요.\n\n\n1.닉네임을 생성 합니다.\n2.페이지 방을 나간 후 다시 들어와보세요"+
-                  "3.님의 닉네임이 그대로 인식됩니다.\n4.자유롭게 변경 가능하며 탈퇴시 모든 정보가 사라집니다."
+                  "text": "반가와요! " + temp_array2.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
+                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)"
             }
   });
-  }
 /*
-
-KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-      if (err) return res.json(err);
-      console.log("gggggggggggggggggggg"+{users}.users.name);
-      name_array.push({users}.users.name);
-      });
-
     //닉네임설정 버튼을 누른 경우
     if (req.body.content === '닉네임설정') {
       if(name_flag_cnt === 0){
@@ -198,9 +169,6 @@ router.delete('/friend/:user_key', function(req, res) {
 });
 
 router.delete('/chat_room/:user_key', function(req, res) {
-    console.log("Stack is Cleared");
-    name_flag_array.clear();
-    name_array.clear();
     res.sendStatus(200);
 });
 
