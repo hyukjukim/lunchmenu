@@ -61,15 +61,20 @@ if (req.body.content === '시작') {
             console.log("gggggggggggggggggggg"+{users}.users.name);
             temp_array2.push({users}.users.name);
             });
-
+            res.send({
+                        "message": {
+                              "text": "안녕하세요. 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
+                        }
+              });
 }
 
 
-            res.send({
-                        "message": {
-                              "text": "안녕하세요. " + temp_array2.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
-                        }
-              });
+res.send({
+            "message": {
+                  "text": "반가와요! " + temp_array2.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
+                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)"
+            }
+  });
 /*
     //닉네임설정 버튼을 누른 경우
     if (req.body.content === '닉네임설정') {
