@@ -3,7 +3,8 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var array_cnt = new Array();
+var temp_array = new Array();
+
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
@@ -24,11 +25,12 @@ router.post('/message', function(req, res) {
 
 
 //닉네임설정 버튼을 누르면
-if (req.body.content === '닉네임설정'&& array_cnt.pop()!=='1') {
-      //이름 상태 변경 작업을 해준 후 (update)
-      KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, users) {
+if (req.body.content === '닉네임설정') {
+      //닉네임 변경 스타트,
+      KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
-          array_cnt.push({users}.users.name_flag);
+          //이름 바꿨다는 뜻으로 name_flag
+          temp_array.push("name_make");
       });
 
       //이름 바꿀 것인지 질문
@@ -39,11 +41,17 @@ if (req.body.content === '닉네임설정'&& array_cnt.pop()!=='1') {
               });
   }
 
-
-if(array_cnt.pop()==='1'){
+if(temp_array.pop()==='name_make'){
     KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
       if (err) {console.log("Something wrong when updating data!");}
     });
+
+    //이름 바꿀 것인지 질문
+    res.send({
+                "message": {
+                      "text": "닉네임생성이 완료 되었습니다. 앞으로 들어오시면 님은" + req.body.content +"님으로 불리게 될 것입니다."
+                }
+            });
 }
 
 /*
