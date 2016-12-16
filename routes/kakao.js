@@ -43,6 +43,12 @@ router.post('/message', function(req, res) {
       }
 }
 
+KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+if (err) return res.json(err);
+    name_flag_cnt = {users}.users.name_flag;
+});
+
+
     console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 if(name_flag_cnt === 1){
 res.send({
