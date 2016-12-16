@@ -3,8 +3,8 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var temp_array = new Array("");
-var temp_array2 = new Array("");
+var name_flag_array = new Array("");
+var name_array = new Array("");
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -33,7 +33,7 @@ if (req.body.content === '닉네임설정') {
       KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
           //이름 바꿨다는 뜻으로 name_flag
-          temp_array.push("name_make");
+          name_flag_array.push("name_make");
       });
 
       //이름 바꿀 것인지 질문
@@ -44,7 +44,7 @@ if (req.body.content === '닉네임설정') {
               });
   }
 
-if(temp_array.pop()==='name_make'){
+if(name_flag_array.pop()==='name_make'){
     KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
       if (err) {console.log("Something wrong when updating data!");}
     });
@@ -60,7 +60,7 @@ if (req.body.content === '시작') {
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
             if (err) return res.json(err);
             console.log("gggggggggggggggggggg"+{users}.users.name);
-            temp_array2.push({users}.users.name);
+            name_array.push({users}.users.name);
             });
             res.send({
                         "message": {
@@ -72,7 +72,7 @@ if (req.body.content === '시작') {
 
 res.send({
             "message": {
-                  "text": "반가와요! " + temp_array2.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
+                  "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
                   "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)"
             }
   });
@@ -170,6 +170,8 @@ router.delete('/friend/:user_key', function(req, res) {
 
 router.delete('/chat_room/:user_key', function(req, res) {
     res.sendStatus(200);
+    name_flag_array.clear();
+    name_array.clear();
 });
 
 module.exports = router;
