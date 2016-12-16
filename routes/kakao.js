@@ -46,14 +46,14 @@ router.post('/message', function(req, res) {
 }
 */
 //유저 flag 변수 관리
-KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users){
 if (err) return res.json(err);
 console.log("gggggggggggggggggggg"+{users}.users.name_flag);
-    return upd({users}.users.name_flag);
+    return upd(users);
 });
 
-function upd(name_flag){
-  if(name_flag === '1')
+function upd(users){
+  if({users}.users.name_flag === '1')
   res.send({
       "message": {
           "text": "flag 는 1이여."
