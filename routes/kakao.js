@@ -56,6 +56,7 @@ if(name_flag_array.pop()==='name_make'){
 }
 
 if (req.body.content === '시작') {
+  name_array.clear();
         KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         //console.log("gggggggggggggggggggg"+{users}.users.name);
@@ -70,8 +71,8 @@ if (req.body.content === '시작') {
 }
 
 if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
-
-  KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+name_array.clear();
+KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         //console.log("gggggggggggggggggggg"+{users}.users.name);
         name_array.push({users}.users.name);
@@ -86,7 +87,6 @@ res.send({
                   "3.님의 닉네임이 그대로 인식됩니다.\n4.자유롭게 변경 가능하며 탈퇴시 모든 정보가 사라집니다."
             }
   });
-  name_flag_array.push("name_made");
   }
 /*
 
