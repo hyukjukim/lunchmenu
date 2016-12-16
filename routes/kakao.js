@@ -3,12 +3,13 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-
+var name_flag_cnt = 0;
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임설정", "내정보변경"],
+        "buttons": ["닉네임설정"],
+        //"buttons": ["시작", "닉네임설정", "내정보변경"],
     });
 });
 
@@ -23,27 +24,36 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
     if (req.body.content === '닉네임설정') {
-      res.send({
-          "message": {
-              "text": "닉네임설정 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.16)\n월요일에 추가 구현 할 예정 입니다."
-          }
-      });
+      if(name_flag_cnt === 0){
+        res.send({
+            "message": {
+                "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+            }
+        });
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         if({users}.users.name_flag ==='0'){
           console.log('111111111', {users}) ; //전체 객체
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
               if (err) {console.log("Something wrong when updating data!");}
-              console.log('*****************'+doc);
+              name_flag_cnt = 1;
           });
         }
 
         if({users}.users.name_flag ==='1'){
-            console.log('222222222', {users}) ;
+              name_flag_cnt = 1;
 
         }
       });
+      }
+      if(name_flag_cnt === 1){
+      res.send({
+          "message": {
+              "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+          }
+      });
   }
+}
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
 
