@@ -23,7 +23,11 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
     if (req.body.content === '닉네임설정') {
-
+      res.send({
+          "message": {
+              "text": "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.16)\n월요일에 추가 구현 할 예정 입니다."
+          }
+      });
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         if({users}.users.name_flag ==='0'){
