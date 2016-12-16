@@ -25,26 +25,10 @@ router.post('/message', function(req, res) {
     if (req.body.content === '닉네임설정') {
 
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        res.render({
-            "message": {
-                "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
-            }
-        });
         if (err) return res.json(err);
-      //  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-      //  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users}.users.name_flag) ; //json 객체 접근
-
         if({users}.users.name_flag ==='0'){
-          console.log('111111111111111111111111111111111111111111', {users}) ;
-          //KAKAO TALK USER_KEY를 받아와서 업데이트 하는 부분
-          console.log('************************************' + req.body.user_key);
-          KakaoUser.findOneAndUpdate({
-              'user_key': req.body.user_key
-          }, {
-              'name_flag': '1'
-          }, {
-              new: true
-          }, function(err, doc) {
+          console.log('111111111', {users}) ; //전체 객체
+          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
               if (err) {
                   console.log("Something wrong when updating data!");
               }
