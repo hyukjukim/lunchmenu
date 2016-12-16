@@ -45,12 +45,20 @@ router.post('/message', function(req, res) {
       }
 }
 */
-//유저 flag 변수 관리
+//닉네임설정 버튼을 누르면
 if (req.body.content === '닉네임설정') {
+      //이름 상태 변경 작업을 해준 후 (update)
       KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
           if (err) {console.log("Something wrong when updating data!");}
-
       });
+      //이름 바꿀 것인지 질문
+      res.send({
+          "message": {
+              "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
+          }
+      });
+      
+
 /*          KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
           if (err) return res.json(err);
           console.log("gggggggggggggggggggg"+{users}.users.name_flag);
