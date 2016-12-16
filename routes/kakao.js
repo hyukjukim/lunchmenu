@@ -58,12 +58,12 @@ if (req.body.content === '시작') {
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
             if (err) return res.json(err);
             console.log("gggggggggggggggggggg"+{users}.users.name);
-            temp_array.push({users}.users.name);
+            temp_array.push("dydy");
             });
 
             res.send({
                         "message": {
-                              "text": "안녕하세요. " +   temp_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
+                              "text": "안녕하세요. " + temp_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
                         }
               });
 }
