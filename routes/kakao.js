@@ -70,6 +70,14 @@ if (req.body.content === '시작') {
                         }
               });
             }
+if(name_flag_array.pop()!=='name_made')
+            {
+              res.send({
+                          "message": {
+                                "text": "안녕하세요. 낯선손님..닉네임을 만드심이.."
+                          }
+                });
+            }
 }
 
 if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
