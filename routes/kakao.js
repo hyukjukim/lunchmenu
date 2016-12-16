@@ -56,7 +56,7 @@ console.log("gggggggggggggggggggg"+{users}.users.name_flag);
 
 //유저 flag 변수 사용
 console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
-if(name_flag_cnt === 1){
+if(name_flag_cnt === '1'){
 res.send({
     "message": {
         "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
