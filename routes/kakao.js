@@ -50,7 +50,7 @@ if (err) return res.json(err);
     name_flag_cnt = {users}.users.name_flag;
 });
 
-
+*/
 //유저 flag 변수 사용
 console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
 if(name_flag_cnt === 1){
@@ -63,7 +63,7 @@ res.send({
 }
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
-*/
+
 /*
     if (req.body.content == '시작') {
         res.send({
