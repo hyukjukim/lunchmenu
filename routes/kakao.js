@@ -61,14 +61,14 @@ if (req.body.content === '시작') {
             temp_array.push({users}.users.name);
             });
 
-            
+}
+
+
             res.send({
                         "message": {
                               "text": "안녕하세요. " + temp_array.pop() +"님. 혹시 아직 닉네임이 없으시다면 가입 부탁 드립니다."
                         }
               });
-}
-
 /*
     //닉네임설정 버튼을 누른 경우
     if (req.body.content === '닉네임설정') {
