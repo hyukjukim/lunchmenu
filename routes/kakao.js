@@ -23,12 +23,13 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
     if (req.body.content === '닉네임설정') {
-      res.send({
-          "message": {
-              "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
-          }
-      });
+
       KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+        res.send({
+            "message": {
+                "text": "얼른 닉네임을 입력해 주세요.(2016.12.16)."
+            }
+        });
         if (err) return res.json(err);
       //  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
       //  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users}.users.name_flag) ; //json 객체 접근
