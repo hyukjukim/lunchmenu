@@ -24,23 +24,7 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
     if (req.body.content === '닉네임설정') {
-      if(name_flag_cnt === 0){
-            res.send({
-                "message": {
-                    "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
-                }
-            });
-      }
-}
 
-KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-if (err) return res.json(err);
-    name_flag_cnt = {users}.users.name_flag;
-});
-
-
-    console.log(name_flag_cnt+'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + req.body.content);
-if(name_flag_cnt === 1){
 res.send({
     "message": {
         "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
