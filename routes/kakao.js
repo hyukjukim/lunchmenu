@@ -24,10 +24,11 @@ router.post('/message', function(req, res) {
 
 
 //닉네임설정 버튼을 누르면
-if (req.body.content === '닉네임설정') {
+if (req.body.content === '닉네임설정'&& array_cnt.pop()!=='1') {
       //이름 상태 변경 작업을 해준 후 (update)
-      KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
+      KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
+          array_cnt.push({users}.users.name_flag);
       });
 
       //이름 바꿀 것인지 질문
@@ -39,11 +40,11 @@ if (req.body.content === '닉네임설정') {
   }
 
 
-
-    KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, doc) {
+if(array_cnt.pop()==='1'){
+    KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
       if (err) {console.log("Something wrong when updating data!");}
     });
-
+}
 
 /*
     //닉네임설정 버튼을 누른 경우
