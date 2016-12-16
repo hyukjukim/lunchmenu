@@ -28,7 +28,7 @@ router.post('/message', function(req, res) {
       //  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
       //  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users}.users.name_flag) ; //json 객체 접근
 
-        if({users}.users.name_flag ==='0' && req.body.content === '닉네임설정'){
+        if({users}.users.name_flag ===0 && req.body.content === '닉네임설정'){
           console.log('111111111111111111111111111111111111111111', {users}) ;
           res.send({
               "message": {
@@ -50,7 +50,7 @@ router.post('/message', function(req, res) {
           });
         }
 
-        if({users}.users.name_flag ==='1'){
+        if({users}.users.name_flag ===1){
           if(req.body.content === '닉네임설정'){
             console.log('22222222222222222222222222222222222222222222', {users}) ;
             res.send({
