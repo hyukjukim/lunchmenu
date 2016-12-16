@@ -33,14 +33,13 @@ router.post('/message', function(req, res) {
         if({users}.users.name_flag ==='0'){
           console.log('111111111', {users}) ; //전체 객체
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name_flag': '1'}, {new: true}, function(err, doc) {
-              if (err) {
-                  console.log("Something wrong when updating data!");
-              }
+              if (err) {console.log("Something wrong when updating data!");}
+              console.log(req.body.user_key+'*****************');
           });
         }
 
         if({users}.users.name_flag ==='1'){
-            console.log('22222222222222222222222222222222222222222222', {users}) ;
+            console.log('222222222', {users}) ;
 
         }
       });
