@@ -57,17 +57,11 @@ if(name_flag_array.pop()==='name_make'){
 }
 
 if (req.body.content === '시작') {
-      KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-            if (err) return res.json(err);
-            console.log("gggggggggggggggggggg"+{users}.users.name);
-            name_array.push({users}.users.name);
-            });
             res.send({
                         "message": {
                               "text": "안녕하세요. 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
                         }
               });
-              name_array.pop();
 }
 
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
