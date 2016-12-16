@@ -3,8 +3,8 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var name_flag_array = new Stack();
-var name_array = new Stack();
+var name_flag_array = new Array("");
+var name_array = new Array("");
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
@@ -53,10 +53,11 @@ if(name_flag_array.pop()==='name_make'){
                       "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
                 }
             });
+    name_flag_array.push("name_made");
 }
 
 if (req.body.content === '시작') {
-  name_array.clear();
+    if(name_flag_array.pop()==='name_made'){
         KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         //console.log("gggggggggggggggggggg"+{users}.users.name);
@@ -65,14 +66,22 @@ if (req.body.content === '시작') {
 
             res.send({
                         "message": {
-                              "text": "안녕하세요. " + name_array.pop() +"님. 닉네임 생성하셨나요."
+                              "text": "안녕하세요. " + name_array.pop() +"님.."
                         }
               });
+            }else {
+              res.send({
+                          "message": {
+                                "text": "안녕하세요. 낯선손님..닉네임 생성해줘요"
+                          }
+                });
+            }
+
 }
 
 if(req.body.content !== '시작' && req.body.content !== '닉네임설정'){
-name_array.clear();
-KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+
+  KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         //console.log("gggggggggggggggggggg"+{users}.users.name);
         name_array.push({users}.users.name);
