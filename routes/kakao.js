@@ -26,7 +26,6 @@ router.post('/message', function(req, res) {
     }, function(error, doc) {});
 
 
-
 //닉네임설정 버튼을 누르면
 if (req.body.content === '닉네임설정') {
       //닉네임 변경 스타트,
@@ -169,6 +168,9 @@ router.delete('/friend/:user_key', function(req, res) {
 });
 
 router.delete('/chat_room/:user_key', function(req, res) {
+    console.log("Stack is Cleared");
+    name_flag_array.clear();
+    name_array.clear();
     res.sendStatus(200);
 });
 
