@@ -3,8 +3,8 @@ var express = require("express");
 var router = express.Router();
 var KakaoMsg = require("../models/KakaoMsg");
 var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작업
-var name_flag_array = new Array("");
-var name_array = new Array("");
+var name_flag_array = new Stack();
+var name_array = new Stack();
 
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
