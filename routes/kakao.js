@@ -87,7 +87,7 @@ router.post('/message', function(req, res) {
     //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
 
-
+/*
     if (req.body.content == '시작') {
         res.send({
             "message": {
@@ -95,11 +95,11 @@ router.post('/message', function(req, res) {
             }
         });
     }
-/*
+
     if (req.body.content === '닉네임설정') {
 
     }
-*/
+
 
 
 
@@ -110,6 +110,7 @@ router.post('/message', function(req, res) {
             }
         });
     }
+    */
     //console.log(req.body);
 
     /*
