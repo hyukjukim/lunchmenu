@@ -30,13 +30,6 @@ router.post('/message', function(req, res) {
                     "text": "닉네임설정 버튼을 누르셨습니다. 닉네임을 입력해 주세요."
                 }
             });
-            KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        if (err) return res.json(err);
-        if({users}.users.name_flag ==='0'){
-          console.log('111111111', {users}) ; //전체 객체
-
-        }
-      });
       }
 }
 
