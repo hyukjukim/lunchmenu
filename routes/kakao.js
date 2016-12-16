@@ -22,22 +22,21 @@ router.post('/message', function(req, res) {
         email_flag: '0'
     }, function(error, doc) {});
 
-  //  if ()
-    /*
-      KakaoUser.findOne({'name':'guitar84'}, function (err, users) {
+
+      KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
         if (err) return res.json(err);
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', {users}) ;
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name}) ;
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', {users:users.name_flag}, ({users:users.name_flag})) ;
       });
 
-    */ //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
+    //req.body.user_key === KakaoUser.findOne({'user_key':'guitar84'}
     //메세지를 기록하는 부분
 
 
     if (req.body.content == '시작') {
         res.send({
             "message": {
-                "text": "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)\n월요일에 추가 구현 할 예정 입니다."
+                "text": "시작 버튼을 누르셨습니다. 아직 기능 구현 중 입니다.(2016.12.16)\n월요일에 추가 구현 할 예정 입니다."
             }
         });
     }
@@ -45,7 +44,7 @@ router.post('/message', function(req, res) {
     if (req.body.content === '닉네임설정') {
         res.send({
             "message": {
-                "text": "사용하실 닉네임을 입력해주세요. 아직 기능 구현 중 입니다.(2016.12.9)."
+                "text": "사용하실 닉네임을 입력해주세요. 아직 기능 구현 중 입니다.(2016.12.16)."
             }
         });
 
@@ -64,10 +63,13 @@ router.post('/message', function(req, res) {
         });
     }
 
+
+
+
     if (req.body.content === '내정보변경') {
         res.send({
             "message": {
-                "text": "정보 변경을 입력하셨습니다. 아직 기능 구현 중 입니다.(2016.12.9)."
+                "text": "정보 변경을 입력하셨습니다. 아직 기능 구현 중 입니다.(2016.12.16)."
             }
         });
     }
