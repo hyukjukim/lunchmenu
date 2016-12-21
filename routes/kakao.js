@@ -6,13 +6,6 @@ var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작
 var name_flag_array = new Array("");
 var name_array = new Array("");
 
-//WIT.AI
-const {Wit, log} = require('node-wit');
-
-//wit.ai
-const client = new Wit({accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'});
-
-
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
