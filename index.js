@@ -9,28 +9,7 @@ var session    = require("express-session");
 var passport   = require("./config/passport");
 var app = express();
 
-//WIT.AI
-const {Wit, log} = require('node-wit');
 
-const client = new Wit({
-  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
-  actions: {
-    send(request, response) {
-      return new Promise(function(resolve, reject) {
-        console.log(JSON.stringify(response));
-        return resolve();
-      });
-    },
-    myAction({sessionId, context, text, entities}) {
-      console.log(`Session ${sessionId} received ${text}`);
-      console.log(`The current context is ${JSON.stringify(context)}`);
-      console.log(`Wit extracted ${JSON.stringify(entities)}`);
-      return Promise.resolve(context);
-    }
-  },
-  logger: new log.Logger(log.DEBUG) // optional
-});
-//
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB);

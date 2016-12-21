@@ -6,6 +6,13 @@ var KakaoUser = require("../models/KakaoUser"); //유저 ID 매칭을 위한 작
 var name_flag_array = new Array("");
 var name_array = new Array("");
 
+//WIT.AI
+const {Wit, log} = require('node-wit');
+
+//wit.ai
+const client = new Wit({accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'});
+
+
 // 카카오톡 연결 1
 router.get('/keyboard', function(req, res) {
     res.send({
@@ -24,6 +31,8 @@ router.post('/message', function(req, res) {
         email_flag: '0',
         name: '낯선손'
     }, function(error, doc) {});
+
+
 
 
 
@@ -66,13 +75,15 @@ if (req.body.content === '시작') {
 
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
       if (err) return res.json(err);
-      name_array.push({users}.users.name);
-      });
-res.send({
-            "message": {
-                  "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
-                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)\n\n\n닉네임생성변경\n\n\n이라고 입력하시면 닉네임 변경 가능합니다."
-            }
+      client.message(req.body.content, {})
+      .then((data) => {
+        res.send({
+          "message": {
+                "text": 'Yay, got Wit.ai response: ' + JSON.stringify(data)
+          }
+        });
+      })
+      .catch(console.error);
   });
 /*
     //닉네임설정 버튼을 누른 경우
