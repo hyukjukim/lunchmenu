@@ -75,15 +75,13 @@ if (req.body.content === '시작') {
 
 KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
       if (err) return res.json(err);
-      client.message(req.body.content, {})
-      .then((data) => {
-        res.send({
-          "message": {
-                "text": 'Yay, got Wit.ai response: ' + JSON.stringify(data)
-          }
-        });
-      })
-      .catch(console.error);
+      name_array.push({users}.users.name);
+      });
+res.send({
+            "message": {
+                  "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
+                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)\n\n\n닉네임생성변경\n\n\n이라고 입력하시면 닉네임 변경 가능합니다."
+            }
   });
 /*
     //닉네임설정 버튼을 누른 경우
