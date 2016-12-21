@@ -34,8 +34,6 @@ router.post('/message', function(req, res) {
 
 
 
-
-
 //닉네임설정 버튼을 누르면
 if (req.body.content === '닉네임생성변경') {
       //닉네임 변경 스타트,
