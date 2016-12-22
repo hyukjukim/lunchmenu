@@ -10,7 +10,7 @@ var name_array = new Array("");
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임"],
+        "buttons": ["시작", "닉네임생성"],
     });
 });
 
@@ -27,7 +27,7 @@ router.post('/message', function(req, res) {
 
 
 //닉네임설정 버튼을 누르면
-if (req.body.content === '닉네임') {
+if (req.body.content === '닉네임생성') {
       //닉네임 변경 스타트,
       KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
           if (err) {console.log("Something wrong when updating data!");}
@@ -42,6 +42,23 @@ if (req.body.content === '닉네임') {
                   }
               });
   }
+
+  //닉네임설정 버튼을 누르면
+  if (req.body.content === '닉변경') {
+        //닉네임 변경 스타트,
+        KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
+            if (err) {console.log("Something wrong when updating data!");}
+            //이름 바꿨다는 뜻으로 name_flag
+            name_flag_array.push("name_make");
+        });
+
+        //이름 바꿀 것인지 질문
+        res.send({
+                    "message": {
+                          "text": "닉변경을 하셨습니다. 사용하실 닉네임을 입력해 주세요."
+                    }
+                });
+    }
 
 if(name_flag_array.pop()==='name_make'){
     KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
