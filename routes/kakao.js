@@ -10,13 +10,12 @@ var name_array = new Array("");
 router.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성변경"],
+        "buttons": ["시작", "닉네임"],
     });
 });
 
 router.post('/message', function(req, res) {
-
-    //상대가 처음 말을 걸었을 경우 동작. 상대의 USER KEY 값과 FLAG 정보를 입력한다.
+//상대가 처음 말을 걸었을 경우 동작. 상대의 USER KEY 값과 FLAG 정보를 입력한다.
     KakaoUser.create({
         user_key: req.body.user_key,
         name_flag: '0',
@@ -71,7 +70,7 @@ KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
 res.send({
             "message": {
                   "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
-                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)\n\n\n닉네임생성변경\n\n\n이라고 입력하시면 닉네임 변경 가능합니다."
+                  "\n이 페이지는 님의 개인정보는 전혀 저장하지 않습니다. \n(혹시 걱정하실까봐^^;)\n\n\n닉네임\n\n\n이라고 입력하시면 닉네임 변경 가능합니다."
             }
   });
 /*
