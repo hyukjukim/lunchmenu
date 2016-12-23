@@ -48,7 +48,7 @@ if (req.body.content === '닉네임생성') {
         //닉네임 변경 스타트,
         KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
-            //이름 바꿨다는 뜻으로 name_flag
+            //이름 바꿨다는 뜻으로 name_flag`
             name_flag_array.push("name_make");
         });
 
@@ -84,6 +84,8 @@ KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
       if (err) return res.json(err);
       name_array.push({users}.users.name);
       });
+
+
 res.send({
             "message": {
                   "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
