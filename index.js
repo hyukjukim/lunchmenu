@@ -159,7 +159,7 @@ app.post('/message', function(req, res) {
           //이름 바꿀 것인지 질문
           res.send({
                       "message": {
-                            "text": "닉네임설정 버튼을 누르셨습니다. 사용하실 닉네임을 입력해 주세요."
+                            "text": "닉네임설정 버튼을 누르셨습니다. \n사용하실 닉네임을 입력해 주세요."
                       }
                   });
       }
@@ -172,8 +172,8 @@ app.post('/message', function(req, res) {
           res.send({
                       "message": {
                             "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +
-                            " 님으로 불리게 될 것입니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 입력 해 보세요."+
-                            "\n사이트에 접속하시면 편집/삭제 또한 가능합니다. ^^~ "
+                            " 님으로 불리게 될 것입니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com\n에 기록 됩니다. 입력 해 보세요."+
+                            "\n사이트에 접속하시면 \n편집/삭제 또한 가능합니다. ^^~ "
                       }
                   });
       }
@@ -190,7 +190,7 @@ app.post('/message', function(req, res) {
               //이름 바꿀 것인지 질문
               res.send({
                           "message": {
-                                "text": "닉변경을 하셨습니다. 변경하실 닉네임을 입력해 주세요."
+                                "text": "닉변경을 하셨습니다. \n변경하실 닉네임을 입력해 주세요."
                           }
                       });
           }
@@ -211,8 +211,8 @@ app.post('/message', function(req, res) {
 
           res.send({//name_array.pop()
                       "message": {
-                            "text": kimhyukju + "님. 오늘은 여기까지만 할게요."+
-                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에서 확인하세요."
+                            "text": kimhyukju + "님. \n오늘은 여기까지만 할게요."+
+                            "\n\n닉변경 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
                       }
             });
 
