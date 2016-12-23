@@ -198,7 +198,7 @@ app.post('/message', function(req, res) {
                 if (err) return res.json(err);
                 var obj = JSON.stringify(users);
                 console.log("\n***********************\n"+obj+"\n***********************\n");
-                var user_temp = JSON.parse(obj);
+                var user_temp = JSON.parse(obj.name);
                 console.log("\n***********************\n"+user_temp+"\n***********************\n");
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
