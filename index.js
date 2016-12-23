@@ -27,6 +27,7 @@ kakaomsg schema를 잠시 살펴보면 user_key, type, content 항목들을 가�
 나머지 사용가능한 schema type들은 mongoose  공식사이트(http://mongoosejs.com/docs/schematypes.html)에서 확인해 주세요.*/
 var kakaomsgSchema = mongoose.Schema({
   user_key: {type: String},
+  name: {type: String},
   type: {type: String},
   content: {type: String}
 });
@@ -45,9 +46,6 @@ var kakaouserSchema = mongoose.Schema({
 });
 //KakaoUser 변수로 테이블에 접근
 var KakaoUser = mongoose.model("kakaouser", kakaouserSchema);
-
-
-
 
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
@@ -120,7 +118,6 @@ app.delete("/kakaomsgs/:id", function(req, res){
  });
 });
 
-
 //KAKAO TALK
 app.get('/keyboard', function(req, res) {
     res.send({
@@ -128,7 +125,6 @@ app.get('/keyboard', function(req, res) {
         "buttons": ["시작", "닉네임생성"]
     });
 });
-
 
 app.post('/message', function(req, res) {
 
@@ -138,7 +134,7 @@ app.post('/message', function(req, res) {
         name_flag: '0',
         password_flag: '0',
         email_flag: '0',
-        name: '낯선손'
+        name: '무명'
     }, function(error, doc) {});
 
     if (req.body.content === '시작') {
@@ -165,8 +161,14 @@ app.post('/message', function(req, res) {
                       }
                   });
       }
+
+      //닉네임 생성 작업 시작
       if(name_flag_array.pop()==='name_make'){
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
+            if (err) {console.log("Something wrong when updating data!");}
+          });
+
+          Kakaomsg.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
           });
           //생성된 이름 표출
@@ -176,7 +178,6 @@ app.post('/message', function(req, res) {
                       }
                   });
       }
-
 
         //닉네임설정 버튼을 누르면
         if (req.body.content === '닉변경') {
@@ -204,7 +205,8 @@ app.post('/message', function(req, res) {
           res.send({
                       "message": {
                             "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
-                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 입력 해 보세요."
+                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 입력 해 보세요."+
+                            "\n사이트에 접속하시면 편집/삭제 또한 가능합니다. ^^~ "
                       }
             });
 

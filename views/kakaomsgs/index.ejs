@@ -14,7 +14,7 @@
    <ul class="list-group">
     <% kakaomsgs.forEach(function(kakaomsg) { %>
      <li class="list-group-item">
-      <a href="/kakaomsgs/<%= kakaomsg._id %>">User Key : <%= kakaomsg.user_key %> |  Message Type : <%= kakaomsg.type %> | Message Content :  <%= kakaomsg.content%>
+      <a href="/kakaomsgs/<%= kakaomsg._id %>">User Key : <%= kakaomsg.name %> |  Message Type : <%= kakaomsg.type %> | Message Content :  <%= kakaomsg.content%>
      </li>
 
     <% }) %>
