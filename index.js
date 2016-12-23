@@ -196,7 +196,7 @@ app.post('/message', function(req, res) {
 
           KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                 if (err) return res.json(err);
-                var obj = JSON.parse(users);
+                var obj = JSON.parse('users');
 
                 //var temp = JSON.parse({users});
                 console.log("\n***********************\n"+users+"\n***********************\n");
