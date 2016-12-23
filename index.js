@@ -7,6 +7,8 @@ var bodyParser = require("body-parser");
 //method-override module을 methodOverride변수에 담습니다.
 var methodOverride = require("method-override");
 var app = express();
+var name_flag_array = new Array("");
+var name_array = new Array("");
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
 //mongoose의 DB Object를 가져와 db 변수에 넣습니다.
