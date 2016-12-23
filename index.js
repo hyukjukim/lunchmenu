@@ -163,7 +163,17 @@ app.post('/message', function(req, res) {
                       }
                   });
       }
-
+      if(name_flag_array.pop()==='name_make'){
+          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
+            if (err) {console.log("Something wrong when updating data!");}
+          });
+          //생성된 이름 표출
+          res.send({
+                      "message": {
+                            "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
+                      }
+                  });
+      }
 
 
         //닉네임설정 버튼을 누르면
