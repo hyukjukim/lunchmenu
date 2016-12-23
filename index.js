@@ -9,6 +9,7 @@ var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
+var kimhyukju ="";
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
 //mongoose의 DB Object를 가져와 db 변수에 넣습니다.
@@ -193,14 +194,16 @@ app.post('/message', function(req, res) {
                           }
                       });
           }
-var obj ;
-var user_temp;
+
+
+
           KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                 if (err) return res.json(err);
                 obj = JSON.stringify(users);
                 console.log("\n***********************\n"+obj+"\n***********************\n");
                 user_temp = JSON.parse(obj);
                 console.log("\n***********************\n"+user_temp.name+"\n***********************\n");
+                kimhyukju = user_temp.name;
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
                 });
@@ -208,7 +211,7 @@ var user_temp;
 
           res.send({//name_array.pop()
                       "message": {
-                            "text": user_temp.name + "님. 오늘은 여기까지만 할게요."+
+                            "text": kimhyukju + "님. 오늘은 여기까지만 할게요."+
                             "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에서 확인하세요."
                       }
             });
