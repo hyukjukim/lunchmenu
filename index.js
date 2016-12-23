@@ -72,7 +72,7 @@ app.post("/contacts", function(req, res){
 //req.params.id는 MONGO_DB에서 사용하는 ROWID 같은 개념이다.
 // views/contacts/index.ejs 에서 herf로 접근 이름을 클릭하면 MONGO_DB _id를 return으로 날려준다.
 app.get("/contacts/:id", function(req, res){
- Contact.findOne({_id:req.params.id}, function(err, contact){
+ Kakaomsg.findOne({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
   res.render("contacts/show", {contact:contact});
   console.log('id' + req.params.id);
@@ -81,7 +81,7 @@ app.get("/contacts/:id", function(req, res){
 
 // views/contacts/show.ejs  에서 herf로 접근. 한 개의 Data만 표출 되므로 따로 선택은 필요 없음
 app.get("/contacts/:id/edit", function(req, res){
- Contact.findOne({_id:req.params.id}, function(err, contact){
+ Kakaomsg.findOne({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
   res.render("contacts/edit", {contact:contact});
  });
@@ -89,7 +89,7 @@ app.get("/contacts/:id/edit", function(req, res){
 
 // views/contacts/edit.ejs 에서
 app.put("/contacts/:id", function(req, res){
- Contact.findOneAndUpdate({_id:req.params.id}, req.body, function(err, contact){
+ Kakaomsg.findOneAndUpdate({_id:req.params.id}, req.body, function(err, contact){
   if(err) return res.json(err);
   res.redirect("/contacts/"+req.params.id);
  });
@@ -97,7 +97,7 @@ app.put("/contacts/:id", function(req, res){
 
 // Contacts - destroy // 7
 app.delete("/contacts/:id", function(req, res){
- Contact.remove({_id:req.params.id}, function(err, contact){
+ Kakaomsg.remove({_id:req.params.id}, function(err, contact){
   if(err) return res.json(err);
   res.redirect("/contacts");
  });
@@ -150,7 +150,7 @@ app.post('/message', function(req, res) {
 
     console.log(req.body);
 
-    Contact.create({
+    Kakaomsg.create({
         user_key : req.body.user_key,
         type    : req.body.type,
         content: req.body.content
