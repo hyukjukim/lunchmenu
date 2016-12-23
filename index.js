@@ -193,25 +193,22 @@ app.post('/message', function(req, res) {
                           }
                       });
           }
-
+var obj ;
+var user_temp;
           KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                 if (err) return res.json(err);
-                var obj = JSON.stringify(users);
+                obj = JSON.stringify(users);
                 console.log("\n***********************\n"+obj+"\n***********************\n");
-                var user_temp = JSON.parse(obj);
+                user_temp = JSON.parse(obj);
                 console.log("\n***********************\n"+user_temp.name+"\n***********************\n");
-                var obj2 = JSON.stringify(user_temp);
-                console.log("\n***********************\n"+obj2+"\n***********************\n");
-
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
-                console.log("\n***********************\n"+users+"\n***********************\n");
                 });
 
 
           res.send({//name_array.pop()
                       "message": {
-                            "text":  "님. 오늘은 여기까지만 할게요."+
+                            "text": user_temp.name "님. 오늘은 여기까지만 할게요."+
                             "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에서 확인하세요."
                       }
             });
