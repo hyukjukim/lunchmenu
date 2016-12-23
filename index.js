@@ -199,7 +199,10 @@ app.post('/message', function(req, res) {
                 var obj = JSON.stringify(users);
                 console.log("\n***********************\n"+obj+"\n***********************\n");
                 var user_temp = JSON.parse(obj);
-                console.log("\n***********************\n"+{user_temp}.name_flag+"\n***********************\n");
+                console.log("\n***********************\n"+user_temp.name_flag+"\n***********************\n");
+                var obj2 = JSON.stringify(user_temp);
+                console.log("\n***********************\n"+obj2+"\n***********************\n");
+
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
                 console.log("\n***********************\n"+users+"\n***********************\n");
