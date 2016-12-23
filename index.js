@@ -199,15 +199,15 @@ app.post('/message', function(req, res) {
 
           KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                 if (err) return res.json(err);
-                obj = JSON.stringify(users);
+                console.log("\n***********************\n"+users+"\n***********************\n");
+                obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                 console.log("\n***********************\n"+obj+"\n***********************\n");
-                user_temp = JSON.parse(obj);
+                user_temp = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                 console.log("\n***********************\n"+user_temp.name+"\n***********************\n");
                 kimhyukju = user_temp.name;
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
                 });
-
 
           res.send({//name_array.pop()
                       "message": {
