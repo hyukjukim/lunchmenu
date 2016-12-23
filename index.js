@@ -170,7 +170,9 @@ app.post('/message', function(req, res) {
           //생성된 이름 표출
           res.send({
                       "message": {
-                            "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +" 님으로 불리게 될 것입니다."
+                            "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +
+                            " 님으로 불리게 될 것입니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 입력 해 보세요."+
+                            "\n사이트에 접속하시면 편집/삭제 또한 가능합니다. ^^~ "
                       }
                   });
       }
