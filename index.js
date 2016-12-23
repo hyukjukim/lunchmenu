@@ -30,6 +30,23 @@ var kakaomsgSchema = mongoose.Schema({
 });
 //mongoose.model함수를 사용하여 kakaomsg schema의 model을 생성합니다 kakaomsg에 일반적으로 s가 붙어서 테이블 생성
 var Kakaomsg = mongoose.model("kakaomsg", kakaomsgSchema);
+
+//user 관리를 위한 Schema를 생성합니다.
+var kakaouserSchema = mongoose.Schema({
+  user_key: {type: String, unique:true},
+  name: {type: String},
+  password: {type: String},
+  email : {type: String},
+  name_flag: {type: String},
+  password_flag: {type: String},
+  email_flag: {type: String}
+});
+//KakaoUser 변수로 테이블에 접근
+var KakaoUser = mongoose.model("kakaouser", kakaouserSchema);
+
+
+
+
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
 //ejs파일을 사용하기 위해서는 res.render 함수를 사용해야 하며, 첫번째 parameter로 ejs의 이름을,
@@ -106,43 +123,78 @@ app.delete("/kakaomsgs/:id", function(req, res){
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작"]
+        "buttons": ["시작", "닉네임생성"]
     });
 });
 
 
 app.post('/message', function(req, res) {
 
+  //접속 유저 초기화
+    KakaoUser.create({
+        user_key: req.body.user_key,
+        name_flag: '0',
+        password_flag: '0',
+        email_flag: '0',
+        name: '낯선손'
+    }, function(error, doc) {});
 
-    if(req.body.content == '시작'){
-      res.send({
-          "message":{
-              "text" : "안녕하세요 반갑습니다. \n 웹, DB, 카카오톡 연동 서비스 구현 중입니다."
-          }
-      });
+    if (req.body.content === '시작') {
+                res.send({
+                            "message": {
+                                  "text": "안녕하세요 반갑습니다. \n 웹, DB, 카카오톡 연동 서비스 구현 중입니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
+                            }
+                  });
     }
 
-    if(req.body.content === '닉네임설정'){
-      res.send({
-          "message":{
-              "text" : "사용하실 닉네임을 입력해주세요."
-          }
-      });
-    }
+    //닉네임생성 버튼을 누르면
+    if (req.body.content === '닉네임생성') {
+          //닉네임 변경 스타트,
+          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
+              if (err) {console.log("Something wrong when updating data!");}
+              //이름 바꿨다는 뜻으로 name_flag
+              name_flag_array.push("name_make");
+          });
 
-    if(req.body.content === '내정보변경'){
-      res.send({
-          "message":{
-              "text" : "정보 변경을 입력하셨습니다. "
-          }
-      });
-    }
+          //이름 바꿀 것인지 질문
+          res.send({
+                      "message": {
+                            "text": "닉네임설정 버튼을 누르셨습니다. 사용하실 닉네임을 입력해 주세요."
+                      }
+                  });
+      }
 
-    res.send({
-        "message":{
-            "text" : "대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 구경 해 보세요."
-        }
-    });
+
+
+        //닉네임설정 버튼을 누르면
+        if (req.body.content === '닉변경') {
+              //닉네임 변경 스타트,
+              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
+                  if (err) {console.log("Something wrong when updating data!");}
+                  //이름 바꿨다는 뜻으로 name_flag`
+                  name_flag_array.push("name_make");
+              });
+
+              //이름 바꿀 것인지 질문
+              res.send({
+                          "message": {
+                                "text": "닉변경을 하셨습니다. 변경하실 닉네임을 입력해 주세요."
+                          }
+                      });
+          }
+
+          KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+                if (err) return res.json(err);
+                name_array.push({users}.users.name);
+                });
+
+
+          res.send({
+                      "message": {
+                            "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
+                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 구경 해 보세요."
+                      }
+            });
 
     console.log(req.body);
 
