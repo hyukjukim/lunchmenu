@@ -21,15 +21,15 @@ db.on('error', function(err){
 });
 /*mongoose.Schema 함수를 사용해서 schema(data구조를 미리 정의해 놓는 것) object를 생성합니다.
 사용할 Data의 형태를 object로 생성한 다음 mongoose.Schema함수에 넣습니다.
-contact schema를 잠시 살펴보면 user_key, type, content 항목들을 가지고 있으며 새 항목 모두 타입은 String입니다.
+kakaomsg schema를 잠시 살펴보면 user_key, type, content 항목들을 가지고 있으며 새 항목 모두 타입은 String입니다.
 나머지 사용가능한 schema type들은 mongoose  공식사이트(http://mongoosejs.com/docs/schematypes.html)에서 확인해 주세요.*/
-var contactSchema = mongoose.Schema({
+var kakaomsgSchema = mongoose.Schema({
   user_key: {type: String},
   type: {type: String},
   content: {type: String}
 });
-//mongoose.model함수를 사용하여 contact schema의 model을 생성합니다 contact에 일반적으로 s가 붙어서 테이블 생성
-var Kakaomsg = mongoose.model("kakaomsg", contactSchema);
+//mongoose.model함수를 사용하여 kakaomsg schema의 model을 생성합니다 kakaomsg에 일반적으로 s가 붙어서 테이블 생성
+var Kakaomsg = mongoose.model("kakaomsg", kakaomsgSchema);
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
 //ejs파일을 사용하기 위해서는 res.render 함수를 사용해야 하며, 첫번째 parameter로 ejs의 이름을,
@@ -44,69 +44,65 @@ app.use(bodyParser.urlencoded({extended:true}));
 //예를들어 http://example.com/category/id?_method=delete를 받으면 _method의 값인 delete을 읽어 해당 request의 HTTP method를 delete으로 바꿉니다.
 app.use(methodOverride("_method"));
 
-
-
-//사이트 root로 이동하는 경우 /contacts로 redirect 해준다.
+//사이트 root로 이동하는 경우 /kakaomsgs로 redirect 해준다.
 app.get("/", function(req, res){
- res.redirect("/contacts");
+ res.redirect("/kakaomsgs");
 });
-//root/contacts로 이동하는 경우. 내가 입력한 모든 Data를 찾아서 보여줍니다. contacts/index로 redirect 합니다.
-app.get("/contacts",function(req, res){
-  Kakaomsg.find({},function(err,contacts){
+//root/kakaomsgs로 이동하는 경우. 내가 입력한 모든 Data를 찾아서 보여줍니다. kakaomsgs/index로 redirect 합니다.
+app.get("/kakaomsgs",function(req, res){
+  Kakaomsg.find({},function(err,kakaomsgs){
     if(err) return res.json(err);
-    res.render("contacts/index", {contacts:contacts});
+    res.render("kakaomsgs/index", {kakaomsgs:kakaomsgs});
   });
 });
-// contacts/new"에 get 요청이 오는 경우 : 새로운 주소록을 만드는 form이 있는 views/contacts/new.ejs를 render합니다.
-app.get("/contacts/new", function(req, res){
- res.render("contacts/new");
+// kakaomsgs/new"에 get 요청이 오는 경우 : 새로운 주소록을 만드는 form이 있는 views/kakaomsgs/new.ejs를 render합니다.
+app.get("/kakaomsgs/new", function(req, res){
+ res.render("kakaomsgs/new");
 });
-// views/contacts/new.ejs 에서 post로 접근 create는 post로만 가능하다. submit 버튼 누르면 날아옴
-app.post("/contacts", function(req, res){
- Kakaomsg.create(req.body, function(err, contact){
+// views/kakaomsgs/new.ejs 에서 post로 접근 create는 post로만 가능하다. submit 버튼 누르면 날아옴
+app.post("/kakaomsgs", function(req, res){
+ Kakaomsg.create(req.body, function(err, kakaomsg){
   if(err) return res.json(err);
-  res.redirect("/contacts");
+  res.redirect("/kakaomsgs");
  });
 });
 
 //req.params.id는 MONGO_DB에서 사용하는 ROWID 같은 개념이다.
-// views/contacts/index.ejs 에서 herf로 접근 이름을 클릭하면 MONGO_DB _id를 return으로 날려준다.
-app.get("/contacts/:id", function(req, res){
- Kakaomsg.findOne({_id:req.params.id}, function(err, contact){
+// views/kakaomsgs/index.ejs 에서 herf로 접근 이름을 클릭하면 MONGO_DB _id를 return으로 날려준다.
+app.get("/kakaomsgs/:id", function(req, res){
+ Kakaomsg.findOne({_id:req.params.id}, function(err, kakaomsg){
   if(err) return res.json(err);
-  res.render("contacts/show", {contact:contact});
+  res.render("kakaomsgs/show", {kakaomsg:kakaomsg});
   console.log('id' + req.params.id);
  });
 });
 
-// views/contacts/show.ejs  에서 herf로 접근. 한 개의 Data만 표출 되므로 따로 선택은 필요 없음
-app.get("/contacts/:id/edit", function(req, res){
- Kakaomsg.findOne({_id:req.params.id}, function(err, contact){
+// views/kakaomsgs/show.ejs  에서 herf로 접근. 한 개의 Data만 표출 되므로 따로 선택은 필요 없음
+app.get("/kakaomsgs/:id/edit", function(req, res){
+ Kakaomsg.findOne({_id:req.params.id}, function(err, kakaomsg){
   if(err) return res.json(err);
-  res.render("contacts/edit", {contact:contact});
+  res.render("kakaomsgs/edit", {kakaomsg:kakaomsg});
  });
 });
 
-// views/contacts/edit.ejs 에서
-app.put("/contacts/:id", function(req, res){
- Kakaomsg.findOneAndUpdate({_id:req.params.id}, req.body, function(err, contact){
+// views/kakaomsgs/edit.ejs 에서
+app.put("/kakaomsgs/:id", function(req, res){
+ Kakaomsg.findOneAndUpdate({_id:req.params.id}, req.body, function(err, kakaomsg){
   if(err) return res.json(err);
-  res.redirect("/contacts/"+req.params.id);
+  res.redirect("/kakaomsgs/"+req.params.id);
  });
 });
 
-// Contacts - destroy // 7
-app.delete("/contacts/:id", function(req, res){
- Kakaomsg.remove({_id:req.params.id}, function(err, contact){
+// kakaomsgs - destroy // 7
+app.delete("/kakaomsgs/:id", function(req, res){
+ Kakaomsg.remove({_id:req.params.id}, function(err, kakaomsg){
   if(err) return res.json(err);
-  res.redirect("/contacts");
+  res.redirect("/kakaomsgs");
  });
 });
 
 
 //KAKAO TALK
-
-// 카카오톡 연결 1
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",

@@ -1,11 +1,11 @@
-.contact h2{
+.kakaomsg h2{
  color: tomato;
 }
-.contact .contact-form label,
-.contact-show label{
+.kakaomsg .kakaomsg-form label,
+.kakaomsg-show label{
  display: inline-block;
  width: 50px;
 }
-.contact .contact-menu form{
+.kakaomsg .kakaomsg-menu form{
  display: inline-block;
 }
