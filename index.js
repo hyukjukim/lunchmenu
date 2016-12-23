@@ -134,18 +134,10 @@ app.post('/message', function(req, res) {
         name_flag: '0',
         password_flag: '0',
         email_flag: '0',
-        name: "무명"
+        name: '낯선손'
     }, function(error, doc) {});
 
-    /*
-    Kakaomsg.create({
-        user_key  : req.body.user_key,
-        name      : "무명",
-        type      : req.body.type,
-        content   : req.body.content
-    }, function(error, doc) {
-    });*/
-    
+
     if (req.body.content === '시작') {
                 res.send({
                             "message": {
@@ -170,16 +162,11 @@ app.post('/message', function(req, res) {
                       }
                   });
       }
-
-      //닉네임 생성 작업 시작
       if(name_flag_array.pop()==='name_make'){
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
           });
 
-          Kakaomsg.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
-            if (err) {console.log("Something wrong when updating data!");}
-          });
           //생성된 이름 표출
           res.send({
                       "message": {
@@ -221,7 +208,12 @@ app.post('/message', function(req, res) {
 
     console.log(req.body);
 
-
+    Kakaomsg.create({
+        user_key : req.body.user_key,
+        type    : req.body.type,
+        content: req.body.content
+    }, function(error, doc) {
+    });
    res.sendStatus(200);
 });
 
