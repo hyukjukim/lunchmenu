@@ -208,7 +208,7 @@ var user_temp;
 
           res.send({//name_array.pop()
                       "message": {
-                            "text": user_temp.name "님. 오늘은 여기까지만 할게요."+
+                            "text": user_temp.name + "님. 오늘은 여기까지만 할게요."+
                             "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에서 확인하세요."
                       }
             });
