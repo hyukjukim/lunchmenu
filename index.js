@@ -196,13 +196,14 @@ app.post('/message', function(req, res) {
 
           KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                 if (err) return res.json(err);
-                name_array.push({users}.users.name);
+                //name_array.push({users}.users.name);
+                var obj = JSON.parse({users}.users.name);
                 });
 
 
-          res.send({
+          res.send({//name_array.pop()
                       "message": {
-                            "text": name_array.pop() +"님. 오늘은 여기까지만 할게요."+
+                            "text":  obj +"님. 오늘은 여기까지만 할게요."+
                             "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에서 확인하세요."
                       }
             });
