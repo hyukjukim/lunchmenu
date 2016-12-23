@@ -204,7 +204,7 @@ app.post('/message', function(req, res) {
           res.send({
                       "message": {
                             "text": "반가와요! " + name_array.pop() +"님. 오늘은 여기까지만 개발 하겠습니다."+
-                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 구경 해 보세요."
+                            "\n\n닉변경 이라고 입력하시면 닉네임 변경 가능합니다. \n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com 에 기록 됩니다. 입력 해 보세요."
                       }
             });
 
