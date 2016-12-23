@@ -198,7 +198,7 @@ app.post('/message', function(req, res) {
                 if (err) return res.json(err);
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
-                //console.log(temp);
+                console.log("\n***********************\n"+users+"\n***********************\n");
                 });
 
 
