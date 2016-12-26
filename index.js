@@ -221,34 +221,32 @@ app.post('/message', function(req, res) {
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' ){
 
 //2016-12-26 wit.ai 추가
-const actions = {
-  send(request, response) {
-    const {sessionId, context, entities} = request;
-    const {text, quickreplies} = response;
-    return new Promise(function(resolve, reject) {
-      console.log('sending...', JSON.stringify(response));
-      return resolve();
-    });
+const client = new Wit({
+  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
+  actions: {
+    send(request, response) {
+      return new Promise(function(resolve, reject) {
+        console.log(JSON.stringify(response));
+        return resolve();
+      });
+    },
+    myAction({sessionId, context, text, entities}) {
+      console.log(`Session ${sessionId} received ${text}`);
+      console.log(`The current context is ${JSON.stringify(context)}`);
+      console.log(`Wit extracted ${JSON.stringify(entities)}`);
+      return Promise.resolve(context);
+    }
   },
-  getForecast({context, entities}) {
-    return new Promise(function(resolve, reject) {
-      // Here should go the api call, e.g.:
-      // context.forecast = apiCall(context.loc)
-      context.forecast = 'sunny';
-      return resolve(context);
-    });
-  },
-};
+  logger: new log.Logger(log.DEBUG) // optional
+});
 
-const client = new Wit({accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'});
 client.message(req.body.content, {})//'what is the weather in London?'
 .then((data) => {
-/*
   res.send({
               "message": {
                     "text": JSON.stringify(data)
               }
-          });*/
+          });
   console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 })
 .catch(console.error);
