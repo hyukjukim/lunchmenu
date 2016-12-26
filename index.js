@@ -239,7 +239,7 @@ const client = new Wit({
   },
   logger: new log.Logger(log.DEBUG) // optional
 });
-
+/*
 client.message(req.body.content, {})//'what is the weather in London?'
 .then((data) => {
   res.send({
@@ -250,7 +250,7 @@ client.message(req.body.content, {})//'what is the weather in London?'
   console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 })
 .catch(console.error);
-
+*/
 /*2016-12-26 wit.ai추가 땜에 삭제
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
