@@ -223,14 +223,16 @@ app.post('/message', function(req, res) {
                                     "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
                               }
           });
+
+          Kakaomsg.create({
+              user_key : req.body.user_key,
+              type    : req.body.type,
+              content: req.body.content
+          }, function(error, doc) {
+          });
         }
 
-    Kakaomsg.create({
-        user_key : req.body.user_key,
-        type    : req.body.type,
-        content: req.body.content
-    }, function(error, doc) {
-    });
+
    res.sendStatus(200);
 });
 
