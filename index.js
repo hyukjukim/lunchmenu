@@ -15,15 +15,16 @@ var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
 let Wit = null;
-let interactive = null;
+let log = null;
 try {
   // if running from repo
   Wit = require('../').Wit;
-  interactive = require('../').interactive;
+  log = require('../').log;
 } catch (e) {
   Wit = require('node-wit').Wit;
-  interactive = require('node-wit').interactive;
+  log = require('node-wit').log;
 }
+
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
