@@ -177,7 +177,6 @@ app.post('/message', function(req, res) {
                     }
                 });
 
-      }
 
 
           if(kakaousers.name_flag === '1'){
@@ -193,6 +192,7 @@ app.post('/message', function(req, res) {
                                         }
                     });
           }
+      }
         //닉네임설정 버튼을 누르면
         if (req.body.content === '닉네임변경') {
               //닉네임 변경 스타트,
@@ -207,7 +207,7 @@ app.post('/message', function(req, res) {
                                 "text": "닉네임변경을 입력 하셨습니다. \n변경하실 닉네임을 입력해 주세요."
                           }
                       });
-          }
+
           if(kakaousers.name_flag === '2'){
                   KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'}, {new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
@@ -221,7 +221,7 @@ app.post('/message', function(req, res) {
                                         }
                     });
           }
-
+}
           if(kakaousers.name_flag === '3'){
           res.send({//name_array.pop()
                               "message": {
