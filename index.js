@@ -3,6 +3,12 @@
 
 // 카카오톡 기록 사이트
 
+var require;
+var console;
+var process;
+var obj;
+var __dirname;
+
 var express = require('express');
 var mongoose = require('mongoose');
 // body-parser module를 bodyPaser 변수에 담습니다.
