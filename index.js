@@ -251,7 +251,7 @@ client.message(req.body.content, {})//'what is the weather in London?'
 })
 .catch(console.error);
 */
-2016-12-26 wit.ai추가 땜에 삭제
+//2016-12-26 wit.ai추가 땜에 삭제
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                   if (err) return res.json(err);
