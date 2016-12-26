@@ -219,7 +219,7 @@ app.post('/message', function(req, res) {
           }
 
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' ){
-
+/*
 //2016-12-26 wit.ai 추가
 const client = new Wit({
   accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
@@ -239,7 +239,7 @@ const client = new Wit({
   },
   logger: new log.Logger(log.DEBUG) // optional
 });
-/*
+
 client.message(req.body.content, {})//'what is the weather in London?'
 .then((data) => {
   res.send({
