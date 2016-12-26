@@ -177,7 +177,7 @@ app.post('/message', function(req, res) {
                   });
       }
       if(kakaousers.name_flag === '1'){
-          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': kakaousers.name, 'name_flag':'2'}, {new: true}, function(err, users) {
+          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'2'}, {new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
           });
 
@@ -194,7 +194,7 @@ app.post('/message', function(req, res) {
         //닉네임설정 버튼을 누르면
         if (req.body.content === '닉변경') {
               //닉네임 변경 스타트,
-              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'2'}, {new: true}, function(err, users) {
+              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name': req.body.content,'name_flag':'1'}, {new: true}, function(err, users) {
                   if (err) {console.log("Something wrong when updating data!");}
                   //이름 바꿨다는 뜻으로 name_flag`
               });
