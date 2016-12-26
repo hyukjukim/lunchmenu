@@ -174,7 +174,7 @@ app.post('/message', function(req, res) {
       }
 
           if(kakaousers.name_flag === '1'){
-                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'}, {new: true}, function(err, users) {
+                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
                             });
 
