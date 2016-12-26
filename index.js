@@ -139,6 +139,19 @@ app.post('/message', function(req, res) {
         name: '낯선손'
     }, function(error, doc) {});
 
+    //kakaousers 테이블에 접근 할 수 있는 구문
+    KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+          if (err) return res.json(err);
+          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+/*
+          console.log("\n***********************\n"+users+"\n***********************\n");  //처음은 배열 형태로 들어옴
+          console.log("\n***********************\n"+obj+"\n***********************\n");    //json 형식으로 바뀜
+          console.log("\n***********************\n"+kakaousers+"\n***********************\n"); // json object 타입으로 변환
+          console.log("\n***********************\n"+kakaousers.name+"\n***********************\n"); //테이블.항목명
+*/
+    });
+
 
     if (req.body.content === '시작') {
                 res.send({
@@ -154,7 +167,6 @@ app.post('/message', function(req, res) {
           KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
               if (err) {console.log("Something wrong when updating data!");}
               //이름 바꿨다는 뜻으로 name_flag
-              name_flag_array.push("name_make");
           });
 
           //이름 바꿀 것인지 질문
@@ -164,15 +176,15 @@ app.post('/message', function(req, res) {
                       }
                   });
       }
-      if(name_flag_array.pop()==='name_make'){
-          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content}, {new: true}, function(err, users) {
+      if(kakaousers.name_flag === '1'){
+          KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': kakaousers.name, 'name_flag':'2'}, {new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
           });
 
           //생성된 이름 표출
           res.send({
                       "message": {
-                            "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + req.body.content +
+                            "text": "닉네임생성이 완료 되었습니다. \n앞으로 님은 " + kakaousers.name +
                             " 님으로 불리게 될 것입니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com\n에 기록 됩니다. 입력 해 보세요."+
                             "\n사이트에 접속하시면 \n편집/삭제 또한 가능합니다. ^^~ "
                       }
@@ -185,7 +197,6 @@ app.post('/message', function(req, res) {
               KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
                   if (err) {console.log("Something wrong when updating data!");}
                   //이름 바꿨다는 뜻으로 name_flag`
-                  name_flag_array.push("name_make");
               });
 
               //이름 바꿀 것인지 질문
@@ -195,18 +206,6 @@ app.post('/message', function(req, res) {
                           }
                       });
           }
-
-
-
-          KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-                if (err) return res.json(err);
-                console.log("\n***********************\n"+users+"\n***********************\n");
-                obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                console.log("\n***********************\n"+obj+"\n***********************\n");
-                kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                console.log("\n***********************\n"+kakaousers+"\n***********************\n");
-                console.log("\n***********************\n"+kakaousers.name+"\n***********************\n");
-                });
 
           res.send({//name_array.pop()
                       "message": {
