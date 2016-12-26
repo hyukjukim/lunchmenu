@@ -1,5 +1,4 @@
 
-'use strict';
 
 // 카카오톡 기록 사이트
 
@@ -15,16 +14,6 @@ var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
-let Wit = null;
-let log = null;
-try {
-  // if running from repo
-  Wit = require('../').Wit;
-  log = require('../').log;
-} catch (e) {
-  Wit = require('node-wit').Wit;
-  log = require('node-wit').log;
-}
 
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
