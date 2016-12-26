@@ -139,15 +139,6 @@ app.post('/message', function(req, res) {
         name: '낯선손'
     }, function(error, doc) {});
 
-
-
-  //kakaousers 테이블에 접근 할 수 있는 구문
-  KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-        if (err) return res.json(err);
-        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-  });
-
     if (req.body.content === '시작') {
                 res.send({
                             "message": {
