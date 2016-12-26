@@ -163,6 +163,8 @@ app.post('/message', function(req, res) {
         KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'},{new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
             //이름 바꿨다는 뜻으로 name_flag
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
 
         res.send({
@@ -173,9 +175,11 @@ app.post('/message', function(req, res) {
 
       }
 
-          if(kakaousers.name_flag === '1'){
+      if(kakaousers.name_flag === '1'){
                   KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'},{new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
+                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                             });
 
                             //생성된 이름 표출
@@ -192,6 +196,8 @@ app.post('/message', function(req, res) {
               //닉네임 변경 스타트,
               KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'2'},{new: true}, function(err, users) {
                   if (err) {console.log("Something wrong when updating data!");}
+                  obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                  kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                   //이름 바꿨다는 뜻으로 name_flag`
               });
 
@@ -205,6 +211,8 @@ app.post('/message', function(req, res) {
           if(kakaousers.name_flag === '2'){
                   KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'},{new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
+                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                             });
 
                             //생성된 이름 표출
