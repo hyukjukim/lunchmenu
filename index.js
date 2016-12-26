@@ -10,6 +10,8 @@ var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
+//2016-12-26 wit.ai 추가
+const {Wit, log} = require('node-wit');
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -217,6 +219,41 @@ app.post('/message', function(req, res) {
           }
 
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' ){
+
+//2016-12-26 wit.ai 추가
+const actions = {
+  send(request, response) {
+    const {sessionId, context, entities} = request;
+    const {text, quickreplies} = response;
+    return new Promise(function(resolve, reject) {
+      console.log('sending...', JSON.stringify(response));
+      return resolve();
+    });
+  },
+  getForecast({context, entities}) {
+    return new Promise(function(resolve, reject) {
+      // Here should go the api call, e.g.:
+      // context.forecast = apiCall(context.loc)
+      context.forecast = 'sunny';
+      return resolve(context);
+    });
+  },
+};
+
+const client = new Wit({accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'});
+client.message(req.body.content, {})//'what is the weather in London?'
+.then((data) => {
+
+  res.send({
+              "message": {
+                    "text": JSON.stringify(data)
+              }
+          });
+  console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
+})
+.catch(console.error);
+
+/*2016-12-26 wit.ai추가 땜에 삭제
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                   if (err) return res.json(err);
@@ -229,7 +266,7 @@ app.post('/message', function(req, res) {
                                     "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
                               }
           });
-
+*/
           Kakaomsg.create({
               user_key : req.body.user_key,
               type    : req.body.type,
@@ -237,6 +274,7 @@ app.post('/message', function(req, res) {
           }, function(error, doc) {
           });
         }
+
 
 
    res.sendStatus(200);
