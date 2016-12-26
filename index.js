@@ -141,6 +141,12 @@ app.post('/message', function(req, res) {
 
 
 
+  //kakaousers 테이블에 접근 할 수 있는 구문
+  KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
+        if (err) return res.json(err);
+        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+  });
 
     if (req.body.content === '시작') {
                 res.send({
@@ -150,17 +156,11 @@ app.post('/message', function(req, res) {
                   });
     }
 
-    //kakaousers 테이블에 접근 할 수 있는 구문
-    KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
-          if (err) return res.json(err);
-          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-    });
 
     //닉네임생성 버튼을 누르면
     if(req.body.content === '닉네임생성'){
         //닉네임 생성 스타트,
-        KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, function(err, users) {
+        KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'},{new: true}, function(err, users) {
             if (err) {console.log("Something wrong when updating data!");}
             //이름 바꿨다는 뜻으로 name_flag
         });
@@ -174,7 +174,7 @@ app.post('/message', function(req, res) {
       }
 
           if(kakaousers.name_flag === '1'){
-                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'}, function(err, users) {
+                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'},{new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
                             });
 
@@ -190,7 +190,7 @@ app.post('/message', function(req, res) {
         //닉네임설정 버튼을 누르면
         if (req.body.content === '닉네임변경') {
               //닉네임 변경 스타트,
-              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'2'}, function(err, users) {
+              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'2'},{new: true}, function(err, users) {
                   if (err) {console.log("Something wrong when updating data!");}
                   //이름 바꿨다는 뜻으로 name_flag`
               });
@@ -203,7 +203,7 @@ app.post('/message', function(req, res) {
                       });
           }
           if(kakaousers.name_flag === '2'){
-                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'}, function(err, users) {
+                  KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'},{new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
                             });
 
