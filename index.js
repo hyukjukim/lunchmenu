@@ -3,11 +3,6 @@
 
 // 카카오톡 기록 사이트
 
-var require;
-var console;
-var process;
-var obj;
-var __dirname;
 
 var express = require('express');
 var mongoose = require('mongoose');
