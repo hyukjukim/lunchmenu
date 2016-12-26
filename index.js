@@ -9,7 +9,8 @@ var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
-var kimhyukju ="";
+var user_temp = '';
+var nick_name ="";
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
 //mongoose의 DB Object를 가져와 db 변수에 넣습니다.
@@ -203,15 +204,15 @@ app.post('/message', function(req, res) {
                 obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                 console.log("\n***********************\n"+obj+"\n***********************\n");
                 user_temp = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                console.log("\n***********************\n"+user_temp.name+"\n***********************\n");
-                kimhyukju = user_temp.name;
+                //console.log("\n***********************\n"+user_temp.name+"\n***********************\n");
+                //nick_name = user_temp.name;
                 //name_array.push({users}.users.name);
                 //var temp = JSON.parse({users});
                 });
 
           res.send({//name_array.pop()
                       "message": {
-                            "text": kimhyukju + "님. \n오늘은 여기까지만 할게요."+
+                            "text": user_temp.name + "님. \n오늘은 여기까지만 할게요."+
                             "\n\n닉변경 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
                       }
             });
