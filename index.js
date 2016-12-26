@@ -243,12 +243,12 @@ const actions = {
 const client = new Wit({accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'});
 client.message(req.body.content, {})//'what is the weather in London?'
 .then((data) => {
-
+/*
   res.send({
               "message": {
                     "text": JSON.stringify(data)
               }
-          });
+          });*/
   console.log('Yay, got Wit.ai response: ' + JSON.stringify(data));
 })
 .catch(console.error);
