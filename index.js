@@ -220,7 +220,6 @@ app.post('/message', function(req, res) {
 
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' ){
 
-//2016-12-26 wit.ai추가 땜에 삭제
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                   if (err) return res.json(err);
@@ -240,7 +239,6 @@ app.post('/message', function(req, res) {
               content: req.body.content
           }, function(error, doc) {
           });
-
         }
 
 
