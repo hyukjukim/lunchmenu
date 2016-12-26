@@ -208,14 +208,14 @@ app.post('/message', function(req, res) {
                           }
                       });
           }
-
-          res.send({//name_array.pop()
-                      "message": {
-                            "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
-                            "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
-                      }
-            });
-
+        if(kakaousers.name_flag === '2'){
+                  res.send({//name_array.pop()
+                              "message": {
+                                    "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
+                                    "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
+                              }
+                    });
+        }
 
     Kakaomsg.create({
         user_key : req.body.user_key,
