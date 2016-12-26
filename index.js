@@ -216,7 +216,7 @@ app.post('/message', function(req, res) {
                     });
           }
 
-
+          if(kakaousers.name_flag !== '1'&&kakaousers.name_flag !== '2' ){
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                   if (err) return res.json(err);
@@ -236,7 +236,7 @@ app.post('/message', function(req, res) {
               content: req.body.content
           }, function(error, doc) {
           });
-
+        }
 
 
    res.sendStatus(200);
