@@ -196,7 +196,7 @@ app.post('/message', function(req, res) {
         //닉네임설정 버튼을 누르면
         if (req.body.content === '닉네임변경') {
               //닉네임 변경 스타트,
-              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name': req.body.content,'name_flag':'1'}, {new: true}, function(err, users) {
+              KakaoUser.findOneAndUpdate({'user_key': req.body.user_key},{'name_flag':'1'}, {new: true}, function(err, users) {
                   if (err) {console.log("Something wrong when updating data!");}
                   //이름 바꿨다는 뜻으로 name_flag`
               });
@@ -209,14 +209,13 @@ app.post('/message', function(req, res) {
                       });
           }
 
-              res.send({//name_array.pop()
-                          "message": {
-                                "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
-                                "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
-                          }
-                });
+          res.send({//name_array.pop()
+                      "message": {
+                            "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
+                            "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."
+                      }
+            });
 
-    console.log(req.body);
 
     Kakaomsg.create({
         user_key : req.body.user_key,
