@@ -205,6 +205,7 @@ app.post('/message', function(req, res) {
                 console.log("\n***********************\n"+obj+"\n***********************\n");
                 kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                 console.log("\n***********************\n"+kakaousers+"\n***********************\n");
+                console.log("\n***********************\n"+kakaousers.name+"\n***********************\n");
                 });
 
           res.send({//name_array.pop()
