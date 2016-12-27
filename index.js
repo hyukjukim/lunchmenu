@@ -1,19 +1,19 @@
+'use strict';
 
 
 // 카카오톡 기록 사이트
-
-
-var express = require('express');
-var mongoose = require('mongoose');
+const express = require('express');
+const mongoose = require('mongoose');
 // body-parser module를 bodyPaser 변수에 담습니다.
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 //method-override module을 methodOverride변수에 담습니다.
-var methodOverride = require("method-override");
+const methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
+const Wit = require('node-wit').Wit;
 
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
@@ -153,7 +153,6 @@ app.post('/message', function(req, res) {
                   });
     }
 
-
     //닉네임생성 버튼을 누르면
     if(req.body.content === '닉네임생성'){
         //닉네임 생성 스타트,
@@ -171,7 +170,6 @@ app.post('/message', function(req, res) {
                 });
 
       }
-
       if(kakaousers.name_flag === '1'){
                   KakaoUser.findOneAndUpdate({'user_key': req.body.user_key}, {'name': req.body.content, 'name_flag':'3'},{new: true}, function(err, users) {
                               if (err) {console.log("Something wrong when updating data!");}
