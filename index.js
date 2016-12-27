@@ -16,11 +16,6 @@ var Wit = require('node-wit').Wit;
 
 const WIT_TOKEN = process.env.WIT_TOKEN;
 
-var wit = new Wit({
-  accessToken : WIT_TOKEN,
-  actions//,
-  //logger : new log.Logger(log.INFO)
-});
 
 
 
