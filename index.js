@@ -12,14 +12,14 @@ var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
 var Wit = require('node-wit').Wit;
-var log = require('node-wit').log;
+//var log = require('node-wit').log;
 
 const WIT_TOKEN = process.env.WIT_TOKEN;
 
 var wit = new Wit({
   accessToken : WIT_TOKEN,
-  actions,
-  logger : new log.Logger(log.INFO)
+  actions//,
+  //logger : new log.Logger(log.INFO)
 });
 
 
