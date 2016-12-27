@@ -49,7 +49,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+    if (req.query['hub.verify_token'] === 'kimhyukju_test_token') {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
@@ -73,9 +73,10 @@ app.post('/webhook/', function (req, res) {
           continue
       }
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
+/*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
   // doc.children[0]._id will be undefined
 });
+*/
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
