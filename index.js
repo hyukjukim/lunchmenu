@@ -1,19 +1,17 @@
-'use strict';
-
 
 // 카카오톡 기록 사이트
-const express = require('express');
-const mongoose = require('mongoose');
+var express = require('express');
+var mongoose = require('mongoose');
 // body-parser module를 bodyPaser 변수에 담습니다.
-const bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 //method-override module을 methodOverride변수에 담습니다.
-const methodOverride = require("method-override");
+var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
-const Wit = require('node-wit').Wit;
+var Wit = require('node-wit').Wit;
 
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
