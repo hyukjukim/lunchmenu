@@ -71,7 +71,6 @@ const actions = {
     console.log('4');
     console.log('context');
     console.log(context);
-
     return context;
   },
   // See https://wit.ai/docs/quickstart
