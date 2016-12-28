@@ -91,6 +91,7 @@ app.post('/webhook/', function (req, res) {
         var obj = JSON.stringify(data);
         console.log(data);
         var result = JSON.parse(obj);
+        console.log(obj);
         console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
       })
       .catch(console.error);
