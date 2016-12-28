@@ -75,6 +75,7 @@ const actions = {
     console.log(entities);
     console.log('context');
     console.log(context);
+    
     var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
