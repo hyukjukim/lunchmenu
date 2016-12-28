@@ -104,7 +104,7 @@ app.post('/webhook/', function (req, res) {
 
 const client = new Wit({
   actions: {
-    send(request, response) {
+    send(text, response) {
       return new Promise(function(resolve, reject) {
         console.log(JSON.stringify(response));
         return resolve();
