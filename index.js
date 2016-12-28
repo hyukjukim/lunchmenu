@@ -27,8 +27,8 @@ const WIT_TOKEN = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
 
 // Our bot actions
 const actions = {
-  send(text) {
-      return sendTextMessage( text)
+  send(text,response) {
+      return sendTextMessage(response)
     }
 };
 
