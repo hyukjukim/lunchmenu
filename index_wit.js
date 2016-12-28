@@ -42,6 +42,7 @@ const firstEntityValue = (entities, entity) => {
 
 const actions = {
   send(request, response) {
+
     console.log('3');
     const {sessionId, context, entities} = 'request';
     const {text, quickreplies} = response;
@@ -50,7 +51,7 @@ const actions = {
   getForecast({context, entities}) {
 
     console.log('4');
-    console.log(client.message);
+
     console.log(entities);
     console.log(context);
     var location = firstEntityValue(entities, 'location');
