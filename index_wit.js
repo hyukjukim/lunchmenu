@@ -78,6 +78,6 @@ console.log(client);
 console.log('5');
 */
 const client = new Wit({accessToken, actions});
-console.log(client);
+//console.log(client);
 console.log('5');
 interactive(client);

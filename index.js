@@ -6,7 +6,7 @@ const request = require('request')
 const app = express()
 var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
-var result_msg = "";
+var id = [];
 
 
 let Wit = null;
@@ -20,8 +20,58 @@ try {
   interactive = require('node-wit').interactive;
 }
 
-const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-const client = new Wit({accessToken});
+const WIT_TOKEN = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
+//const client = new Wit({accessToken});
+
+//2016-12-28
+
+const firstEntityValue = (entities, entity) => {
+  console.log('1');
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  console.log('2');
+  return typeof val === 'object' ? val.value : val;
+};
+
+const actions = {
+  send(request, response) {
+    console.log('3');
+    const {sessionId, context, entities} = 'request';
+    const {text, quickreplies} = response;
+    console.log('sending...', JSON.stringify(response));
+    sendTextMessage(id.pop(),response);
+  },
+  getForecast({context, entities}) {
+
+    console.log('4');
+    console.log(client.message);
+    console.log(entities);
+    console.log(context);
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+    return context;
+  },
+};
+
+// Setting up our bot
+const wit = new Wit({
+  accessToken: WIT_TOKEN,
+  actions
+});
+
+
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
@@ -70,6 +120,9 @@ app.get('/webhook/', function (req, res) {
     res.send('Error, wrong token')
 })
 
+
+
+
 // Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
@@ -89,6 +142,10 @@ app.post('/webhook/', function (req, res) {
           continue
       }
 
+      id.push(sender);
+      wit.runActions(text)
+
+/*
       client.message(text, {}) //'what is the weather in London?'
       .then((data) => {
         var obj = JSON.stringify(data);
@@ -99,10 +156,12 @@ app.post('/webhook/', function (req, res) {
 
 
       sendTextMessage(sender, "Yay, got Wit.ai response:  " + result_msg.substring(0, 200))
-/*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
-  // doc.children[0]._id will be undefined
-});
 */
+
+      /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
+        // doc.children[0]._id will be undefined
+      });
+      */
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
