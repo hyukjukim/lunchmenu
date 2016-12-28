@@ -71,7 +71,8 @@ const actions = {
     console.log('4');
     console.log('context');
     var temp = JSON.stringify(context);
-    console.log(temp);
+    var res = temp.entities;
+    console.log(res);
     return context;
   },
   // See https://wit.ai/docs/quickstart
