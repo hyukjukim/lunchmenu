@@ -174,7 +174,8 @@ app.post('/webhook/', function (req, res) {
 */
 
 
-client.runActions(sender, text).then((sender) => {console.log(sender +'connect@@@@');}
+client.runActions(sender, text)
+.then((sender) => {console.log(sender +'connect@@@@');})
 .catch((e) => {
   console.log('Oops! Got an error: ' + e);
 });
