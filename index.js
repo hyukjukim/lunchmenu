@@ -43,9 +43,9 @@ const actions = {
   send(request, response) {
     console.log('3');
     //const {sessionId, context, entities} = 'request';
-    const {text, quickreplies} = response;
+    //const {text, quickreplies} = response;
     console.log('sending...', JSON.stringify(response));
-    sendTextMessage(id.pop(),response);
+    sendTextMessage(id.pop(),JSON.stringify(response));
   },
   getForecast({context, entities}) {
 
