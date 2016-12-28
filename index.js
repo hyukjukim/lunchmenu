@@ -42,7 +42,7 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   send(request, response) {
     console.log('3');
-    const {sessionId, context, entities} = 'request';
+    //const {sessionId, context, entities} = 'request';
     const {text, quickreplies} = response;
     console.log('sending...', JSON.stringify(response));
     sendTextMessage(id.pop(),response);
