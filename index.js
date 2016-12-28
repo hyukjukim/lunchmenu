@@ -108,41 +108,16 @@ app.post('/webhook', (req, res) => {
           // Yay! We got a new message!
           // We retrieve the Facebook user ID of the sender
           const sender = event.sender.id;
-
-          if (attachments) {
-            // We received an attachment
-            // Let's reply with an automatic message
-            sendTextMessage(sender, 'Sorry I can only process text messages for now.')
-            .catch(console.error);
-          } else if (event.message.text) {
-            // We received a text message
-
-            // Let's forward the message to the Wit.ai Bot Engine
-            // This will run all actions until our bot has nothing left to do
             wit.runActions(
               event.message.text
             ).then((context) => {
-              // Our bot did everything it has to do.
-              // Now it's waiting for further messages to proceed.
               console.log('Waiting for next user messages');
-
-              // Based on the session state, you might want to reset the session.
-              // This depends heavily on the business logic of your bot.
-              // Example:
-              // if (context['done']) {
-              //   delete sessions[sessionId];
-              // }
-
-              // Updating the user's current session state
               sessions[sessionId].context = context;
             })
             .catch((err) => {
               console.error('Oops! Got an error from Wit: ', err.stack || err);
             })
           }
-        } else {
-          console.log('received event', JSON.stringify(event));
-        }
       });
     });
   }
