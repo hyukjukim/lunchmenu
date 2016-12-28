@@ -48,7 +48,11 @@ const actions = {
     console.log('sending...', JSON.stringify(response));
   },
   getForecast({context, entities}) {
+
     console.log('4');
+    console.log(client.message);
+    console.log(entities);
+    console.log(context);
     var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
@@ -62,5 +66,6 @@ const actions = {
 };
 
 const client = new Wit({accessToken, actions});
+console.log(client);
 console.log('5');
 interactive(client);
