@@ -85,7 +85,7 @@ app.post('/webhook/', function (req, res) {
           sendGenericMessage(sender)
           continue
       }
-
+/*
       client.message('what is the weather in London?', {})
       .then((data) => {
         var obj = JSON.stringify(data);
@@ -93,7 +93,21 @@ app.post('/webhook/', function (req, res) {
         console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
       })
       .catch(console.error);
+*/
 
+      const sessionId = 'my-user-session-42';
+      const context0 = {};
+      client.runActions(sessionId, 'what is the weather in London?', context0)
+      .then((context1) => {
+        console.log('The session state is now: ' + JSON.stringify(context1));
+        return client.runActions(sessionId, 'and in Brussels?', context1);
+      })
+      .then((context2) => {
+        console.log('The session state is now: ' + JSON.stringify(context2));
+      })
+      .catch((e) => {
+        console.log('Oops! Got an error: ' + e);
+      });
 
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
