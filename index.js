@@ -34,6 +34,7 @@ const firstEntityValue = (entities, entity) => {
   return typeof val === 'object' ? val.value : val;
 };
 
+
 // Our bot actions
 const actions = {
   send(sessionId, text) {
@@ -68,8 +69,6 @@ const actions = {
   // You should implement your custom actions here
   getForecast(context, entities) {
 
-    context = json.stringify(context);
-    entities =  json.stringify(entities);
     console.log('4');
     console.log('entities');
     console.log(entities);
@@ -77,7 +76,7 @@ const actions = {
     console.log(context);
 
 
-    var location = firstEntityValue(context.entities, 'location');
+    var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
       delete context.missingLocation;
