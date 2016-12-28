@@ -89,13 +89,15 @@ app.post('/webhook/', function (req, res) {
       client.message(text, {})
       .then((data) => {
         var obj = JSON.stringify(data);
+        console.log('********************************************************************************');
         console.log(data);
-        console.log('');
+        console.log('********************************************************************************');
         var result = JSON.parse(obj);
-        console.log('');
+        console.log('********************************************************************************');
         console.log(obj);
-        console.log('');
+        console.log('********************************************************************************');
         console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
+        console.log('********************************************************************************');
       })
       .catch(console.error);
 
