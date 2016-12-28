@@ -1,13 +1,23 @@
-'use strict'
+'use strict';
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
-var mongoose = require("mongoose")
-const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
-var result_msg = "";
+// Messenger API integration example
+// We assume you have:
+// * a Wit.ai bot setup (https://wit.ai/docs/quickstart)
+// * a Messenger Platform setup (https://developers.facebook.com/docs/messenger-platform/quickstart)
+// You need to `npm install` the following dependencies: body-parser, express, request.
+//
+// 1. npm install body-parser express request
+// 2. Download and install ngrok from https://ngrok.com/download
+// 3. ./ngrok http 8445
+// 4. WIT_TOKEN=your_access_token FB_APP_SECRET=your_app_secret FB_PAGE_TOKEN=your_page_token node examples/messenger.js
+// 5. Subscribe your page to the Webhooks using verify_token and `https://<your_ngrok_io>/webhook` as callback URL.
+// 6. Talk to your bot on Messenger!
 
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const express = require('express');
+const fetch = require('node-fetch');
+const request = require('request');
 
 let Wit = null;
 let log = null;
@@ -20,8 +30,50 @@ try {
   log = require('node-wit').log;
 }
 
-const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-//const client = new Wit({accessToken});
+// Webserver parameter
+const PORT = process.env.PORT || 8445;
+
+// Wit.ai parameters
+const WIT_TOKEN = process.env.WIT_TOKEN;
+
+// Messenger API parameters
+const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
+if (!FB_PAGE_TOKEN) { throw new Error('missing FB_PAGE_TOKEN') }
+const FB_APP_SECRET = process.env.FB_APP_SECRET;
+if (!FB_APP_SECRET) { throw new Error('missing FB_APP_SECRET') }
+
+let FB_VERIFY_TOKEN = null;
+crypto.randomBytes(8, (err, buff) => {
+  if (err) throw err;
+  FB_VERIFY_TOKEN = buff.toString('hex');
+  console.log(`/webhook will accept the Verify Token "${FB_VERIFY_TOKEN}"`);
+});
+
+// ----------------------------------------------------------------------------
+// Messenger API specific code
+
+// See the Send API reference
+// https://developers.facebook.com/docs/messenger-platform/send-api-reference
+
+const fbMessage = (id, text) => {
+  const body = JSON.stringify({
+    recipient: { id },
+    message: { text },
+  });
+  const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
+  return fetch('https://graph.facebook.com/me/messages?' + qs, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body,
+  })
+  .then(rsp => rsp.json())
+  .then(json => {
+    if (json.error && json.error.message) {
+      throw new Error(json.error.message);
+    }
+    return json;
+  });
+};
 
 // ----------------------------------------------------------------------------
 // Wit.ai bot specific code
@@ -80,70 +132,33 @@ const actions = {
 
 // Setting up our bot
 const wit = new Wit({
-  accessToken: accessToken,
+  accessToken: WIT_TOKEN,
   actions,
   logger: new log.Logger(log.INFO)
 });
 
-
-
-
-
-// DB setting
-mongoose.connect(process.env.MONGO_DB); // 1
-var db = mongoose.connection; // 2
-// 3﻿
-db.once("open", function(){
- console.log("DB connected");
+// Starting our webserver and putting it all together
+const app = express();
+app.use(({method, url}, rsp, next) => {
+  rsp.on('finish', () => {
+    console.log(`${rsp.statusCode} ${method} ${url}`);
+  });
+  next();
 });
-// 4
-db.on("error", function(err){
- console.log("DB ERROR : ", err);
+app.use(bodyParser.json({ verify: verifyRequestSignature }));
+
+// Webhook setup
+app.get('/webhook', (req, res) => {
+  if (req.query['hub.mode'] === 'subscribe' &&
+    req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
+    res.send(req.query['hub.challenge']);
+  } else {
+    res.sendStatus(400);
+  }
 });
-// DB schema // 4
-var contactSchema = mongoose.Schema({
-    user_key: {
-        type: String
-    }, //name:{type:String, required:true, unique:true},
-    type: {
-        type: String
-    },
-    content: {
-        type: String
-    }
-});
-var Contact = mongoose.model("contact", contactSchema); //5
-
-
-app.set('port', (process.env.PORT || 5000))
-
-// Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
-
-// Process application/json
-app.use(bodyParser.json())
-
-// Index route
-app.get('/', function (req, res) {
-    res.send('Hello world, I am a FaceBook chat bot')
-})
-
-// for Facebook verification
-app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'kimhyukju_test_token') {
-        res.send(req.query['hub.challenge'])
-    }
-    res.send('Error, wrong token')
-})
-
-// Spin up the server
-app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
-})
-
 
 // Message handler
-app.post('/webhook/', (req, res) => {
+app.post('/webhook', (req, res) => {
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -207,104 +222,34 @@ app.post('/webhook/', (req, res) => {
 });
 
 /*
-app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i]
-    let sender = event.sender.id
-    if (event.message && event.message.text) {
-      let text = event.message.text
-      if (text === 'Generic') {
-          sendGenericMessage(sender)
-          continue
-      }
+ * Verify that the callback came from Facebook. Using the App Secret from
+ * the App Dashboard, we can verify the signature that is sent with each
+ * callback in the x-hub-signature field, located in the header.
+ *
+ * https://developers.facebook.com/docs/graph-api/webhooks#setup
+ *
+ */
+function verifyRequestSignature(req, res, buf) {
+  var signature = req.headers["x-hub-signature"];
 
-      client.message(text, {}) //'what is the weather in London?'
-      .then((data) => {
-        var obj = JSON.stringify(data);
-        var result = JSON.parse(obj);
-        result_msg = result.entities.intent[0].value;
-      })
-      .catch(console.error);
+  if (!signature) {
+    // For testing, let's log an error. In production, you should throw an
+    // error.
+    console.error("Couldn't validate the signature.");
+  } else {
+    var elements = signature.split('=');
+    var method = elements[0];
+    var signatureHash = elements[1];
 
+    var expectedHash = crypto.createHmac('sha1', FB_APP_SECRET)
+                        .update(buf)
+                        .digest('hex');
 
-      sendTextMessage(sender, "Yay, got Wit.ai response:  " + result_msg.substring(0, 200))
-    }
-    if (event.postback) {
-      let text = JSON.stringify(event.postback)
-      sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-      continue
+    if (signatureHash != expectedHash) {
+      throw new Error("Couldn't validate the request signature.");
     }
   }
-  res.sendStatus(200)
-})
-*/
-
-function sendTextMessage(sender, text) {
-    let messageData = { text:text }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
 }
 
-
-function sendGenericMessage(sender) {
-    let messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
-                    }],
-                }]
-            }
-        }
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}
+app.listen(PORT);
+console.log('Listening on :' + PORT + '...');
