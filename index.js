@@ -34,7 +34,6 @@ const firstEntityValue = (entities, entity) => {
   return typeof val === 'object' ? val.value : val;
 };
 
-
 // Our bot actions
 const actions = {
   send(sessionId, text) {
