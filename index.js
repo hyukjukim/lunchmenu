@@ -22,6 +22,9 @@ try {
 // Our bot actions
 const actions = {
   send(sessionId, text) {
+    console.log(sessionId);
+    console.log(text);
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
     const recipientId = sessionId;
@@ -47,9 +50,7 @@ const actions = {
   },
   // You should implement your custom actions here
   getForecast(context, entities) {
-
     console.log('4');
-
     console.log(entities);
     console.log(context);
     var location = firstEntityValue(entities, 'location');
@@ -149,21 +150,13 @@ app.post('/webhook/', function (req, res) {
       .catch(console.error);
 */
 
-const sessionId = 'my-user-session-42';
-const context0 = {};
-client.runActions(sender, text, context0)
-.then((context1) => {
-  console.log('The session state is now: ' + JSON.stringify(context1));
-  return client.runActions(sessionId, 'and in Brussels?', context1);
-})
-.then((context2) => {
-  console.log('The session state is now: ' + JSON.stringify(context2));
-})
+
+client.runActions(sender, text)
 .catch((e) => {
   console.log('Oops! Got an error: ' + e);
 });
 
-      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
   // doc.children[0]._id will be undefined
 });
