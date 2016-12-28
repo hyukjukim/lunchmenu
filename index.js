@@ -77,7 +77,6 @@ const actions = {
   },
   // See https://wit.ai/docs/quickstart
 };
-
 const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
 const client = new Wit({accessToken,actions});
 
