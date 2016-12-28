@@ -41,9 +41,7 @@ const firstEntityValue = (entities, entity) => {
 };
 
 const actions = {
-  console.log(client.message._text);
   send(request, response) {
-
     console.log('3');
     const {sessionId, context, entities} = 'request';
     const {text, quickreplies} = response;
@@ -52,8 +50,9 @@ const actions = {
   getForecast({context, entities}) {
 
     console.log('4');
-
+    console.log("Entities");
     console.log(entities);
+    console.log("Context");
     console.log(context);
     var location = firstEntityValue(entities, 'location');
     if (location) {
@@ -64,9 +63,8 @@ const actions = {
       delete context.forecast;
     }
     return context;
-  }
+  },
 };
-
 
 /*
 const client = new Wit({accessToken});
