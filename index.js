@@ -21,10 +21,10 @@ try {
 //2016-12-28 wit.ai
 // Our bot actions
 const actions = {
-  send({sessionId}, {text}) {
+  send(sessionId, {text}) {
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
-    const recipientId = sessions[sessionId].fbid;
+    const recipientId = sessionId;
     if (recipientId) {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
