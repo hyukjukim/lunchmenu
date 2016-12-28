@@ -67,7 +67,7 @@ const actions = {
     }
   },
   // You should implement your custom actions here
-  getForecast({context}) {
+  getForecast(context) {
 
     console.log('4');
     console.log('entities');
