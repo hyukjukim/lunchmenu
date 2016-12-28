@@ -38,7 +38,9 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   send(sessionId, text) {
+    console.log("sessionId");
     console.log(sessionId);
+    console.log("text");
     console.log(text);
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     // Our bot has something to say!
