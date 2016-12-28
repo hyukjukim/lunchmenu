@@ -62,6 +62,7 @@ const actions = {
       context.missingLocation = true;
       delete context.forecast;
     }
+    
     return context;
   },
 };
