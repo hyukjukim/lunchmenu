@@ -19,6 +19,22 @@ try {
 }
 
 //2016-12-28 wit.ai
+
+const firstEntityValue = (entities, entity) => {
+  console.log('1');
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  console.log('2');
+  return typeof val === 'object' ? val.value : val;
+};
+
+
 // Our bot actions
 const actions = {
   send(sessionId, text) {
