@@ -71,10 +71,11 @@ const actions = {
 
     console.log('4');
     console.log('entities');
+    var entities = json.stringify(context);
     console.log(entities);
     console.log('context');
     console.log(context);
-    var location = firstEntityValue(context.entities, 'location');
+    var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
       delete context.missingLocation;
