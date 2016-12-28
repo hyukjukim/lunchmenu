@@ -20,26 +20,8 @@ try {
   interactive = require('node-wit').interactive;
 }
 
-const WIT_TOKEN = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-//const client = new Wit({WIT_TOKEN});
-// ----------------------------------------------------------------------------
-// Wit.ai bot specific code
-
-// Our bot actions
-const actions = {
-  send(text,response) {
-      return sendTextMessage(response)
-    }
-};
-
-// Setting up our bot
-const wit = new Wit({
-  accessToken: WIT_TOKEN,
-  actions
-});
-
-
-
+const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
+const client = new Wit({accessToken});
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
@@ -94,35 +76,42 @@ app.listen(app.get('port'), function() {
 })
 
 
-// Message handler
-app.post('/webhook', (req, res) => {
-  // Parse the Messenger payload
-  // See the Webhook reference
-  // https://developers.facebook.com/docs/messenger-platform/webhook-reference
-  const data = req.body;
 
-  if (data.object === 'page') {
-    data.entry.forEach(entry => {
-      entry.messaging.forEach(event => {
-        if (event.message && !event.message.is_echo) {
-          // Yay! We got a new message!
-          // We retrieve the Facebook user ID of the sender
-          const sender = event.sender.id;
-            wit.runActions(
-              event.message.text
-            ).then((context) => {
-              console.log('Waiting for next user messages');
-              sessions[sessionId].context = context;
-            })
-            .catch((err) => {
-              console.error('Oops! Got an error from Wit: ', err.stack || err);
-            })
-          }
-      });
-    });
-  }
-  res.sendStatus(200);
+app.post('/webhook/', function (req, res) {
+  let messaging_events = req.body.entry[0].messaging
+  for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[i]
+    let sender = event.sender.id
+    if (event.message && event.message.text) {
+      let text = event.message.text
+      if (text === 'Generic') {
+          sendGenericMessage(sender)
+          continue
+      }
+
+      client.message(text, {}) //'what is the weather in London?'
+      .then((data) => {
+        var obj = JSON.stringify(data);
+        var result = JSON.parse(obj);
+        result_msg = result.entities.intent[0].value;
+      })
+      .catch(console.error);
+
+
+      sendTextMessage(sender, "Yay, got Wit.ai response:  " + result_msg.substring(0, 200))
+/*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
+  // doc.children[0]._id will be undefined
 });
+*/
+    }
+    if (event.postback) {
+      let text = JSON.stringify(event.postback)
+      sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+      continue
+    }
+  }
+  res.sendStatus(200)
+})
 
 
 function sendTextMessage(sender, text) {
