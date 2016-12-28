@@ -8,6 +8,21 @@ var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
 
 
+//2016-12-28 wit.ai
+let Wit = null;
+let interactive = null;
+try {
+  // if running from repo
+  Wit = require('../').Wit;
+  interactive = require('../').interactive;
+} catch (e) {
+  Wit = require('node-wit').Wit;
+  interactive = require('node-wit').interactive;
+}
+const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
+
+
+
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
 var db = mongoose.connection; // 2
@@ -72,7 +87,63 @@ app.post('/webhook/', function (req, res) {
           sendGenericMessage(sender)
           continue
       }
-      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+
+//2016-12-28 wit.ai
+client.runActions(
+  sessionId, // the user's current session
+  text, // the user's message
+  sessions[sessionId].context, // the user's current session state
+  (error, context) => {
+    if (error) {
+      console.log('Oops! Got an error from Wit:', error);
+    } else {
+      console.log('Waiting for futher messages.');
+      sessions[sessionId].context = context;
+    }
+  }
+);
+
+const firstEntityValue = (entities, entity) => {
+  console.log('1');
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  console.log('2');
+  return typeof val === 'object' ? val.value : val;
+};
+
+const actions = {
+  send(request, response) {
+    console.log('3');
+    const {sessionId, context, entities} = 'request';
+    const {text, quickreplies} = response;
+    console.log('sending...', JSON.stringify(response));
+  },
+  getForecast({context, entities}) {
+
+    console.log('4');
+    console.log(entities);
+    console.log(context);
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+    return context;
+  },
+};
+
+
+//2016-12-28    sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
   // doc.children[0]._id will be undefined
 });
@@ -155,4 +226,7 @@ function sendGenericMessage(sender) {
             console.log('Error: ', response.body.error)
         }
     })
+
+    const client = new Wit({accessToken, actions});
+    interactive(client);
 }
