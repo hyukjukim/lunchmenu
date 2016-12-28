@@ -89,6 +89,7 @@ app.post('/webhook/', function (req, res) {
       client.message('what is the weather in London?', {})
       .then((data) => {
         var obj = JSON.stringify(data);
+        console.log(data);
         var result = JSON.parse(obj);
         console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
       })
