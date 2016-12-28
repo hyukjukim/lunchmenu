@@ -86,7 +86,6 @@ app.post('/webhook/', function (req, res) {
           continue
       }
 
-/*
       client.message(text, {})
       .then((data) => {
         var obj = JSON.stringify(data);
@@ -100,25 +99,7 @@ app.post('/webhook/', function (req, res) {
         console.log('********************************************************************************');
       })
       .catch(console.error);
-*/
 
-const client = new Wit({
-  actions: {
-    send(text, response) {
-      return new Promise(function(resolve, reject) {
-        console.log(JSON.stringify(response));
-        return resolve();
-      });
-    },
-    getForecast({sessionId, context, text, entities}) {
-      console.log(`Session ${sessionId} received ${text}`);
-      console.log(`The current context is ${JSON.stringify(context)}`);
-      console.log(`Wit extracted ${JSON.stringify(entities)}`);
-      return Promise.resolve(context);
-    }
-  },
-  logger: new log.Logger(log.DEBUG) // optional
-});
 
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
