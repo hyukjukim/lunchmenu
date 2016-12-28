@@ -70,7 +70,8 @@ const actions = {
   getForecast(context) {
     console.log('4');
     console.log('context');
-    console.log(context);
+    var temp = JSON.stringify(context);
+    console.log(temp);
     return context;
   },
   // See https://wit.ai/docs/quickstart
