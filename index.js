@@ -6,6 +6,8 @@ const request = require('request')
 const app = express()
 var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
+var obj = "";
+var result = "";
 
 let Wit = null;
 let interactive = null;
@@ -88,8 +90,8 @@ app.post('/webhook/', function (req, res) {
 
       client.message(text, {}) //'what is the weather in London?'
       .then((data) => {
-        var obj = JSON.stringify(data);
-        var result = JSON.parse(obj);
+        obj = JSON.stringify(data);
+        result = JSON.parse(obj);
       })
       .catch(console.error);
 
