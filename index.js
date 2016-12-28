@@ -10,15 +10,16 @@ var result_msg = "";
 
 
 let Wit = null;
-let interactive = null;
+let log = null;
 try {
   // if running from repo
   Wit = require('../').Wit;
-  interactive = require('../').interactive;
+  log = require('../').log;
 } catch (e) {
   Wit = require('node-wit').Wit;
-  interactive = require('node-wit').interactive;
+  log = require('node-wit').log;
 }
+
 
 const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
 //const client = new Wit({accessToken});
@@ -84,10 +85,6 @@ const wit = new Wit({
   actions,
   logger: new log.Logger(log.INFO)
 });
-
-
-
-
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
