@@ -65,7 +65,15 @@ const actions = {
   },
 };
 
-const client = new Wit({accessToken, actions});
+
+const client = new Wit({accessToken});
+client.message('what is the weather in London?', {})
+.then((data) => {
+  var obj = JSON.stringify(data);
+  var result = JSON.parse(obj);
+  console.log('Yay, got Wit.ai response: ' + result.entities.intent[0].value);
+})
+.catch(console.error);
 console.log(client);
 console.log('5');
 interactive(client);
