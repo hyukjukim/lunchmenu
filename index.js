@@ -135,7 +135,7 @@ app.post('/webhook/', function (req, res) {
 
 const sessionId = 'my-user-session-42';
 const context0 = {};
-client.runActions(sessionId, text, context0)
+client.runActions(sender, text, context0)
 .then((context1) => {
   console.log('The session state is now: ' + JSON.stringify(context1));
   return client.runActions(sessionId, 'and in Brussels?', context1);
