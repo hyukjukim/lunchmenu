@@ -86,6 +86,7 @@ app.post('/webhook/', function (req, res) {
           continue
       }
 
+
       client.message(text, {})
       .then((data) => {
         var obj = JSON.stringify(data);
