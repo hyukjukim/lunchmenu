@@ -7,19 +7,6 @@ const app = express()
 var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
 
-let Wit = null;
-let interactive = null;
-try {
-  // if running from repo
-  Wit = require('../').Wit;
-  interactive = require('../').interactive;
-} catch (e) {
-  Wit = require('node-wit').Wit;
-  interactive = require('node-wit').interactive;
-}
-
-const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-const client = new Wit({accessToken});
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
@@ -85,16 +72,6 @@ app.post('/webhook/', function (req, res) {
           sendGenericMessage(sender)
           continue
       }
-/*2016-12-28
-      client.message(text, {}) //'what is the weather in London?'
-      .then((data) => {
-        var obj = JSON.stringify(data);
-        var result = JSON.parse(obj);
-        sendTextMessage(sender, "Text received, echo: " + JSON.stringify(result.entities.intent[0].value));
-      })
-      .catch(console.error);
-
-*/
       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
   // doc.children[0]._id will be undefined
