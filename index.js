@@ -67,23 +67,11 @@ const actions = {
     }
   },
   // You should implement your custom actions here
-  getForecast(context, entities) {
-
+  getForecast(context) {
     console.log('4');
-    console.log('entities');
-    console.log(entities);
     console.log('context');
     console.log(context);
 
-
-    var location = firstEntityValue(entities, 'location');
-    if (location) {
-      context.forecast = 'sunny in ' + location; // we should call a weather API here
-      delete context.missingLocation;
-    } else {
-      context.missingLocation = true;
-      delete context.forecast;
-    }
     return context;
   },
   // See https://wit.ai/docs/quickstart
@@ -172,8 +160,6 @@ app.post('/webhook/', function (req, res) {
       })
       .catch(console.error);
 */
-
-
 client.runActions(sender, text)
 .then((sender) => {console.log(sender +'connect@@@@');})
 .catch((e) => {
