@@ -64,7 +64,7 @@ const actions = {
       delete context.forecast;
     }
     return context;
-  },
+  }
 };
 
 
