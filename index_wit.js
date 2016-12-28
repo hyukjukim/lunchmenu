@@ -65,6 +65,7 @@ const actions = {
   },
 };
 
+
 /*
 const client = new Wit({accessToken});
 client.message('what is the weather in London?', {})
