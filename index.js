@@ -67,16 +67,18 @@ const actions = {
     }
   },
   // You should implement your custom actions here
-  getForecast(context) {
+  getForecast(context, entities) {
 
+    context = json.stringify(context);
+    entities =  json.stringify(entities);
     console.log('4');
     console.log('entities');
-    var entities = json.stringify(context);
     console.log(entities);
     console.log('context');
     console.log(context);
-    
-    var location = firstEntityValue(entities, 'location');
+
+
+    var location = firstEntityValue(context.entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
       delete context.missingLocation;
