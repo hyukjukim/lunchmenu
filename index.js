@@ -90,12 +90,11 @@ app.post('/webhook/', function (req, res) {
       .then((data) => {
         var obj = JSON.stringify(data);
         var result = JSON.parse(obj);
-        console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
       })
       .catch(console.error);
 
 
-      sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+      sendTextMessage(sender, "Yay, got Wit.ai response:  " + result.entities.intent[0].value.substring(0, 200))
 /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
   // doc.children[0]._id will be undefined
 });
