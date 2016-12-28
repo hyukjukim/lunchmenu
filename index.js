@@ -86,7 +86,7 @@ app.post('/webhook/', function (req, res) {
           continue
       }
 
-      client.message(sender,text, {})
+      client.message('what is the weather in London?', {})
       .then((data) => {
         var obj = JSON.stringify(data);
         var result = JSON.parse(obj);
