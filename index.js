@@ -7,6 +7,10 @@ const app = express()
 var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
 
+//2016-12-29 wit.ai
+var obj ='';
+var result ='';
+
 let Wit = null;
 let interactive = null;
 try {
@@ -73,10 +77,12 @@ const actions = {
     console.log('4');
     console.log("Context");
     console.log(typeof(context) + JSON.stringify(context));
+    obj = JSON.stringify(context);
+    result = JSON.parse(obj);
     console.log("Entities");
-    console.log(typeof(entities));
+    console.log(typeof(entities)+result.entities);
 
-    var location = firstEntityValue(entities, 'location');
+    var location = firstEntityValue(result.entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
       delete context.missingLocation;
