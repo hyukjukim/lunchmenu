@@ -252,7 +252,7 @@ app.post('/webhook', (req, res) => {
   res.sendStatus(200);
 });
 
-
+/*
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
@@ -322,3 +322,4 @@ function sendGenericMessage(sender) {
         }
     })
 }
+*/
