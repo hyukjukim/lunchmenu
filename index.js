@@ -67,12 +67,23 @@ const actions = {
     }
   },
   // You should implement your custom actions here
-  getForecast(context) {
+  getForecast({context, entities}) {
+
     console.log('4');
-    console.log('context');
-    var temp = JSON.stringify(context);
-    var res = temp.entities;
-    console.log(res);
+    console.log("Context");
+    console.log(typeof(context));
+    console.log("Entities");
+    console.log(typeof(entities));
+
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+
     return context;
   },
   // See https://wit.ai/docs/quickstart
