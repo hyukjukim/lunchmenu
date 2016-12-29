@@ -18,7 +18,6 @@ const crypto = require('crypto');
 const express = require('express');
 const fetch = require('node-fetch');
 const request = require('request');
-
 let Wit = null;
 let log = null;
 try {
