@@ -6,10 +6,8 @@ const request = require('request')
 const app = express()
 var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
+var result_msg = "";
 
-//2016-12-29 wit.ai
-var obj ='';
-var result ='';
 
 let Wit = null;
 let interactive = null;
@@ -22,65 +20,13 @@ try {
   interactive = require('node-wit').interactive;
 }
 
-//2016-12-28 wit.ai
-
-const firstEntityValue = (entities, entity) => {
-  console.log('1');
-  console.log(entities[entity][0].value);
-  const val = entities && entities[entity] &&
-    Array.isArray(entities[entity]) &&
-    entities[entity].length > 0 &&
-    entities[entity][0].value
-  ;
-  if (!val) {
-    return null;
-  }
-  console.log('2');
-  return typeof val === 'object' ? val.value : val;
-};
-
-
-// Our bot actions
-const actions = {
-  send(request, response) {
-    console.log(request);
-    console.log(response);
-    console.log('3');/*
-    const {sessionId, context, entities} = 'request';
-    const {text, quickreplies} = response;
-    console.log('sending...', JSON.stringify(response));*/
-  },
-  // You should implement your custom actions here
-  getForecast(context, entities) {
-
-    console.log('4');
-    console.log("Context");
-    console.log(typeof(context) + JSON.stringify(context));
-    obj = JSON.stringify(context);
-    result = JSON.parse(obj);
-    console.log("Entities");
-    console.log(typeof(entities)+result.entities.location);
-
-    var location = firstEntityValue(result.entities, 'location');
-    if (location) {
-      context.forecast = 'sunny in ' + location; // we should call a weather API here
-      delete context.missingLocation;
-    } else {
-      context.missingLocation = true;
-      delete context.forecast;
-    }
-
-    return context;
-  },
-  // See https://wit.ai/docs/quickstart
-};
 const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-const client = new Wit({accessToken,actions});
+const client = new Wit({accessToken});
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
 var db = mongoose.connection; // 2
-// 3﻿
+// 3?
 db.once("open", function(){
  console.log("DB connected");
 });
@@ -130,6 +76,7 @@ app.listen(app.get('port'), function() {
 })
 
 
+
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
   for (let i = 0; i < messaging_events.length; i++) {
@@ -142,32 +89,21 @@ app.post('/webhook/', function (req, res) {
           continue
       }
 
-/*
-      client.message(text, {})
+
+      client.message(text, {}) //'what is the weather in London?'
       .then((data) => {
         var obj = JSON.stringify(data);
-        console.log('********************************************************************************');
-        console.log(data);
         var result = JSON.parse(obj);
-        console.log('********************************************************************************');
-        console.log(obj);
-        console.log('********************************************************************************');
-        console.log('Yay, got Wit.ai response: ' + JSON.stringify(result.entities.intent[0].value));
-        console.log('********************************************************************************');
+        result_msg = result.entities.intent[0].value;
       })
       .catch(console.error);
-*/
-client.runActions(sender, text)
-.then((sender) => {console.log(sender +'connect@@@@');})
-.catch((e) => {
-  console.log('Oops! Got an error: ' + e);
-});
 
-sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-/*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
-  // doc.children[0]._id will be undefined
-});
-*/
+
+      sendTextMessage(sender, "Yay, got Wit.ai response:  " + result_msg.substring(0, 200))
+      /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
+        // doc.children[0]._id will be undefined
+      });
+      */
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback)
