@@ -42,34 +42,11 @@ const firstEntityValue = (entities, entity) => {
 
 // Our bot actions
 const actions = {
-  send(sessionId, text) {
-    console.log("sessionId");
-    console.log(typeof(JSON.parse(sessionId)) + JSON.stringify(sessionId));
-    console.log("text");
-    console.log(typeof(text));
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-    // Our bot has something to say!
-    // Let's retrieve the Facebook user whose session belongs to
-    const recipientId = sessionId;
-    if (recipientId) {
-      // Yay, we found our recipient!
-      // Let's forward our bot response to her.
-      // We return a promise to let our bot know when we're done sending
-      return sendTextMessage(recipientId, text)
-      .then(() => null)
-      .catch((err) => {
-        console.error(
-          'Oops! An error occurred while forwarding the response to',
-          recipientId,
-          ':',
-          err.stack || err
-        );
-      });
-    } else {
-      console.error('Oops! Couldn\'t find user for session:', sessionId);
-      // Giving the wheel back to our bot
-      return Promise.resolve()
-    }
+  send(request, response) {
+    console.log('3');
+    const {sessionId, context, entities} = 'request';
+    const {text, quickreplies} = response;
+    console.log('sending...', JSON.stringify(response));
   },
   // You should implement your custom actions here
   getForecast(context, entities) {
