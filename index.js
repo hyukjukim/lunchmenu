@@ -8,20 +8,89 @@ var mongoose = require("mongoose")
 const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
 var result_msg = "";
 
-
 let Wit = null;
-let interactive = null;
+let log = null;
 try {
   // if running from repo
   Wit = require('../').Wit;
-  interactive = require('../').interactive;
+  log = require('../').log;
 } catch (e) {
   Wit = require('node-wit').Wit;
-  interactive = require('node-wit').interactive;
+  log = require('node-wit').log;
 }
 
-const accessToken = '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS'
-const client = new Wit({accessToken});
+
+// Wit.ai bot specific code
+
+// This will contain all user sessions.
+// Each session has an entry:
+// sessionId -> {fbid: facebookUserId, context: sessionState}
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: {}};
+  }
+  return sessionId;
+};
+
+// Our bot actions
+const actions = {
+  send({sessionId}, {text}) {
+    // Our bot has something to say!
+    // Let's retrieve the Facebook user whose session belongs to
+    const recipientId = sessions[sessionId].fbid;
+    if (recipientId) {
+      // Yay, we found our recipient!
+      // Let's forward our bot response to her.
+      // We return a promise to let our bot know when we're done sending
+      return fbMessage(recipientId, text)
+      .then(() => null)
+      .catch((err) => {
+        console.error(
+          'Oops! An error occurred while forwarding the response to',
+          recipientId,
+          ':',
+          err.stack || err
+        );
+      });
+    } else {
+      console.error('Oops! Couldn\'t find user for session:', sessionId);
+      // Giving the wheel back to our bot
+      return Promise.resolve()
+    }
+  },
+  // You should implement your custom actions here
+  // See https://wit.ai/docs/quickstart
+};
+
+// Setting up our bot
+const wit = new Wit({
+  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
+  actions,
+  logger: new log.Logger(log.INFO)
+});
+
+// Starting our webserver and putting it all together
+const app = express();
+app.use(({method, url}, rsp, next) => {
+  rsp.on('finish', () => {
+    console.log(`${rsp.statusCode} ${method} ${url}`);
+  });
+  next();
+});
+app.use(bodyParser.json({ verify: verifyRequestSignature }));
+
 
 // DB setting
 mongoose.connect(process.env.MONGO_DB); // 1
@@ -76,43 +145,70 @@ app.listen(app.get('port'), function() {
 })
 
 
+// Message handler
+app.post('/webhook', (req, res) => {
+  // Parse the Messenger payload
+  // See the Webhook reference
+  // https://developers.facebook.com/docs/messenger-platform/webhook-reference
+  const data = req.body;
 
-app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i]
-    let sender = event.sender.id
-    if (event.message && event.message.text) {
-      let text = event.message.text
-      if (text === 'Generic') {
-          sendGenericMessage(sender)
-          continue
-      }
+  if (data.object === 'page') {
+    data.entry.forEach(entry => {
+      entry.messaging.forEach(event => {
+        if (event.message && !event.message.is_echo) {
+          // Yay! We got a new message!
+          // We retrieve the Facebook user ID of the sender
+          const sender = event.sender.id;
 
+          // We retrieve the user's current session, or create one if it doesn't exist
+          // This is needed for our bot to figure out the conversation history
+          const sessionId = findOrCreateSession(sender);
 
-      client.message(text, {}) //'what is the weather in London?'
-      .then((data) => {
-        var obj = JSON.stringify(data);
-        var result = JSON.parse(obj);
-        result_msg = result.entities.intent[0].value;
-      })
-      .catch(console.error);
+          // We retrieve the message content
+          const {text, attachments} = event.message;
 
+          if (attachments) {
+            // We received an attachment
+            // Let's reply with an automatic message
+            fbMessage(sender, 'Sorry I can only process text messages for now.')
+            .catch(console.error);
+          } else if (text) {
+            // We received a text message
 
-      sendTextMessage(sender, "Yay, got Wit.ai response:  " + result_msg.substring(0, 200))
-      /*      Contact.create({ content:  text.substring(0, 200) }, function(error, doc) {
-        // doc.children[0]._id will be undefined
+            // Let's forward the message to the Wit.ai Bot Engine
+            // This will run all actions until our bot has nothing left to do
+            wit.runActions(
+              sessionId, // the user's current session
+              text, // the user's message
+              sessions[sessionId].context // the user's current session state
+            ).then((context) => {
+              // Our bot did everything it has to do.
+              // Now it's waiting for further messages to proceed.
+              console.log('Waiting for next user messages');
+
+              // Based on the session state, you might want to reset the session.
+              // This depends heavily on the business logic of your bot.
+              // Example:
+              // if (context['done']) {
+              //   delete sessions[sessionId];
+              // }
+
+              // Updating the user's current session state
+              sessions[sessionId].context = context;
+            })
+            .catch((err) => {
+              console.error('Oops! Got an error from Wit: ', err.stack || err);
+            })
+          }
+        } else {
+          console.log('received event', JSON.stringify(event));
+        }
       });
-      */
-    }
-    if (event.postback) {
-      let text = JSON.stringify(event.postback)
-      sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-      continue
-    }
+    });
   }
-  res.sendStatus(200)
-})
+  res.sendStatus(200);
+});
+
 
 
 function sendTextMessage(sender, text) {
