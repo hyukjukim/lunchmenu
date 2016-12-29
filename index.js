@@ -44,6 +44,20 @@ const findOrCreateSession = (fbid) => {
   return sessionId;
 };
 
+const firstEntityValue = (entities, entity) => {
+  console.log('1');
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  console.log('2');
+  return typeof val === 'object' ? val.value : val;
+};
+
 // Our bot actions
 const actions = {
   send({sessionId}, {text}) {
@@ -71,6 +85,19 @@ const actions = {
     }
   },
   // You should implement your custom actions here
+  getForecast({context, entities}) {
+
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+
+    return context;
+  },
   // See https://wit.ai/docs/quickstart
 };
 
