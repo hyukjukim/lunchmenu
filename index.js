@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 var mongoose = require("mongoose")
-const token = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
+const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN // 환경변수 갖고 오는 곳.
 var result_msg = "";
 
 let Wit = null;
