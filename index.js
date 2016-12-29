@@ -53,7 +53,6 @@ crypto.randomBytes(8, (err, buff) => {
 
 // See the Send API reference
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
-
 const fbMessage = (id, text) => {
   const body = JSON.stringify({
     recipient: { id },
