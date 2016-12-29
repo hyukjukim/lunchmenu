@@ -39,9 +39,9 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   send(sessionId, text) {
     console.log("sessionId");
-    console.log(sessionId);
+    console.log(typeof(sessionId));
     console.log("text");
-    console.log(text);
+    console.log(typeof(text));
     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
