@@ -43,10 +43,12 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   send(request, response) {
-    console.log('3');
+    console.log(request);
+    console.log(response);
+    console.log('3');/*
     const {sessionId, context, entities} = 'request';
     const {text, quickreplies} = response;
-    console.log('sending...', JSON.stringify(response));
+    console.log('sending...', JSON.stringify(response));*/
   },
   // You should implement your custom actions here
   getForecast(context, entities) {
