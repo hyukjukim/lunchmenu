@@ -72,7 +72,7 @@ const actions = {
 
     console.log('4');
     console.log("Context");
-    console.log(typeof(context));
+    console.log(typeof(context) + JSON.stringify(context));
     console.log("Entities");
     console.log(typeof(entities));
 
