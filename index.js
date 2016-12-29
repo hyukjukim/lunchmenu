@@ -228,7 +228,7 @@ app.post('/message', function(req, res) {
                               "message": {
                                     "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
                                     "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."+
-                                    "\n현재 wit.ai 연동 테스트 중 입니다.\n 2016-12-29일 페이스북 메신저 연동 성공"
+                                    "\n현재 wit.ai 연동 테스트 중 입니다.\n 2016-12-29일 페이스북 메신저 연동 성공. 조만간 카카오톡 메신저에 연동 해보겠습니다. "
                               }
           });
 
