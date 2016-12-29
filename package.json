@@ -35,5 +35,8 @@
     "heroku",
     "express"
   ],
+  "engines": {
+    "node": "6.2.2"
+  },
   "license": "MIT"
 }
