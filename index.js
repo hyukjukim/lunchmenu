@@ -57,8 +57,8 @@ const fbMessage = (id, text) => {
     recipient: { id },
     message: { text },
   });
-  const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
-  return fetch('https://graph.facebook.com/me/messages?' + qs, {
+  //const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
+  return fetch('https://graph.facebook.com/me/messages?' + 'EAAFD1zblnusBAPyJCdPNgpWir3H7KbgQZCBz1IZBvK6cMjHOLJInu3hUAzZCBQd3o0YJn4euJjjf40aeddX8Pw2wzCYbkd920659To8cGHm0IkvHBejKpleFNU5LBWAFikPuSOCNic5jwYtXJH1cw51HiSRIwxtGa1vdpnreQZDZD', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body,
