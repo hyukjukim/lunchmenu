@@ -43,7 +43,7 @@ const firstEntityValue = (entities, entity) => {
 const actions = {
   send(sessionId, text) {
     console.log("sessionId");
-    console.log(typeof(JSON.stringify(sessionId)) + JSON.stringify(sessionId));
+    console.log(typeof(JSON.parse(sessionId)) + JSON.stringify(sessionId));
 
     console.log("text");
     console.log(typeof(text));
