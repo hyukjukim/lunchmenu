@@ -256,7 +256,7 @@ function fbMessage(sender, text) {
 }
 
 
-function sendGenericMessage(sender) {
+function fbMessage(sender) {
     let messageData = {
         "attachment": {
             "type": "template",
