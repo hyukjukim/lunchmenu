@@ -47,7 +47,6 @@ crypto.randomBytes(8, (err, buff) => {
   FB_VERIFY_TOKEN = buff.toString('hex');
   console.log(`/webhook will accept the Verify Token "${FB_VERIFY_TOKEN}"`);
 });
-
 // ----------------------------------------------------------------------------
 // Messenger API specific code
 
