@@ -43,7 +43,25 @@ const findOrCreateSession = (fbid) => {
   }
   return sessionId;
 };
-
+const fbMessage = (id, text) => {
+  const body = JSON.stringify({
+    recipient: { id },
+    message: { text },
+  });
+  const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
+  return fetch('https://graph.facebook.com/me/messages?' + qs, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body,
+  })
+  .then(rsp => rsp.json())
+  .then(json => {
+    if (json.error && json.error.message) {
+      throw new Error(json.error.message);
+    }
+    return json;
+  });
+};
 const firstEntityValue = (entities, entity) => {
   console.log('1');
   const val = entities && entities[entity] &&
@@ -236,7 +254,7 @@ app.post('/webhook', (req, res) => {
 
 
 
-function fbMessage(sender, text) {
+function sendTextMessage(sender, text) {
     let messageData = { text:text }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -256,7 +274,7 @@ function fbMessage(sender, text) {
 }
 
 
-function fbMessage(sender) {
+function sendGenericMessage(sender) {
     let messageData = {
         "attachment": {
             "type": "template",
