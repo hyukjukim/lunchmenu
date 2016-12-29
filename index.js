@@ -26,6 +26,7 @@ try {
 
 const firstEntityValue = (entities, entity) => {
   console.log('1');
+  console.log(entities[entity][0].value);
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -80,7 +81,7 @@ const actions = {
     obj = JSON.stringify(context);
     result = JSON.parse(obj);
     console.log("Entities");
-    console.log(typeof(entities)+result.entities);
+    console.log(typeof(entities)+result.entities.location);
 
     var location = firstEntityValue(result.entities, 'location');
     if (location) {
