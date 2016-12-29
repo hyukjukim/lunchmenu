@@ -30,7 +30,7 @@ try {
 }
 
 // Webserver parameter
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8445;
 
 // Wit.ai parameters
 const WIT_TOKEN = process.env.WIT_TOKEN;
@@ -47,18 +47,21 @@ crypto.randomBytes(8, (err, buff) => {
   FB_VERIFY_TOKEN = buff.toString('hex');
   console.log(`/webhook will accept the Verify Token "${FB_VERIFY_TOKEN}"`);
 });
+
 // ----------------------------------------------------------------------------
 // Messenger API specific code
 
 // See the Send API reference
 // https://developers.facebook.com/docs/messenger-platform/send-api-reference
+
+
 const fbMessage = (id, text) => {
   const body = JSON.stringify({
     recipient: { id },
     message: { text },
   });
-  //const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
-  return fetch('https://graph.facebook.com/me/messages?' + 'EAAFD1zblnusBAPyJCdPNgpWir3H7KbgQZCBz1IZBvK6cMjHOLJInu3hUAzZCBQd3o0YJn4euJjjf40aeddX8Pw2wzCYbkd920659To8cGHm0IkvHBejKpleFNU5LBWAFikPuSOCNic5jwYtXJH1cw51HiSRIwxtGa1vdpnreQZDZD', {
+  const qs = 'access_token=' + encodeURIComponent(FB_PAGE_TOKEN);
+  return fetch('https://graph.facebook.com/me/messages?' + qs, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body,
@@ -145,7 +148,7 @@ app.use(({method, url}, rsp, next) => {
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 
 // Webhook setup
-app.get('/webhook', (req, res) => {
+app.get('/webhook/', (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' &&
     req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
     res.send(req.query['hub.challenge']);
@@ -155,7 +158,7 @@ app.get('/webhook', (req, res) => {
 });
 
 // Message handler
-app.post('/webhook', (req, res) => {
+app.post('/webhook/', (req, res) => {
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
