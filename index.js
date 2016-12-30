@@ -10,77 +10,8 @@ var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
+//2016-12-26 wit.ai 추가
 
-var text = JSON.stringify({message: { text }});
-//2016-12-30 wit.ai 추가
-let Wit = null;
-let log = null;
-try {
-  // if running from repo
-  Wit = require('../').Wit;
-  log = require('../').log;
-} catch (e) {
-  Wit = require('node-wit').Wit;
-  log = require('node-wit').log;
-}
-
-
-const firstEntityValue = (entities, entity) => {
-  const val = entities && entities[entity] &&
-    Array.isArray(entities[entity]) &&
-    entities[entity].length > 0 &&
-    entities[entity][0].value
-  ;
-  if (!val) {
-    return null;
-  }
-  return typeof val === 'object' ? val.value : val;
-};
-
-// Our bot actions
-const actions = {
-  send({text}) {
-    // Our bot has something to say!
-    // Let's retrieve the Facebook user whose session belongs to
-      return KaKaoMessage(text)
-      .then(() => null)
-      .catch((err) => {
-        console.error(
-          'Oops! An error occurred while forwarding the response to',
-          ':',
-          err.stack || err
-        );
-      });
-  },
-  // You should implement your custom actions here
-  getForecast({context, entities}) {
-
-    var location = firstEntityValue(entities, 'location');
-    if (location) {
-      context.forecast = 'sunny in ' + location; // we should call a weather API here
-      delete context.missingLocation;
-    } else {
-      context.missingLocation = true;
-      delete context.forecast;
-    }
-
-    return context;
-  },
-};
-
-const wit = new Wit({
-  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
-  actions,
-  logger: new log.Logger(log.INFO)
-});
-
-function KaKaoMessage(text){
-  res.send({//name_array.pop()
-                      "message": {
-                            "text": text
-                      }
-  });
-}
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -287,16 +218,6 @@ app.post('/message', function(req, res) {
 
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' ){
 
-          //2016-12-30 wit.ai
-          wit.runActions(
-            //sessionId, // the user's current session
-            text // the user's message
-            //sessions[sessionId].context // the user's current session state
-          ).catch((err) => {
-            console.error('Oops! Got an error from Wit: ', err.stack || err);
-          });
-
-/*
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
                   if (err) return res.json(err);
@@ -308,7 +229,7 @@ app.post('/message', function(req, res) {
                                     "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
                                     "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."+
                                     "\n현재 wit.ai 연동 테스트 중 입니다.\n 2016-12-29일 페이스북 메신저 연동 성공. 조만간 카카오톡 메신저에 연동 해보겠습니다.\n\n"+
-                                    "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 개발은 다음으로 ㅎㅎ"
+                                    "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 개발은 다음으로 ㅎ"
                               }
           });
 
@@ -318,7 +239,6 @@ app.post('/message', function(req, res) {
               content: req.body.content
           }, function(error, doc) {
           });
-*/
         }
 
 
