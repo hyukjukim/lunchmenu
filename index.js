@@ -11,6 +11,7 @@ var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 
+var text = JSON.stringify({message: { text }});
 //2016-12-30 wit.ai 추가
 let Wit = null;
 let log = null;
