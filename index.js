@@ -46,7 +46,15 @@ const findOrCreateSession = (fbid) => {
 };
 function KakaoMessage(id, text){
 
-  sendTextMessage = text;
+  app.post('/message', function(req, res) {
+    res.send({//name_array.pop()
+                        "message": {
+                              "text": text
+                        }
+    });
+  }
+
+  //sendTextMessage = text;
   console.log(id + "DDDDDDDDDDDDD"+ text);
 }
 
@@ -356,7 +364,7 @@ app.post('/message', function(req, res) {
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
-
+/*
           if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
@@ -364,7 +372,7 @@ app.post('/message', function(req, res) {
                                   }
               });
           }
-
+*/
           Kakaomsg.create({
               user_key : req.body.user_key,
               type    : req.body.type,
