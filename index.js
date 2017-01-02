@@ -46,15 +46,7 @@ const findOrCreateSession = (fbid) => {
 };
 function KakaoMessage(id, text){
 
-  app.post('/message', function(req, res) {
-    res.send({//name_array.pop()
-                        "message": {
-                              "text": text
-                        }
-    });
-  }
-
-  //sendTextMessage = text;
+  sendTextMessage = text;
   console.log(id + "DDDDDDDDDDDDD"+ text);
 }
 
@@ -341,10 +333,10 @@ app.post('/message', function(req, res) {
           });*/
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
-          var text = req.body.content;
+          
           wit.runActions(
             sessionId, // the user's current session
-            text, // the user's message
+            req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
           ).then((context) => {
             // Our bot did everything it has to do.
@@ -364,7 +356,7 @@ app.post('/message', function(req, res) {
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
-/*
+
           if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
@@ -372,7 +364,7 @@ app.post('/message', function(req, res) {
                                   }
               });
           }
-*/
+
           Kakaomsg.create({
               user_key : req.body.user_key,
               type    : req.body.type,
