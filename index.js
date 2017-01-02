@@ -345,7 +345,7 @@ app.post('/message', function(req, res) {
                                     "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 "
                               }
           });
-
+          const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
           wit.runActions(
             sessionId, // the user's current session
