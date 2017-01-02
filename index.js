@@ -28,12 +28,7 @@ try {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Setting up our bot
-const wit = new Wit({
-  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
-  actions,
-  logger: new log.Logger(log.INFO)
-});
+
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -240,6 +235,13 @@ const actions = {
   },
   // See https://wit.ai/docs/quickstart
 };
+
+// Setting up our bot
+const wit = new Wit({
+  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
+  actions,
+  logger: new log.Logger(log.INFO)
+});
 ///////////////
 
 
