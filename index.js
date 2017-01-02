@@ -357,13 +357,6 @@ app.post('/message', function(req, res) {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
-          if(sendTextMessage){
-              res.send({//name_array.pop()
-                                  "message": {
-                                        "text": sendTextMessage
-                                  }
-              });
-          }
 
           Kakaomsg.create({
               user_key : req.body.user_key,
@@ -374,6 +367,13 @@ app.post('/message', function(req, res) {
         }
 
 
+                  if(sendTextMessage){
+                      res.send({//name_array.pop()
+                                          "message": {
+                                                "text": sendTextMessage
+                                          }
+                      });
+                  }
 
    res.sendStatus(200);
 });
