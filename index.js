@@ -43,7 +43,7 @@ const findOrCreateSession = (fbid) => {
   console.log('**'+ sessionId);
   return sessionId;
 };
-const fbMessage = (id, text) => {
+function KakaoMessage(id, text){
   /*const body = JSON.stringify({
     recipient: { id },
     message: { text },
@@ -62,7 +62,7 @@ const fbMessage = (id, text) => {
     return json;
   });*/
   console.log(id + "DDDDDDDDDDDDD"+ text);
-};
+}
 
 const firstEntityValue = (entities, entity) => {
   const val = entities && entities[entity] &&
@@ -86,7 +86,7 @@ const actions = {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
       // We return a promise to let our bot know when we're done sending
-      return fbMessage(recipientId, text)
+      return KakaoMessage(recipientId, text)
       .then(() => null)
       .catch((err) => {
         console.error(
