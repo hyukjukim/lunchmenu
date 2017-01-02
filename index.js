@@ -11,7 +11,7 @@ var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
-
+var sendTextMessage = null;
 var fbid = '1399985126708579';
 let Wit = null;
 let log = null;
@@ -24,11 +24,93 @@ try {
   log = require('node-wit').log;
 }
 
-////////////////////////////////////////////wit ai//////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////////////////////
+const sessions = {};
 
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: {}};
+  }
+  console.log('**'+ sessionId);
+  return sessionId;
+};
+function KakaoMessage(id, text){
 
+  sendTextMessage = text;
+  console.log(id + "DDDDDDDDDDDDD"+ text);
+}
+
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
+
+// Our bot actions
+const actions = {
+  send({sessionId}, {text}) {
+    // Our bot has something to say!
+    // Let's retrieve the Facebook user whose session belongs to
+    const recipientId = sessions[sessionId].fbid;
+    if (recipientId) {
+      // Yay, we found our recipient!
+      // Let's forward our bot response to her.
+      // We return a promise to let our bot know when we're done sending
+      return KakaoMessage(recipientId, text)
+      .then(() => null)
+      .catch((err) => {
+        console.error(
+          'Oops! An error occurred while forwarding the response to',
+          recipientId,
+          ':',
+          err.stack || err
+        );
+      });
+    } else {
+      console.error('Oops! Couldn\'t find user for session:', sessionId);
+      // Giving the wheel back to our bot
+      return Promise.resolve()
+    }
+  },
+  // You should implement your custom actions here
+  getForecast({context, entities}) {
+
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+
+    return context;
+  },
+  // See https://wit.ai/docs/quickstart
+};
+
+// Setting up our bot
+const wit = new Wit({
+  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
+  actions,
+  logger: new log.Logger(log.INFO)
+});
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -148,104 +230,6 @@ app.get('/keyboard', function(req, res) {
 });
 
 app.post('/message', function(req, res) {
-
-
-////////////////
-
-const sessions = {};
-
-const findOrCreateSession = (fbid) => {
-  let sessionId;
-  // Let's see if we already have a session for the user fbid
-  Object.keys(sessions).forEach(k => {
-    if (sessions[k].fbid === fbid) {
-      // Yep, got it!
-      sessionId = k;
-    }
-  });
-  if (!sessionId) {
-    // No session found for user fbid, let's create a new one
-    sessionId = new Date().toISOString();
-    sessions[sessionId] = {fbid: fbid, context: {}};
-  }
-  console.log('**'+ sessionId);
-  return sessionId;
-};
-function KakaoMessage(id, text){
-  res.send({//name_array.pop()
-                      "message": {
-                            "text": text
-                      }
-  });
-
-  console.log(id + "DDDDDDDDDDDDD"+ text);
-}
-
-const firstEntityValue = (entities, entity) => {
-  const val = entities && entities[entity] &&
-    Array.isArray(entities[entity]) &&
-    entities[entity].length > 0 &&
-    entities[entity][0].value
-  ;
-  if (!val) {
-    return null;
-  }
-  return typeof val === 'object' ? val.value : val;
-};
-
-// Our bot actions
-const actions = {
-  send({sessionId}, {text}) {
-    // Our bot has something to say!
-    // Let's retrieve the Facebook user whose session belongs to
-    const recipientId = sessions[sessionId].fbid;
-    if (recipientId) {
-      // Yay, we found our recipient!
-      // Let's forward our bot response to her.
-      // We return a promise to let our bot know when we're done sending
-      return KakaoMessage(recipientId, text)
-      .then(() => null)
-      .catch((err) => {
-        console.error(
-          'Oops! An error occurred while forwarding the response to',
-          recipientId,
-          ':',
-          err.stack || err
-        );
-      });
-    } else {
-      console.error('Oops! Couldn\'t find user for session:', sessionId);
-      // Giving the wheel back to our bot
-      return Promise.resolve()
-    }
-  },
-  // You should implement your custom actions here
-  getForecast({context, entities}) {
-
-    var location = firstEntityValue(entities, 'location');
-    if (location) {
-      context.forecast = 'sunny in ' + location; // we should call a weather API here
-      delete context.missingLocation;
-    } else {
-      context.missingLocation = true;
-      delete context.forecast;
-    }
-
-    return context;
-  },
-  // See https://wit.ai/docs/quickstart
-};
-
-// Setting up our bot
-const wit = new Wit({
-  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
-  actions,
-  logger: new log.Logger(log.INFO)
-});
-///////////////
-
-
-
 
   //접속 유저 초기화
     KakaoUser.create({
@@ -373,6 +357,13 @@ const wit = new Wit({
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
+          if(sendTextMessage){
+              res.send({//name_array.pop()
+                                  "message": {
+                                        "text": sendTextMessage
+                                  }
+              });
+          }
 
           Kakaomsg.create({
               user_key : req.body.user_key,
