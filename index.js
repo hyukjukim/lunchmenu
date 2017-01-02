@@ -347,6 +347,7 @@ app.post('/message', function(req, res) {
           });
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
+          const {text} = req.body.content;
           wit.runActions(
             sessionId, // the user's current session
             text, // the user's message
