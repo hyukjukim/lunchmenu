@@ -43,15 +43,7 @@ const findOrCreateSession = (fbid) => {
   console.log('**'+ sessionId);
   return sessionId;
 };
-function KakaoMessage(id, text){
 
-  res.send({
-              "message": {
-                    "text": text
-              }
-    });
-  console.log(id + "DDDDDDDDDDDDD"+ text);
-}
 
 const firstEntityValue = (entities, entity) => {
   const val = entities && entities[entity] &&
@@ -326,14 +318,15 @@ app.post('/message', function(req, res) {
                   obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                   kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             });
-          res.send({//name_array.pop()
+        /*  res.send({//name_array.pop()
                               "message": {
                                     "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
                                     "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."+
                                     "\n현재 wit.ai 연동 테스트 중 입니다.\n 2016-12-29일 페이스북 메신저 연동 성공. 조만간 카카오톡 메신저에 연동 해보겠습니다.\n\n"+
                                     "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 "
                               }
-          });
+          });*/
+
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
           var text = req.body.content;
@@ -360,7 +353,15 @@ app.post('/message', function(req, res) {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
+          function KakaoMessage(id, text){
 
+            res.send({
+                        "message": {
+                              "text": text
+                        }
+              });
+            console.log(id + "DDDDDDDDDDDDD"+ text);
+          }
 
           Kakaomsg.create({
               user_key : req.body.user_key,
