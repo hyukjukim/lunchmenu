@@ -11,6 +11,7 @@ var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
 //2016-12-26 wit.ai 추가
+var sendTextMessage = null;
 var fbid = '1399985126708579';
 let Wit = null;
 let log = null;
@@ -43,7 +44,11 @@ const findOrCreateSession = (fbid) => {
   console.log('**'+ sessionId);
   return sessionId;
 };
+function KakaoMessage(id, text){
 
+  sendTextMessage = text;
+  console.log(id + "DDDDDDDDDDDDD"+ text);
+}
 
 const firstEntityValue = (entities, entity) => {
   const val = entities && entities[entity] &&
@@ -326,7 +331,6 @@ app.post('/message', function(req, res) {
                                     "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 "
                               }
           });*/
-
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
           var text = req.body.content;
@@ -353,14 +357,12 @@ app.post('/message', function(req, res) {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
-          function KakaoMessage(id, text){
-
-            res.send({
-                        "message": {
-                              "text": text
-                        }
+          if(sendTextMessage){
+              res.send({//name_array.pop()
+                                  "message": {
+                                        "text": sendTextMessage
+                                  }
               });
-            console.log(id + "DDDDDDDDDDDDD"+ text);
           }
 
           Kakaomsg.create({
