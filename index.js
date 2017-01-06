@@ -48,13 +48,7 @@ function KakaoMessage(id, text){
 
   sendTextMessage = text;
 
-  app.post('/message', function(req, res) {
 
-          res.send({
-            "message": {
-                  "text": sendTextMessage
-            }
-          });
 });
 
   console.log("ID : " + id + " 대화내용 : "+ text);
@@ -355,14 +349,14 @@ app.post('/message', function(req, res) {
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
-//2017-01-06
-    /*      if(sendTextMessage){
+            //2017-01-06
+          if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
                                         "text": sendTextMessage
                                   }
               });
-          }*/
+          }
 
           Kakaomsg.create({
               user_key : req.body.user_key,
