@@ -315,7 +315,7 @@ app.post('/message', function(req, res) {
                     });
           }
 
-          if(kakaousers.name_flag === '3' ){
+          if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임변경' & req.body.content !== '닉네임생성'){
 
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
