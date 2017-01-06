@@ -339,24 +339,20 @@ app.post('/message', function(req, res) {
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
           ).then((context) => {
-            // Our bot did everything it has to do.
-            // Now it's waiting for further messages to proceed.
             console.log('Waiting for next user messages');
-
-            // Based on the session state, you might want to reset the session.
-            // This depends heavily on the business logic of your bot.
-            // Example:
-            // if (context['done']) {
-            //   delete sessions[sessionId];
-            // }
-
-            // Updating the user's current session state
             sessions[sessionId].context = context;
           })
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
+          if(sendTextMessage){
+              res.send({//name_array.pop()
+                                  "message": {
+                                        "text": sendTextMessage
+                                  }
+              });
+          }
 
           Kakaomsg.create({
               user_key : req.body.user_key,
@@ -367,13 +363,6 @@ app.post('/message', function(req, res) {
         }
 
 
-                  if(sendTextMessage){
-                      res.send({//name_array.pop()
-                                          "message": {
-                                                "text": sendTextMessage
-                                          }
-                      });
-                  }
 
    res.sendStatus(200);
 });
