@@ -47,15 +47,17 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
-  app.get('/keyboard', function(req, res) {
-      res.send({
-        "message": {
-              "text": sendTextMessage
-        }
-      });
-  });
 
-  console.log(id + "DDDDDDDDDDDDD"+ text);
+  app.post('/message', function(req, res) {
+
+          res.send({
+            "message": {
+                  "text": sendTextMessage
+            }
+          });
+});
+
+  console.log("ID : " + id + " 대화내용 : "+ text);
 }
 
 const firstEntityValue = (entities, entity) => {
