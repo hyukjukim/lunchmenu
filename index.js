@@ -47,7 +47,14 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
-console.log('3');
+  app.post('/message', function(req, res) {
+    res.send({
+                "message": {
+                      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+                }
+            });
+  });
+
   console.log("ID : " + id + " 대화내용 : "+ text);
 }
 
