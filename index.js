@@ -47,7 +47,7 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
-
+console.log('3');
   console.log("ID : " + id + " 대화내용 : "+ text);
 }
 
@@ -335,6 +335,7 @@ app.post('/message', function(req, res) {
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
 
+console.log('1');
           wit.runActions(
             sessionId, // the user's current session
             req.body.content, // the user's message
@@ -346,7 +347,7 @@ app.post('/message', function(req, res) {
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
-
+console.log('2');
           if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
