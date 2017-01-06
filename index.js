@@ -48,10 +48,7 @@ function KakaoMessage(id, text){
 
   sendTextMessage = text;
 
-
-});
-
-  console.log("ID : " + id + " 대화내용 : "+ text);
+  console.log(id + "DDDDDDDDDDDDD"+ text);
 }
 
 const firstEntityValue = (entities, entity) => {
@@ -349,7 +346,6 @@ app.post('/message', function(req, res) {
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
-            //2017-01-06
           if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
