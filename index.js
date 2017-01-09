@@ -52,7 +52,7 @@ function KakaoMessage(id, text){
 }
 
 const firstEntityValue = (entities, entity) => {
-  console.log("****************firstEntityValue**************** ");
+  console.log("****************4**************** ");
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -67,7 +67,7 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   send({sessionId}, {text}) {
-    console.log("****************send**************** ");
+    console.log("****************5**************** ");
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
     const recipientId = sessions[sessionId].fbid;
@@ -93,7 +93,7 @@ const actions = {
   },
   // You should implement your custom actions here
   getForecast({context, entities}) {
-console.log("****************getForecast**************** ");
+console.log("****************3**************** ");
     var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
@@ -340,10 +340,11 @@ app.post('/message', function(req, res) {
             sessionId, // the user's current session
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
+            console.log("1");
           );
 
           if(sendTextMessage){
-            console.log("한박자 느린 대화 뿅");
+            console.log("2");
               res.send({//name_array.pop()
                                   "message": {
                                         "text": sendTextMessage
