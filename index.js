@@ -340,8 +340,11 @@ app.post('/message', function(req, res) {
             sessionId, // the user's current session
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
-
-          ).catch((err) => {
+          ).then((context) => {
+            console.log('Waiting for next user messages');
+            sessions[sessionId].context = context;
+          })
+          .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
