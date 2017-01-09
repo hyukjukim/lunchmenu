@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 //method-override module을 methodOverride변수에 담습니다.
 var methodOverride = require("method-override");
-var $ = require('jquery');
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
@@ -48,24 +47,6 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
-
-  /*
-  $.ajax ({
-    type: "POST",
-    url: '/message',
-    data: sendTextMessage,
-    success: function() {
-
-    }
-  });
-  */
-  app.post('/message', function(req, res) {
-    res.send({
-                "message": {
-                      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-                }
-            });
-  });
 
   console.log("ID : " + id + " 대화내용 : "+ text);
 }
@@ -354,11 +335,11 @@ app.post('/message', function(req, res) {
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
 
-console.log('1');
           wit.runActions(
             sessionId, // the user's current session
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
+
           ).then((context) => {
             console.log('Waiting for next user messages');
             sessions[sessionId].context = context;
@@ -367,7 +348,6 @@ console.log('1');
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
-console.log('2');
           if(sendTextMessage){
               res.send({//name_array.pop()
                                   "message": {
