@@ -110,7 +110,7 @@ console.log("****************getForecast**************** ");
 
 // Setting up our bot
 const wit = new Wit({
-  accessToken: '7EBPFDK3IBMX3ISHKONR2F4ZN2GP2OWS',
+  accessToken: 'D4WQQTPGRJNN7ISEIPFB2ROM73P6AZ2G',
   actions,
   logger: new log.Logger(log.INFO)
 });
