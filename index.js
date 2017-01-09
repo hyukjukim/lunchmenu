@@ -335,12 +335,11 @@ app.post('/message', function(req, res) {
           });*/
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
-
+        console.log("1");
           wit.runActions(
             sessionId, // the user's current session
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
-            console.log("1");
           );
 
           if(sendTextMessage){
