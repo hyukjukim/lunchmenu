@@ -342,14 +342,12 @@ app.post('/message', function(req, res) {
             sessions[sessionId].context // the user's current session state
           );
 
-          if(sendTextMessage){
-            console.log("2");
               res.send({//name_array.pop()
                                   "message": {
                                         "text": sendTextMessage
                                   }
               });
-          }
+              
           Kakaomsg.create({
               user_key : req.body.user_key,
               type    : req.body.type,
