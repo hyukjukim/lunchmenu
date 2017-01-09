@@ -241,7 +241,6 @@ app.post('/message', function(req, res) {
         name: '낯선손'
     }, function(error, doc) {});
 
-
     if (req.body.content === '시작') {
                 res.send({
                             "message": {
@@ -355,7 +354,6 @@ app.post('/message', function(req, res) {
                                   }
               });
           }
-
           Kakaomsg.create({
               user_key : req.body.user_key,
               type    : req.body.type,
