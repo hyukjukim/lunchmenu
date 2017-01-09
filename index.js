@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 //method-override module을 methodOverride변수에 담습니다.
 var methodOverride = require("method-override");
+var $ = require('jquery');
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
@@ -47,13 +48,21 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
-  app.post('/message', function(req, res) {
+  $.ajax ({
+    type: "POST",
+    url: '/message',
+    data: sendTextMessage,
+    success: function() {
+
+    }
+  });
+  /*app.post('/message', function(req, res) {
     res.send({
                 "message": {
                       "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
                 }
             });
-  });
+  });*/
 
   console.log("ID : " + id + " 대화내용 : "+ text);
 }
