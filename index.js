@@ -341,14 +341,15 @@ app.post('/message', function(req, res) {
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
           ).then((context) => {
-            console.log('Waiting for next user messages');
+            console.log('@Waiting for next user messages');
             sessions[sessionId].context = context;
           })
           .catch((err) => {
-            console.error('Oops! Got an error from Wit: ', err.stack || err);
+            console.error('@Oops! Got an error from Wit: ', err.stack || err);
           });
 
           if(sendTextMessage){
+            console.log("한박자 느린 대화 뿅");
               res.send({//name_array.pop()
                                   "message": {
                                         "text": sendTextMessage
