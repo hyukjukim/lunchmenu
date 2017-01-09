@@ -48,6 +48,8 @@ const findOrCreateSession = (fbid) => {
 function KakaoMessage(id, text){
 
   sendTextMessage = text;
+
+  /*
   $.ajax ({
     type: "POST",
     url: '/message',
@@ -56,13 +58,14 @@ function KakaoMessage(id, text){
 
     }
   });
-  /*app.post('/message', function(req, res) {
+  */
+  app.post('/message', function(req, res) {
     res.send({
                 "message": {
                       "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
                 }
             });
-  });*/
+  });
 
   console.log("ID : " + id + " 대화내용 : "+ text);
 }
@@ -363,6 +366,7 @@ console.log('1');
           .catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
+
 console.log('2');
           if(sendTextMessage){
               res.send({//name_array.pop()
