@@ -52,6 +52,7 @@ function KakaoMessage(id, text){
 }
 
 const firstEntityValue = (entities, entity) => {
+  console.log("****************firstEntityValue**************** ");
   const val = entities && entities[entity] &&
     Array.isArray(entities[entity]) &&
     entities[entity].length > 0 &&
@@ -66,6 +67,7 @@ const firstEntityValue = (entities, entity) => {
 // Our bot actions
 const actions = {
   send({sessionId}, {text}) {
+    console.log("****************send**************** ");
     // Our bot has something to say!
     // Let's retrieve the Facebook user whose session belongs to
     const recipientId = sessions[sessionId].fbid;
@@ -91,7 +93,7 @@ const actions = {
   },
   // You should implement your custom actions here
   getForecast({context, entities}) {
-
+console.log("****************getForecast**************** ");
     var location = firstEntityValue(entities, 'location');
     if (location) {
       context.forecast = 'sunny in ' + location; // we should call a weather API here
@@ -339,11 +341,7 @@ app.post('/message', function(req, res) {
             req.body.content, // the user's message
             sessions[sessionId].context // the user's current session state
 
-          ).then((context) => {
-            console.log('Waiting for next user messages');
-            sessions[sessionId].context = context;
-          })
-          .catch((err) => {
+          ).catch((err) => {
             console.error('Oops! Got an error from Wit: ', err.stack || err);
           });
 
