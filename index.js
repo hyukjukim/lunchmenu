@@ -343,6 +343,7 @@ console.log("2");
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
+        console.log(kakaousers.name);
         res.send({ //name_array.pop()
             "message": {
                 "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요." +
