@@ -170,16 +170,16 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-    //접속 유저 초기화
-    KakaoUser.create({
-        user_key: req.body.user_key,
-        name_flag: '0',
-        password_flag: '0',
-        email_flag: '0',
-        name: '낯선손'
-    }, function(error, doc) {});
-
     if (req.body.content === '시작') {
+      //접속 유저 초기화
+      KakaoUser.create({
+          user_key: req.body.user_key,
+          name_flag: '0',
+          password_flag: '0',
+          email_flag: '0',
+          name: '낯선손'
+      }, function(error, doc) {});
+
         res.send({
             "message": {
                 "text": "안녕하세요 용사님 반갑습니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
