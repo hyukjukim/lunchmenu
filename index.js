@@ -181,7 +181,7 @@ app.post('/message', function(req, res) {
       }, function(error, doc) {});
 
 */
-      var KakaoUsers = new KakaoUser({
+      new KakaoUser({
           user_key: req.body.user_key,
           name_flag: '0',
           password_flag: '0',
@@ -199,7 +199,7 @@ console.log("1");
     //닉네임생성 버튼을 누르면
     if (req.body.content === '닉네임생성') {
         //닉네임 생성 스타트,
-        KakaoUsers.findOneAndUpdate({
+        KakaoUser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
             'name_flag': '1'
@@ -226,7 +226,7 @@ console.log("2");
     if (kakaousers.name_flag === '1') {
 
         //kakaousers 테이블에 접근
-        KakaoUsers.findOne({
+        KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
             if (err) return res.json(err);
@@ -245,7 +245,7 @@ console.log("2");
 
 
         if (kakaousers.name !== req.body.content) {
-            KakaoUsers.findOneAndUpdate({
+            KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
                 'name': req.body.content,
@@ -273,7 +273,7 @@ console.log("2");
     //닉네임설정 버튼을 누르면
     if (req.body.content === '닉네임변경') {
         //닉네임 변경 스타트,
-        KakaoUsers.findOneAndUpdate({
+        KakaoUser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
             'name_flag': '2'
@@ -300,7 +300,7 @@ console.log("2");
     if (kakaousers.name_flag === '2') {
 
         //kakaousers 테이블에 접근
-        KakaoUsers.findOne({
+        KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
             if (err) return res.json(err);
@@ -316,7 +316,7 @@ console.log("2");
             });
         }
         if (kakaousers.name !== req.body.content) {
-            KakaoUsers.findOneAndUpdate({
+            KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
                 'name': req.body.content,
@@ -344,7 +344,7 @@ console.log("2");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
         //kakaousers 테이블에 접근
-        KakaoUsers.findOne({
+        KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
           console.log('d진입');
