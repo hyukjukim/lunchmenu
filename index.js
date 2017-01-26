@@ -228,7 +228,7 @@ app.delete("/kakaomsgs/:id", function(req, res){
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성"]
+        "buttons": ["시작", "닉네임생성", "이동현님"]
     });
 });
 
@@ -315,6 +315,13 @@ app.post('/message', function(req, res) {
                                               "\n닉네임 변경을 원하시면 \n<<닉네임변경>>이라고 입력하세요."
                                         }
                     });
+          }
+          if(req.body.content !== '이동현님'){
+            res.send({//name_array.pop()
+                                "message": {
+                                      "text": "이게바로 카카오톡이다! 20170126 "
+                                }
+            });
           }
 
           if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임변경' & req.body.content !== '닉네임생성' & req.body.content !== '시작'){
