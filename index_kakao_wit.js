@@ -10,6 +10,110 @@ var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers= '';
+//2016-12-26 wit.ai 추가
+var sendTextMessage = null;
+var fbid = '1399985126708579';
+let Wit = null;
+let log = null;
+try {
+  // if running from repo
+  Wit = require('../').Wit;
+  log = require('../').log;
+} catch (e) {
+  Wit = require('node-wit').Wit;
+  log = require('node-wit').log;
+}
+
+
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: {}};
+  }
+  console.log('**'+ sessionId);
+  return sessionId;
+};
+function KakaoMessage(id, text){
+
+  sendTextMessage = text;
+
+  console.log("ID : " + id + " 대화내용 : "+ text);
+}
+
+const firstEntityValue = (entities, entity) => {
+  console.log("****************4**************** ");
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
+
+// Our bot actions
+const actions = {
+  send({sessionId}, {text}) {
+    console.log("****************5**************** ");
+    // Our bot has something to say!
+    // Let's retrieve the Facebook user whose session belongs to
+    const recipientId = sessions[sessionId].fbid;
+    if (recipientId) {
+      // Yay, we found our recipient!
+      // Let's forward our bot response to her.
+      // We return a promise to let our bot know when we're done sending
+      return KakaoMessage(recipientId, text)
+      .then(() => null)
+      .catch((err) => {
+        console.error(
+          'Oops! An error occurred while forwarding the response to',
+          recipientId,
+          ':',
+          err.stack || err
+        );
+      });
+    } else {
+      console.error('Oops! Couldn\'t find user for session:', sessionId);
+      // Giving the wheel back to our bot
+      return Promise.resolve()
+    }
+  },
+  // You should implement your custom actions here
+  getForecast({context, entities}) {
+console.log("****************3**************** ");
+    var location = firstEntityValue(entities, 'location');
+    if (location) {
+      context.forecast = 'sunny in ' + location; // we should call a weather API here
+      delete context.missingLocation;
+    } else {
+      context.missingLocation = true;
+      delete context.forecast;
+    }
+
+    return context;
+  },
+  // See https://wit.ai/docs/quickstart
+};
+
+// Setting up our bot
+const wit = new Wit({
+  accessToken: 'D4WQQTPGRJNN7ISEIPFB2ROM73P6AZ2G',
+  actions,
+  logger: new log.Logger(log.INFO)
+});
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -23,12 +127,10 @@ db.once("open", function(){
 db.on('error', function(err){
   console.log("** DB CONNECTION ERR : **" ,err);
 });
-
 /*mongoose.Schema 함수를 사용해서 schema(data구조를 미리 정의해 놓는 것) object를 생성합니다.
 사용할 Data의 형태를 object로 생성한 다음 mongoose.Schema함수에 넣습니다.
 kakaomsg schema를 잠시 살펴보면 user_key, type, content 항목들을 가지고 있으며 새 항목 모두 타입은 String입니다.
 나머지 사용가능한 schema type들은 mongoose  공식사이트(http://mongoosejs.com/docs/schematypes.html)에서 확인해 주세요.*/
-
 var kakaomsgSchema = mongoose.Schema({
   user_key: {type: String},
   name: {type: String},
@@ -126,7 +228,7 @@ app.delete("/kakaomsgs/:id", function(req, res){
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성"]
+        "buttons": ["시작", "닉네임생성", "이동현님"]
     });
 });
 
@@ -144,7 +246,7 @@ app.post('/message', function(req, res) {
     if (req.body.content === '시작') {
                 res.send({
                             "message": {
-                                  "text": "안녕하세요 용사님 반갑습니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
+                                  "text": "안녕하세요 반갑습니다. \n 웹, DB, 카카오톡 연동 서비스 구현 중입니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
                             }
                   });
     }
@@ -176,7 +278,7 @@ app.post('/message', function(req, res) {
                             //생성된 이름 표출
                             res.send({
                                         "message": {
-                                              "text": "닉네임 생성이 완료 되었습니다.\n\n용사님의 이름은 "+req.body.content+"입니다."+
+                                              "text": "닉네임 생성이 완료 되었습니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com\n에 기록 됩니다. 입력 해 보세요."+
                                               "\n닉네임 변경을 원하시면 \n<<닉네임변경>>이라고 입력하세요."
                                         }
                     });
@@ -195,7 +297,7 @@ app.post('/message', function(req, res) {
               //이름 바꿀 것인지 질문
               res.send({
                           "message": {
-                                "text": "닉네임변경을 입력 하셨습니다. \n새로운 닉네임을 입력해 주세요."
+                                "text": "닉네임변경을 입력 하셨습니다. \n변경하실 닉네임을 입력해 주세요."
                           }
                       });
           }
@@ -209,13 +311,20 @@ app.post('/message', function(req, res) {
                             //생성된 이름 표출
                             res.send({
                                         "message": {
-                                              "text": "닉네임 변경이 완료 되었습니다.\n용사님의 이름은 "+req.body.content+"입니다."+
+                                              "text": "닉네임 변경이 완료 되었습니다.\n\n지금부터 입력하시는 대화 내용은 https://khj.herokuapp.com\n에 기록 됩니다. 입력 해 보세요."+
                                               "\n닉네임 변경을 원하시면 \n<<닉네임변경>>이라고 입력하세요."
                                         }
                     });
           }
+          if(req.body.content === '이동현님'){
+            res.send({//name_array.pop()
+                                "message": {
+                                      "text": "이게바로 카카오톡이다! 20170126 "
+                                }
+            });
+          }
 
-          if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작'){
+          if(kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임변경' & req.body.content !== '닉네임생성' & req.body.content !== '시작'){
 
           //kakaousers 테이블에 접근
             KakaoUser.findOne({'user_key':req.body.user_key}, function (err, users) {
@@ -226,8 +335,9 @@ app.post('/message', function(req, res) {
           res.send({//name_array.pop()
                               "message": {
                                     "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요."+
-                                    "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n"+
-                                    "\n2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 "
+                                    "\n\n<<닉네임변경>> 이라고 입력하시면 \n닉네임 변경 가능합니다. \n\n대화 내용은 \nhttps://khj.herokuapp.com\n에서 확인하세요."+
+                                    "\n현재 wit.ai 연동 테스트 중 입니다.\n 2016-12-29일 페이스북 메신저 연동 성공. 조만간 카카오톡 메신저에 연동 해보겠습니다.\n\n"+
+                                    "2017년 다들 새해 복 많이 받으세요~ :) 종무식이 늦게 끝나서 "
                               }
           });
           /*
