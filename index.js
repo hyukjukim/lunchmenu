@@ -316,7 +316,7 @@ app.post('/message', function(req, res) {
                                         }
                     });
           }
-          if(req.body.content !== '이동현님'){
+          if(req.body.content === '이동현님'){
             res.send({//name_array.pop()
                                 "message": {
                                       "text": "이게바로 카카오톡이다! 20170126 "
