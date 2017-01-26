@@ -52,7 +52,8 @@ var kakaouserSchema = mongoose.Schema({
         unique: true
     },
     name: {
-        type: String
+        type: String,
+        unique: true
     },
     password: {
         type: String
@@ -186,7 +187,7 @@ app.post('/message', function(req, res) {
             }
         });
     }
-
+console.log("1");
     //닉네임생성 버튼을 누르면
     if (req.body.content === '닉네임생성') {
         //닉네임 생성 스타트,
@@ -213,7 +214,7 @@ app.post('/message', function(req, res) {
 
     }
 
-
+console.log("2");
     if (kakaousers.name_flag === '1') {
 
         //kakaousers 테이블에 접근
@@ -260,6 +261,7 @@ app.post('/message', function(req, res) {
             });
         }
     }
+    console.log("3");
     //닉네임설정 버튼을 누르면
     if (req.body.content === '닉네임변경') {
         //닉네임 변경 스타트,
@@ -285,6 +287,8 @@ app.post('/message', function(req, res) {
             }
         });
     }
+
+    console.log("4");
     if (kakaousers.name_flag === '2') {
 
         //kakaousers 테이블에 접근
@@ -328,6 +332,7 @@ app.post('/message', function(req, res) {
             });
         }
     }
+    console.log("5");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
         //kakaousers 테이블에 접근
@@ -345,6 +350,7 @@ app.post('/message', function(req, res) {
                     "\n2017년 다들 새해 복 많이 받으세요~ :) "
             }
         });
+        console.log("6");
         /*
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
