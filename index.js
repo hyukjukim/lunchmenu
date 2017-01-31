@@ -160,7 +160,7 @@ app.delete("/kakaomsgs/:id", function(req, res) {
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성", "전투시작"]
+        "buttons": ["시작", "캐릭터생성", "전투시작"]
     });
 });
 
@@ -174,13 +174,17 @@ app.post('/message', function(req, res) {
         });
     }
 
-    if (req.body.content === '닉네임생성') {
-          console.log(m.name);
-      // Kim
-      console.log(m.age);
-      // 23
-      m.aboutMe();
-      // Hi, my name is Kim and I'm 23 year's old.
+    if (req.body.content === '캐릭터생성') {
+      res.send({
+          "message": {
+              "text": "ㅇㅇ"
+          }
+      });
+          console.log(Math.floor(Math.random()*10));
+          console.log(Math.floor(Math.random()*10));
+          console.log(Math.floor(Math.random()*10));
+          console.log(Math.floor(Math.random()*10));
+          
         }
 
         if (req.body.content === '전투시작') {
@@ -205,11 +209,12 @@ app.post('/message', function(req, res) {
       }
 
       if (req.body.content === '노멀던전'){
-        res.send({
-            "message": {
-                "text": "노멀던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
-            }
-        });
+        console.log(m.name);
+    // Kim
+    console.log(m.age);
+    // 23
+    m.aboutMe();
+    // Hi, my name is Kim and I'm 23 year's old.
       }
       if (req.body.content === '레어던전'){
         res.send({
