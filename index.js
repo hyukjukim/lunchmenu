@@ -209,8 +209,8 @@ app.post('/message', function(req, res) {
     }
 
     if (req.body.content === '캐릭터생성') {
-      hero.creatHero(req,res);
-        }
+          hero.creatHero(req,res);
+    }
 
         if (req.body.content === '전투시작') {
           res.send({
@@ -238,21 +238,21 @@ app.post('/message', function(req, res) {
 
     res.send({
         "message": {
-            "text": "노멀던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+            "text": "노멀던전 입장! \n 캐릭터 먼저 생성해 주세요"
         }
     });
       }
       if (req.body.content === '레어던전'){
         res.send({
             "message": {
-                "text": "레어던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+                "text": "레어던전 입장! \n 캐릭터 먼저 생성해 주세요"
             }
         });
       }
       if (req.body.content === '랜덤던전'){
         res.send({
             "message": {
-                "text": "랜덤던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+                "text": "랜덤던전 입장! \n 캐릭터 먼저 생성해 주세요"
             }
         });
       }
