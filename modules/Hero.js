@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 
 
-function creatHero(){
+function creatHero(req,res){
         res.send({
           "message": {
             "text": "원하는 캐릭터를 선택해 주세요",

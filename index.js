@@ -174,7 +174,7 @@ app.post('/message', function(req, res) {
     }
 
     if (req.body.content === '캐릭터생성') {
-      hero.creatHero();
+      hero.creatHero(req,res);
         }
 
         if (req.body.content === '전투시작') {
