@@ -181,6 +181,8 @@ app.post('/message', function(req, res) {
       },{
           new: true
       }, function(error, users) {
+        console.log("1-@");
+        if (error) return res.json(error);
         obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
         kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
       });
