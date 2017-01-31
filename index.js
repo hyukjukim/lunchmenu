@@ -170,7 +170,6 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-
     if (req.body.content === '시작') {
       //접속 유저 초기화
       KakaoUser.create({
@@ -181,10 +180,12 @@ app.post('/message', function(req, res) {
           name: '낯선손'
       },{
           new: true
-      }, function(error, users) {          console.log('d진입');
-                  if (err) return res.json(err);
-                  obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                  kakaousers = JSON.parse(obj); });//json 파싱하기 위해 변수에 배정
+      }, function(error, doc) {
+        if (err) return res.json(err);
+        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+      });
+
 
 
         res.send({
@@ -194,20 +195,6 @@ app.post('/message', function(req, res) {
         });
     }
 console.log("1");
-
-    if (req.body.content !== '시작'){
-        //kakaousers 테이블에 접근
-        KakaoUser.findOne({
-            'user_key': req.body.user_key
-        }, {
-            new: true
-        }, function(err, users) {
-          console.log('d진입');
-            if (err) return res.json(err);
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        });
-}
     //닉네임생성 버튼을 누르면
     if (req.body.content === '닉네임생성') {
         //닉네임 생성 스타트,
@@ -236,6 +223,15 @@ console.log("1");
 
 console.log("2");
     if (kakaousers.name_flag === '1') {
+
+        //kakaousers 테이블에 접근
+        KakaoUser.findOne({
+            'user_key': req.body.user_key
+        }, function(err, users) {
+            if (err) return res.json(err);
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
 
         if (kakaousers.name === req.body.content) {
             res.send({
@@ -319,7 +315,6 @@ console.log("2");
             });
         }
         if (kakaousers.name !== req.body.content) {
-
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
@@ -347,9 +342,15 @@ console.log("2");
     console.log("5");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
-            }
-
-                if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
+        //kakaousers 테이블에 접근
+        KakaoUser.findOne({
+            'user_key': req.body.user_key
+        }, function(err, users) {
+          console.log('d진입');
+            if (err) return res.json(err);
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
         console.log(kakaousers.name);
         res.send({ //name_array.pop()
             "message": {
@@ -359,7 +360,6 @@ console.log("2");
             }
         });
         console.log("6");
-          }
         /*
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
@@ -380,7 +380,7 @@ console.log("2");
             type: req.body.type,
             content: req.body.content
         }, function(error, doc) {});
-
+    }
 
 
 
