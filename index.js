@@ -177,6 +177,11 @@ app.post('/message', function(req, res) {
             }
         });
     }
+        Kakaomsg.create({
+            user_key: req.body.user_key,
+            type: req.body.type,
+            content: req.body.content
+        }, function(error, doc) {});
 
 });
 
