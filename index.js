@@ -168,8 +168,6 @@ app.post('/message', function(req, res) {
                 }
             });
         }
-
-
         if (kakaousers.name !== req.body.content && kakaousers.name_flag !== '3') {
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
