@@ -7,7 +7,7 @@ var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers = '';
-var Kakaomsg = require("../models/Kakaomsg");
+var Kakaomsg = require("./models/Kakaomsg");
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
