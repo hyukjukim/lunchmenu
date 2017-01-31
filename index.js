@@ -244,6 +244,7 @@ console.log("2-4");
 
 
         if (kakaousers.name !== req.body.content) {
+          console.log("2-5");
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
@@ -252,13 +253,14 @@ console.log("2-4");
             }, {
                 new: true
             }, function(err, users) {
+              console.log("2-6");
                 if (err) {
                     console.log("Something wrong when updating data!");
                 }
                 obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                 kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             });
-
+console.log("2-7");
             //생성된 이름 표출
             res.send({
                 "message": {
