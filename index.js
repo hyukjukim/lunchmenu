@@ -183,6 +183,7 @@ app.post('/message', function(req, res) {
             content: req.body.content
         }, function(error, doc) {});
 
+    res.sendStatus(200);
 });
 
 app.post('/friend', function(req, res) {
