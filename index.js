@@ -224,8 +224,6 @@ app.post('/message', function(req, res) {
 
 
     if (kakaousers.name_flag === '1') {
-
-
         //kakaousers 테이블에 접근
         KakaoUser.findOne({
             'user_key': req.body.user_key
@@ -267,6 +265,7 @@ app.post('/message', function(req, res) {
             });
         }
     }
+
     //닉네임설정 버튼을 누르면
     if (req.body.content === '닉네임변경') {
         //닉네임 변경 스타트,
@@ -311,7 +310,7 @@ app.post('/message', function(req, res) {
                 }
             });
         }
-        if (kakaousers.name !== req.body.content) {
+        if (kakaousers.name !== req.body.content && kakaousers.name_flag !== '3') {
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
