@@ -85,8 +85,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-/*
 //method의 query로 들어오는 값으로 HTTP method를 바꿉니다.
 //예를들어 http://example.com/category/id?_method=delete를 받으면 _method의 값인 delete을 읽어 해당 request의 HTTP method를 delete으로 바꿉니다.
 app.use(methodOverride("_method"));
@@ -161,7 +159,7 @@ app.delete("/kakaomsgs/:id", function(req, res) {
         res.redirect("/kakaomsgs");
     });
 });
-*/
+
 //KAKAO TALK
 app.get('/keyboard', function(req, res) {
     res.send({
@@ -172,18 +170,11 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-    if (req.body.content === '시작') {
         res.send({
             "message": {
                 "text": "안녕하세요 용사님 반갑습니다.\n전투 떠날 준비가 되셨나요? \n혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성, 닉네임변경)"
             }
         });
-    }
-        Kakaomsg.create({
-            user_key: req.body.user_key,
-            type: req.body.type,
-            content: req.body.content
-        }, function(error, doc) {});
 
     res.sendStatus(200);
 });
