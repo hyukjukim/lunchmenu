@@ -9,7 +9,6 @@ var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers = '';
-var obj = '';
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -181,10 +180,8 @@ app.post('/message', function(req, res) {
           name: '낯선손'
       },{
           new: true
-      }, function(error, users) {
-        if (err) return res.json(err);
-        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+      }, function(error, doc) {
+        
       });
 
 
