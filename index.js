@@ -175,18 +175,20 @@ app.post('/message', function(req, res) {
     }
 
     if (req.body.content === '닉네임생성') {
-      console.log(m.name);
-  // Kim
-  console.log(m.age);
-  // 23
-    ﻿﻿m.aboutMe();
-  // Hi, my name is Kim and I'm 23 year's old.
-    }
-        Kakaomsg.create({
-            user_key: req.body.user_key,
-            type: req.body.type,
-            content: req.body.content
-        }, function(error, doc) {});
+          console.log(m.name);
+      // Kim
+      console.log(m.age);
+      // 23
+      m.aboutMe();
+      // Hi, my name is Kim and I'm 23 year's old.
+        }
+
+        if (req.body.content === '전투 시작') {
+          res.send({
+              "type": "buttons",
+              "buttons": ["노멀던전 1층", "지하던전 1층"]
+          });
+      }
 
 });
 
