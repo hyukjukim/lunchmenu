@@ -185,8 +185,13 @@ app.post('/message', function(req, res) {
 
         if (req.body.content === '전투시작') {
           res.send({
-              "message": {
-                  "text": "아니 시발"
+              "keyboard": {
+                "type": "buttons",
+                "buttons": [
+                "노멀던전",
+                "극악던전",
+                "시발?"
+                ]
               }
           });
       }
