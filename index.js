@@ -186,7 +186,7 @@ app.post('/message', function(req, res) {
         if (req.body.content === '전투시작') {
           res.send({
             "message": {
-              "text": "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!",
+              "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..",
               "photo": {
                 "url": "https://photo.src",
                 "width": 640,
