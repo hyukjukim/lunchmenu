@@ -312,7 +312,6 @@ console.log("2");
         }
         if (kakaousers.name !== req.body.content) {
 
-          console.log("1-1");
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
@@ -327,7 +326,7 @@ console.log("2");
                 obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                 kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             });
-console.log("1-2");
+
             //생성된 이름 표출
             res.send({
                 "message": {
@@ -341,7 +340,7 @@ console.log("1-2");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
         //kakaousers 테이블에 접근
-        KakaoUser.findOne({
+        KakaoUser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, function(err, users) {
           console.log('d진입');
