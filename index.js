@@ -6,7 +6,8 @@ var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
-var m = require("./modules/my﻿Module");
+var m = require("./modules/myModule");
+
 
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.

@@ -1,4 +1,4 @@
-// myModule.js
+// ./modules/myModule.js
 ﻿
 var myModule = {
  name: "Kim",﻿
