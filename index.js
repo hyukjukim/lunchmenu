@@ -170,7 +170,7 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-
+console.log("222");
 
     res.sendStatus(200);
 });
