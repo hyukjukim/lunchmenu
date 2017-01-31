@@ -192,7 +192,7 @@ app.post('/message', function(req, res) {
     if (req.body.content === '개발자소개') {
       res.send({
         "message": {
-          "text": "안녕하세요.\n 저는 현재 DB 개발자로 재직중인 Programmer 입니다. \n개발 관련 궁금한 사항 및 건의사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
+          "text": "안녕하세요.\n 저는 현재 DB 개발자로 재직중인 Programmer 입니다. \n개발 관련 궁금한 사항 및 \n건의or제안사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
           "photo": {
             "url": "http://khj.heroku.com/images/master.jpg",
             "width": 640,
