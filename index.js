@@ -180,9 +180,9 @@ app.post('/message', function(req, res) {
           name: '낯선손'
       },{
           new: true
-      }, function(error, users) {
+      }, function(err, users) {
         console.log("1-@");
-        if (error) return res.json(error);
+        if (err) return res.json(err);
         obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
         kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
       });
@@ -195,7 +195,7 @@ app.post('/message', function(req, res) {
             }
         });
     }
-console.log("1");
+
     //닉네임생성 버튼을 누르면
     if (req.body.content === '닉네임생성') {
         //닉네임 생성 스타트,
@@ -222,20 +222,18 @@ console.log("1");
 
     }
 
-console.log("2");
+
     if (kakaousers.name_flag === '1') {
 
-console.log("2-1");
+
         //kakaousers 테이블에 접근
         KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
-          console.log("2-2");
             if (err) return res.json(err);
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
-console.log("2-3");
         if (kakaousers.name === req.body.content) {
             res.send({
                 "message": {
@@ -243,11 +241,9 @@ console.log("2-3");
                 }
             });
         }
-console.log("2-4");
 
 
         if (kakaousers.name !== req.body.content) {
-          console.log("2-5");
             KakaoUser.findOneAndUpdate({
                 'user_key': req.body.user_key
             }, {
@@ -256,14 +252,12 @@ console.log("2-4");
             }, {
                 new: true
             }, function(err, users) {
-              console.log("2-6");
                 if (err) {
                     console.log("Something wrong when updating data!");
                 }
                 obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                 kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             });
-console.log("2-7");
             //생성된 이름 표출
             res.send({
                 "message": {
@@ -273,7 +267,6 @@ console.log("2-7");
             });
         }
     }
-    console.log("3");
     //닉네임설정 버튼을 누르면
     if (req.body.content === '닉네임변경') {
         //닉네임 변경 스타트,
@@ -300,7 +293,6 @@ console.log("2-7");
         });
     }
 
-    console.log("4");
     if (kakaousers.name_flag === '2') {
 
         //kakaousers 테이블에 접근
@@ -344,19 +336,15 @@ console.log("2-7");
             });
         }
     }
-    console.log("5");
-    if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
-        //kakaousers 테이블에 접근
+    if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
         KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
-          console.log('d진입');
             if (err) return res.json(err);
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
-        console.log(kakaousers.name);
         res.send({ //name_array.pop()
             "message": {
                 "text": kakaousers.name + "님. \n오늘은 여기까지만 할게요." +
@@ -364,22 +352,7 @@ console.log("2-7");
                     "\n2017년 다들 새해 복 많이 받으세요~ :) "
             }
         });
-        console.log("6");
-        /*
-          const sender = '1399985126708579';
-          const sessionId = findOrCreateSession(sender);
-        console.log("1");
-          wit.runActions(
-            sessionId, // the user's current session
-            req.body.content, // the user's message
-            sessions[sessionId].context // the user's current session state
-          );
-          console.log("2");
-              res.send({//name_array.pop()
-                                  "message": {
-                                        "text": sendTextMessage
-                                  }
-              });*/
+
         Kakaomsg.create({
             user_key: req.body.user_key,
             type: req.body.type,
