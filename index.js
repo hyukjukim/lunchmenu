@@ -85,11 +85,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+/*
 //method의 query로 들어오는 값으로 HTTP method를 바꿉니다.
 //예를들어 http://example.com/category/id?_method=delete를 받으면 _method의 값인 delete을 읽어 해당 request의 HTTP method를 delete으로 바꿉니다.
 app.use(methodOverride("_method"));
 
-
+//사이트 root로 이동하는 경우 /kakaomsgs로 redirect 해준다.
+app.get("/", function(req, res) {
+    res.redirect("/kakaomsgs");
+});
+//root/kakaomsgs로 이동하는 경우. 내가 입력한 모든 Data를 찾아서 보여줍니다. kakaomsgs/index로 redirect 합니다.
+app.get("/kakaomsgs", function(req, res) {
+    Kakaomsg.find({}, function(err, kakaomsgs) {
+        if (err) return res.json(err);
+        res.render("kakaomsgs/index", {
+            kakaomsgs: kakaomsgs
+        });
+    });
+});
 // kakaomsgs/new"에 get 요청이 오는 경우 : 새로운 주소록을 만드는 form이 있는 views/kakaomsgs/new.ejs를 render합니다.
 app.get("/kakaomsgs/new", function(req, res) {
     res.render("kakaomsgs/new");
@@ -147,7 +161,7 @@ app.delete("/kakaomsgs/:id", function(req, res) {
         res.redirect("/kakaomsgs");
     });
 });
-
+*/
 //KAKAO TALK
 app.get('/keyboard', function(req, res) {
     res.send({
