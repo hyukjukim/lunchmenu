@@ -347,6 +347,10 @@ console.log("2");
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
+
+            }
+
+                if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
         console.log(kakaousers.name);
         res.send({ //name_array.pop()
             "message": {
@@ -356,6 +360,7 @@ console.log("2");
             }
         });
         console.log("6");
+          }
         /*
           const sender = '1399985126708579';
           const sessionId = findOrCreateSession(sender);
@@ -376,7 +381,7 @@ console.log("2");
             type: req.body.type,
             content: req.body.content
         }, function(error, doc) {});
-    }
+
 
 
 
