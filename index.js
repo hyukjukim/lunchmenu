@@ -1,13 +1,14 @@
-
+// 카카오톡 기록 사이트
 var express = require('express');
 var mongoose = require('mongoose');
+// body-parser module를 bodyPaser 변수에 담습니다.
 var bodyParser = require("body-parser");
+//method-override module을 methodOverride변수에 담습니다.
 var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
 var kakaousers = '';
-var Kakaomsg = require("./models/Kakaomsg");
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -22,6 +23,27 @@ db.on('error', function(err) {
     console.log("** DB CONNECTION ERR : **", err);
 });
 
+/*mongoose.Schema 함수를 사용해서 schema(data구조를 미리 정의해 놓는 것) object를 생성합니다.
+사용할 Data의 형태를 object로 생성한 다음 mongoose.Schema함수에 넣습니다.
+kakaomsg schema를 잠시 살펴보면 user_key, type, content 항목들을 가지고 있으며 새 항목 모두 타입은 String입니다.
+나머지 사용가능한 schema type들은 mongoose  공식사이트(http://mongoosejs.com/docs/schematypes.html)에서 확인해 주세요.*/
+
+var kakaomsgSchema = mongoose.Schema({
+    user_key: {
+        type: String
+    },
+    name: {
+        type: String
+    },
+    type: {
+        type: String
+    },
+    content: {
+        type: String
+    }
+});
+//mongoose.model함수를 사용하여 kakaomsg schema의 model을 생성합니다 kakaomsg에 일반적으로 s가 붙어서 테이블 생성
+var Kakaomsg = mongoose.model("kakaomsg", kakaomsgSchema);
 
 //user 관리를 위한 Schema를 생성합니다.
 var kakaouserSchema = mongoose.Schema({
