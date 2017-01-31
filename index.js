@@ -188,7 +188,7 @@ app.post('/message', function(req, res) {
             "message": {
               "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..\n어디로 가시는거죠?",
               "photo": {
-                "url": "https://photo.src",
+                "url": "https://khj.heroku.com/images/devilsgate.jpg",
                 "width": 640,
                 "height": 480
               }
