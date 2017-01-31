@@ -181,7 +181,7 @@ app.post('/message', function(req, res) {
       },{
           new: true
       }, function(error, doc) {
-        
+
       });
 
 
@@ -222,15 +222,17 @@ console.log("1");
 console.log("2");
     if (kakaousers.name_flag === '1') {
 
+console.log("2-1");
         //kakaousers 테이블에 접근
         KakaoUser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
+          console.log("2-2");
             if (err) return res.json(err);
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
-
+console.log("2-3");
         if (kakaousers.name === req.body.content) {
             res.send({
                 "message": {
@@ -238,7 +240,7 @@ console.log("2");
                 }
             });
         }
-
+console.log("2-4");
 
 
         if (kakaousers.name !== req.body.content) {
