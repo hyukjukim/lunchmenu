@@ -340,8 +340,10 @@ console.log("2");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
 
         //kakaousers 테이블에 접근
-        KakaoUser.findOneAndUpdate({
+        KakaoUser.findOne({
             'user_key': req.body.user_key
+        }, {
+            new: true
         }, function(err, users) {
           console.log('d진입');
             if (err) return res.json(err);
