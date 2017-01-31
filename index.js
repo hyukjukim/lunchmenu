@@ -165,12 +165,47 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-    if (req.body.content === '시작') {
+    if (req.body.content === '시작' || req.body.content === '처음으로') {
+
         res.send({
-            "message": {
-                "text": "안녕하세요 용사님 반갑습니다.\n전투 떠날 준비가 되셨나요? \n혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성, 닉네임변경)"
+          "message": {
+            "text": "안녕하세요 용사님 반갑습니다.\n저는 천국 제13지구에 사는 천사였어요\n"+
+            "\n바알의 유혹에 빠져 지상으로 떨어졌구요\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요.. \n저와 함께 여행을 떠날 준비가 되셨나요?",
+            "photo": {
+              "url": "http://khj.heroku.com/images/start.jpg",
+              "width": 640,
+              "height": 480
             }
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "캐릭터생성",
+              "전투시작",
+              "개발자소개",
+              "처음으로"
+            ]
+          }
         });
+    }
+
+    if (req.body.content === '개발자소개') {
+      res.send({
+        "message": {
+          "text": "안녕하세요.\n 저는 현재 재직중인 Programmer 입니다. \n개발 관련 궁금한 사항 및 건의사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
+          "photo": {
+            "url": "http://khj.heroku.com/images/master.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": [
+            "처음으로"
+          ]
+        }
+      });
     }
 
     if (req.body.content === '캐릭터생성') {
@@ -192,7 +227,8 @@ app.post('/message', function(req, res) {
               "buttons": [
                 "노멀던전",
                 "레어던전",
-                "랜덤던전"
+                "랜덤던전",
+                "처음으로"
               ]
             }
           });
