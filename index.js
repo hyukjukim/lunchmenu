@@ -181,9 +181,9 @@ app.post('/message', function(req, res) {
           name: '낯선손'
       },{
           new: true
-      }, function(error, doc) {
+      }, function(error, users) {
         if (err) return res.json(err);
-        obj = JSON.stringify(doc); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
         kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
       });
 
