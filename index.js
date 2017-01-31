@@ -6,7 +6,7 @@ var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
-var m = require("./modules/myModule");
+var hero = require("./modules/Hero");
 
 
 
@@ -175,6 +175,8 @@ app.post('/message', function(req, res) {
     }
 
     if (req.body.content === '캐릭터생성') {
+      hero.creatHero();
+
       res.send({
         "message": {
           "text": "원하는 캐릭터를 선택해 주세요",
@@ -218,12 +220,12 @@ app.post('/message', function(req, res) {
       }
 
       if (req.body.content === '노멀던전'){
-        console.log(m.name);
-    // Kim
-    console.log(m.age);
-    // 23
-    m.aboutMe();
-    // Hi, my name is Kim and I'm 23 year's old.
+
+    res.send({
+        "message": {
+            "text": "노멀던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+        }
+    });
       }
       if (req.body.content === '레어던전'){
         res.send({
