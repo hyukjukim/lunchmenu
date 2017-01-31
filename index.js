@@ -169,8 +169,8 @@ app.post('/message', function(req, res) {
 
         res.send({
           "message": {
-            "text": "안녕하세요...(흑흑)\n저는 천국 제13지구의 천사예요..\n"+
-            "\n바알의 유혹에 빠져 \n 지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요.. \n저와 여행을 떠나 주시겠어요?",
+            "text": "안녕하세요...(흑흑)\n저는 제13지구의 천사예요..\n"+
+            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
             "photo": {
               "url": "http://khj.heroku.com/images/start.jpg",
               "width": 640,
@@ -225,9 +225,9 @@ app.post('/message', function(req, res) {
             "keyboard": {
               "type": "buttons",
               "buttons": [
-                "노멀던전",
-                "레어던전",
-                "랜덤던전",
+                "지상계전투",
+                "천상계전투",
+                "PvP",
                 "처음으로"
               ]
             }
