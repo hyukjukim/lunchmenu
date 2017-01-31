@@ -1,14 +1,13 @@
 // 카카오톡 기록 사이트
 var express = require('express');
 var mongoose = require('mongoose');
-// body-parser module를 bodyPaser 변수에 담습니다.
 var bodyParser = require("body-parser");
-//method-override module을 methodOverride변수에 담습니다.
 var methodOverride = require("method-override");
 var app = express();
 var name_flag_array = new Array("");
 var name_array = new Array("");
-var kakaousers = '';
+var m = require("./modules/my﻿Module");
+
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -23,10 +22,6 @@ db.on('error', function(err) {
     console.log("** DB CONNECTION ERR : **", err);
 });
 
-/*mongoose.Schema 함수를 사용해서 schema(data구조를 미리 정의해 놓는 것) object를 생성합니다.
-사용할 Data의 형태를 object로 생성한 다음 mongoose.Schema함수에 넣습니다.
-kakaomsg schema를 잠시 살펴보면 user_key, type, content 항목들을 가지고 있으며 새 항목 모두 타입은 String입니다.
-나머지 사용가능한 schema type들은 mongoose  공식사이트(http://mongoosejs.com/docs/schematypes.html)에서 확인해 주세요.*/
 
 var kakaomsgSchema = mongoose.Schema({
     user_key: {
@@ -70,8 +65,8 @@ var kakaouserSchema = mongoose.Schema({
         type: String
     }
 });
-//KakaoUser 변수로 테이블에 접근
-var KakaoUser = mongoose.model("kakaouser", kakaouserSchema);
+//Kakaouser 변수로 테이블에 접근
+var Kakaouser = mongoose.model("kakaouser", kakaouserSchema);
 
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
@@ -177,6 +172,15 @@ app.post('/message', function(req, res) {
             }
         });
     }
+
+    if (req.body.content === '닉네임생성') {
+      console.log(m.name);
+  // Kim
+  console.log(m.age);
+  // 23
+    ﻿﻿m.aboutMe();
+  // Hi, my name is Kim and I'm 23 year's old.
+    }
         Kakaomsg.create({
             user_key: req.body.user_key,
             type: req.body.type,
@@ -198,30 +202,6 @@ app.delete('/chat_room/:user_key', function(req, res) {
     res.sendStatus(200);
 });
 
-
-/******************************************************************************
-
-//{nameQuery:'value'}를 뽑아주는 구문. 주소 끝에 ?nameQuery='value'써줘야 한다.
-app.get("/hello", function(req,res){
- res.render("hello", {name:req.query.nameQuery});
-console.log(req.query);
-});
-
-//파라미터에 입력하는 값을 name value로 넣는 구문
-app.get("/hello/:nameParam", function(req,res){
- res.render("hello", {name:req.params.nameParam});
- console.log(req.query);
-});
-******************************************************************************/
-
-/*
-//Port Setting
-app.listen(5000, function(){
-  console.log("Server on!");
-});
-*/
-
-// Spin up the server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
 });
