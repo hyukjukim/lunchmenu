@@ -188,6 +188,8 @@ app.post('/message', function(req, res) {
                 "text": "안녕하세요 용사님 반갑습니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
             }
         });
+    }
+console.log("1");
 
         //kakaousers 테이블에 접근
         KakaoUser.findOne({
@@ -200,10 +202,7 @@ app.post('/message', function(req, res) {
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
-
-
-    }
-console.log("1");
+        
     //닉네임생성 버튼을 누르면
     if (req.body.content === '닉네임생성') {
         //닉네임 생성 스타트,
