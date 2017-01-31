@@ -160,7 +160,7 @@ app.delete("/kakaomsgs/:id", function(req, res) {
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "닉네임생성"]
+        "buttons": ["시작", "닉네임생성", "전투시작"]
     });
 });
 
@@ -183,10 +183,10 @@ app.post('/message', function(req, res) {
       // Hi, my name is Kim and I'm 23 year's old.
         }
 
-        if (req.body.content === '전투 시작') {
+        if (req.body.content === '전투시작') {
           res.send({
               "type": "buttons",
-              "buttons": ["노멀던전 1층", "지하던전 1층"]
+              "buttons": ["노멀던전1층", "지하던전1층"]
           });
       }
 
