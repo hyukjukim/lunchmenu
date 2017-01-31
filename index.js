@@ -239,7 +239,7 @@ app.post('/message', function(req, res) {
           "message": {
             "text": "지상계 전투 입니다. 인간들의 평균 전투력은 천사들을 따라 잡을 수 없으나, 현재 전 저주를 받아 아이템이 전혀 없어 매우 약합니다.\n캐릭터 생성이 필요합니다.",
             "photo": {
-              "url": "http://khj.heroku.com/images/devilsgate.jpg",
+              "url": "http://khj.heroku.com/images/human.jpg",
               "width": 640,
               "height": 480
             }
@@ -257,7 +257,7 @@ app.post('/message', function(req, res) {
           "message": {
             "text": "아직은 너무 빡세...\n캐릭터 생성이 필요합니다.",
             "photo": {
-              "url": "http://khj.heroku.com/images/devilsgate.jpg",
+              "url": "http://khj.heroku.com/images/sky.jpg",
               "width": 640,
               "height": 480
             }
@@ -273,9 +273,9 @@ app.post('/message', function(req, res) {
       if (req.body.content === 'PvP'){
         res.send({
           "message": {
-            "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. ()닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
+            "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. (닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
             "photo": {
-              "url": "http://khj.heroku.com/images/devilsgate.jpg",
+              "url": "http://khj.heroku.com/images/pvp.jpg",
               "width": 640,
               "height": 480
             }
