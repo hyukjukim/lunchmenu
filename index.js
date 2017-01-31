@@ -204,6 +204,27 @@ app.post('/message', function(req, res) {
           });
       }
 
+      if (req.body.content === '노멀던전'){
+        res.send({
+            "message": {
+                "text": "노멀던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+            }
+        });
+      }
+      if (req.body.content === '레어던전'){
+        res.send({
+            "message": {
+                "text": "레어던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+            }
+        });
+      }
+      if (req.body.content === '랜덤던전'){
+        res.send({
+            "message": {
+                "text": "랜덤던전 입장! \n(명령어:닉네임생성, 닉네임변경)"
+            }
+        });
+      }
 });
 
 app.post('/friend', function(req, res) {
