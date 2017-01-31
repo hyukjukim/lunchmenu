@@ -186,23 +186,19 @@ app.post('/message', function(req, res) {
         if (req.body.content === '전투시작') {
           res.send({
             "message": {
-              "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..",
+              "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..\n어디로 가시는거죠?",
               "photo": {
                 "url": "https://photo.src",
                 "width": 640,
                 "height": 480
-              },
-              "message_button": {
-                "label": "주유 쿠폰받기",
-                "url": "https://coupon/url"
               }
             },
             "keyboard": {
               "type": "buttons",
               "buttons": [
-                "처음으로",
-                "다시 등록하기",
-                "취소하기"
+                "노멀던전",
+                "레어던전",
+                "랜덤던전"
               ]
             }
           });
