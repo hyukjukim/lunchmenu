@@ -183,12 +183,25 @@ app.post('/message', function(req, res) {
       }, function(error, doc) {});
 
 
-
         res.send({
             "message": {
                 "text": "안녕하세요 용사님 반갑습니다.\n 혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다. \n(명령어:닉네임생성)"
             }
         });
+
+        //kakaousers 테이블에 접근
+        KakaoUser.findOne({
+            'user_key': req.body.user_key
+        }, {
+            new: true
+        }, function(err, users) {
+          console.log('d진입');
+            if (err) return res.json(err);
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
+
+
     }
 console.log("1");
     //닉네임생성 버튼을 누르면
@@ -219,15 +232,6 @@ console.log("1");
 
 console.log("2");
     if (kakaousers.name_flag === '1') {
-
-        //kakaousers 테이블에 접근
-        KakaoUser.findOne({
-            'user_key': req.body.user_key
-        }, function(err, users) {
-            if (err) return res.json(err);
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        });
 
         if (kakaousers.name === req.body.content) {
             res.send({
@@ -338,18 +342,6 @@ console.log("2");
     }
     console.log("5");
     if (kakaousers.name_flag !== '1' & kakaousers.name_flag !== '2' & req.body.content !== '닉네임생성' & req.body.content !== '시작') {
-
-        //kakaousers 테이블에 접근
-        KakaoUser.findOne({
-            'user_key': req.body.user_key
-        }, {
-            new: true
-        }, function(err, users) {
-          console.log('d진입');
-            if (err) return res.json(err);
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        });
 
             }
 
