@@ -1,5 +1,7 @@
 // ./modules/Hero.js
 
+var express = require('express');
+var app = express();
 
 
 function creatHero(){

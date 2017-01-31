@@ -4,10 +4,9 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
+var hero = require("./modules/Hero");
 var name_flag_array = new Array("");
 var name_array = new Array("");
-var hero = require("./modules/Hero");
-
 
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
