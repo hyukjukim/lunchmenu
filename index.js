@@ -288,6 +288,20 @@ app.post('/message', function(req, res) {
           }
         });
       }
+
+      if (req.body.content === '뚜벅이전사'||req.body.content === '간지러운궁수'||req.body.content === '몸빵약한법사'||req.body.content === '마스터') {
+              res.send({
+                "message": {
+                  "text": "2017-01-31.. 구현 중 입니다.",
+                },
+                "keyboard": {
+                  "type": "buttons",
+                  "buttons": [
+                    "처음으로"
+                  ]
+                }
+              });
+      }
 });
 
 app.post('/friend', function(req, res) {
