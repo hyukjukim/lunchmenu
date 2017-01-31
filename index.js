@@ -140,25 +140,6 @@ app.get("/kakaomsgs/:id/edit", function(req, res) {
     });
 });
 
-// views/kakaomsgs/edit.ejs 에서
-app.put("/kakaomsgs/:id", function(req, res) {
-    Kakaomsg.findOneAndUpdate({
-        _id: req.params.id
-    }, req.body, function(err, kakaomsg) {
-        if (err) return res.json(err);
-        res.redirect("/kakaomsgs/" + req.params.id);
-    });
-});
-
-// kakaomsgs - destroy // 7
-app.delete("/kakaomsgs/:id", function(req, res) {
-    Kakaomsg.remove({
-        _id: req.params.id
-    }, function(err, kakaomsg) {
-        if (err) return res.json(err);
-        res.redirect("/kakaomsgs");
-    });
-});
 
 //KAKAO TALK
 app.get('/keyboard', function(req, res) {
@@ -182,7 +163,7 @@ app.post('/message', function(req, res) {
             type: req.body.type,
             content: req.body.content
         }, function(error, doc) {});
-    
+
     res.sendStatus(200);
 });
 
