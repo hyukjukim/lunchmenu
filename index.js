@@ -119,11 +119,35 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-    if (req.body.content === '게임시작' || req.body.content === '처음으로') {
+    if (req.body.content === '게임시작'){
 
+      res.send({
+        "message": {
+          "text": "4차 혁명의 시작. 머드게임의 부활. 지금, 시작합니다.\n"
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": [
+            "처음으로"
+          ]
+        }
+      });
+
+        KakaoUser.findOne({
+            'user_key': req.body.user_key
+        }, function(err, users) {
+            if (err) return res.json(err);
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
+    }
+
+    else if(req.body.content === '처음으로'){
+
+      if(kakaousers.name_flag === '1'){
         res.send({
           "message": {
-            "text": "안녕하세요...(흑흑)\n저는 제13지구의 천사예요..\n"+
+            "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
             "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
             "photo": {
               "url": "http://khj.heroku.com/images/start.jpg",
@@ -141,6 +165,30 @@ app.post('/message', function(req, res) {
             ]
           }
         });
+      }
+
+      if(kakaousers.name_flag === '3'){
+        res.send({
+          "message": {
+            "text": "안녕하세요..."+kakaousers.name+"님...(흑흑)\n저는 제13지구의 천사예요..\n"+
+            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
+            "photo": {
+              "url": "http://khj.heroku.com/images/start.jpg",
+              "width": 640,
+              "height": 480
+            }
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "캐릭터생성",
+              "전투시작",
+              "처음으로",
+              "개발자소개"
+            ]
+          }
+        });
+      }
     }
 
     else if (req.body.content === '개발자소개') {
