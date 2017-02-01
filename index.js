@@ -138,93 +138,71 @@ console.log('2');
         "keyboard": {
           "type": "buttons",
           "buttons": [
-            "배경스토리"
-          ]
-        }
-      });
-      });
-
-
-
-
-
-    }
-
-    else if(req.body.content === '배경스토리'){
-      Kakaouser.findOne({
-          'user_key': req.body.user_key
-      }, function(err, users) {
-console.log('4');
-          if (err) return res.json(err);
-          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-
-console.log('5');
-      res.send({
-        "message": {
-          "text": "이딴거 생각할 시간이 지금은 없습니다... 천천히 생각해볼게용.. ㅜ\n"
-        },
-        "keyboard": {
-          "type": "buttons",
-          "buttons": [
             "처음으로"
           ]
         }
       });
       });
-
-
     }
-
     else if(req.body.content === '처음으로'){
-
-console.log('6');
-      if(kakaousers.name_flag === '3'){
-console.log('7');
-        res.send({
-          "message": {
-            "text": "안녕하세요..."+kakaousers.name+"님...(흑흑)\n저는 제13지구의 천사예요..\n"+
-            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
-            "photo": {
-              "url": "http://khj.heroku.com/images/start.jpg",
-              "width": 640,
-              "height": 480
-            }
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "캐릭터생성",
-              "전투시작",
-              "처음으로",
-              "개발자소개"
-            ]
-          }
-        });
-      }
-      else{
-console.log('8');
-              res.send({
-                "message": {
-                  "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
-                  "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
-                  "photo": {
-                    "url": "http://khj.heroku.com/images/start.jpg",
-                    "width": 640,
-                    "height": 480
-                  }
-                },
-                "keyboard": {
-                  "type": "buttons",
-                  "buttons": [
-                    "캐릭터생성",
-                    "전투시작",
-                    "처음으로",
-                    "개발자소개"
-                  ]
+console.log('4');
+      Kakaouser.findOne({
+          'user_key': req.body.user_key
+      }, function(err, users) {
+console.log('5');
+          if (err) return res.json(err);
+          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+          console.log('6');
+                if(kakaousers.name_flag === '3'){
+          console.log('7');
+                  res.send({
+                    "message": {
+                      "text": "안녕하세요..."+kakaousers.name+"님...(흑흑)\n저는 제13지구의 천사예요..\n"+
+                      "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
+                      "photo": {
+                        "url": "http://khj.heroku.com/images/start.jpg",
+                        "width": 640,
+                        "height": 480
+                      }
+                    },
+                    "keyboard": {
+                      "type": "buttons",
+                      "buttons": [
+                        "캐릭터생성",
+                        "전투시작",
+                        "처음으로",
+                        "개발자소개"
+                      ]
+                    }
+                  });
                 }
-              });
-            }
+                else{
+          console.log('8');
+                        res.send({
+                          "message": {
+                            "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
+                            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
+                            "photo": {
+                              "url": "http://khj.heroku.com/images/start.jpg",
+                              "width": 640,
+                              "height": 480
+                            }
+                          },
+                          "keyboard": {
+                            "type": "buttons",
+                            "buttons": [
+                              "캐릭터생성",
+                              "전투시작",
+                              "처음으로",
+                              "개발자소개"
+                            ]
+                          }
+                        });
+                      } 
+
+      });
+
     }
 
     else if (req.body.content === '개발자소개') {
