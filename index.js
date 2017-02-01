@@ -133,7 +133,7 @@ app.post('/message', function(req, res) {
         }
       });
 
-        KakaoUser.findOne({
+        Kakaouser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
             if (err) return res.json(err);
