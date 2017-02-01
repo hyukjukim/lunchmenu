@@ -113,13 +113,13 @@ app.delete("/kakaomsgs/:id", function(req, res) {
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "캐릭터생성", "전투시작", "개발자소개"]
+        "buttons": ["게임시작"]
     });
 });
 
 app.post('/message', function(req, res) {
 
-    if (req.body.content === '시작' || req.body.content === '처음으로') {
+    if (req.body.content === '게임시작' || req.body.content === '처음으로') {
 
         res.send({
           "message": {
@@ -167,7 +167,7 @@ app.post('/message', function(req, res) {
           res.send({
               "message": {
                   "text": "안녕하세요 용사님 반갑습니다."+
-                          "\n전투 떠날 준비가 되셨나요? \n혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
+                          "\n전투 떠날 준비가 되셨나요? \n사용하실 닉네임을 말씀 해 주세요."
               }
           });
 
