@@ -143,7 +143,7 @@ app.post('/message', function(req, res) {
         });
     }
 
-    if (req.body.content === '개발자소개') {
+    else if (req.body.content === '개발자소개') {
       res.send({
         "message": {
           "text": "안녕하세요.\n 저는 현재 DB 개발자로 재직중인 Programmer 입니다. \n개발 관련 궁금한 사항 및 \n건의or제안사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
@@ -162,7 +162,7 @@ app.post('/message', function(req, res) {
       });
     }
 
-    if (req.body.content === '캐릭터생성') {
+    else if (req.body.content === '캐릭터생성') {
           //hero.creatHero(req,res);
           res.send({
               "message": {
@@ -184,8 +184,7 @@ app.post('/message', function(req, res) {
     }
 
 
-
-        if (req.body.content === '전투시작') {
+    else if (req.body.content === '전투시작') {
           res.send({
             "message": {
               "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..\n어디로 가시는거죠?",
@@ -207,7 +206,7 @@ app.post('/message', function(req, res) {
           });
       }
 
-      if (req.body.content === '지상계전투'){
+      else if (req.body.content === '지상계전투'){
         res.send({
           "message": {
             "text": "지상계 전투 입니다. 인간들의 평균 전투력은 천사들을 따라 잡을 수 없으나, 현재 전 저주를 받아 아이템이 전혀 없어 매우 약합니다.\n캐릭터 생성이 필요합니다.",
@@ -225,7 +224,7 @@ app.post('/message', function(req, res) {
           }
         });
       }
-      if (req.body.content === '천상계전투'){
+      else if (req.body.content === '천상계전투'){
         res.send({
           "message": {
             "text": "아직은 너무 빡세...\n캐릭터 생성이 필요합니다.",
@@ -243,7 +242,7 @@ app.post('/message', function(req, res) {
           }
         });
       }
-      if (req.body.content === 'PvP'){
+      else if (req.body.content === 'PvP'){
         res.send({
           "message": {
             "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. \n(닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
@@ -262,7 +261,7 @@ app.post('/message', function(req, res) {
         });
       }
 
-      if (req.body.content === '뚜벅이전사'||req.body.content === '간지러운궁수'||req.body.content === '몸빵약한법사'||req.body.content === '마스터') {
+      else if (req.body.content === '뚜벅이전사'||req.body.content === '간지러운궁수'||req.body.content === '몸빵약한법사'||req.body.content === '마스터') {
               res.send({
                 "message": {
                   "text": "2017-01-31.. 구현 중 입니다.",
@@ -275,6 +274,40 @@ app.post('/message', function(req, res) {
                 }
               });
       }
+
+      else if (req.body.content === '생성완료'){
+        res.send({
+          "message": {
+            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..)"
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "처음으로"
+            ]
+          }
+        });
+      }
+
+      else {
+        res.send({
+          "message": {
+            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n맘에 드시면 [생성완료]\n재생성은 [캐릭터생성]\n 버튼을 눌러주세요",
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "생성완료",
+              "캐릭터생성"
+            ]
+          }
+        });
+      }
+
+
+
+
+
 });
 
 app.post('/friend', function(req, res) {
