@@ -6,6 +6,7 @@ var methodOverride = require("method-override");
 var app = express();
 var Kakaouser = require("./models/Kakaouser");
 var Kakaomsg = require("./models/Kakaomsg");
+var hero = require("./modules/Hero");
 var name_flag_array = new Array("");
 var name_array = new Array("");
 
@@ -168,6 +169,20 @@ app.post('/message', function(req, res) {
                   "text": "안녕하세요 용사님 반갑습니다."+
                           "\n전투 떠날 준비가 되셨나요? \n혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
               }
+          });
+
+          KakaoUser.create({
+              user_key: req.body.user_key,
+              name_flag: '0',
+              password_flag: '0',
+              email_flag: '0',
+              name: req.body.content
+          },{
+              new: true
+          }, function(err, users) {
+            console.log(err);
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
           });
     }
 
