@@ -278,7 +278,7 @@ app.post('/message', function(req, res) {
       else if (req.body.content === '생성완료'){
         res.send({
           "message": {
-            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..)"
+            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. 아이디 바꾸고 싶으면 다시 생성하면 됩니다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..) "
           },
           "keyboard": {
             "type": "buttons",
@@ -288,11 +288,39 @@ app.post('/message', function(req, res) {
           }
         });
       }
+      else if (req.body.content === '생성취소'){
+        res.send({
+          "message": {
+            "text": "아휴 왜이렇게 한번에 생성을 못하실까... 난 "+ kakaousers.name +"좋은데.. 얼른 다시 생성해봐요.. "
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "캐릭터생성",
+              "처음으로"
+            ]
+          }
+        });
 
+        KakaoUser.findOneAndUpdate({
+            'user_key': req.body.user_key
+        }, {
+            'name': null,
+            'name_flag': '1'
+        }, {
+            new: true
+        }, function(err, users) {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
+      }
       else {
         res.send({
           "message": {
-            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n맘에 드시면 [생성완료]\n재생성은 [캐릭터생성]\n 버튼을 눌러주세요",
+            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은  [생성취소]\n 버튼을 눌러주세요",
           },
           "keyboard": {
             "type": "buttons",
@@ -301,6 +329,21 @@ app.post('/message', function(req, res) {
               "캐릭터생성"
             ]
           }
+        });
+
+        KakaoUser.findOneAndUpdate({
+            'user_key': req.body.user_key
+        }, {
+            'name': req.body.content,
+            'name_flag': '3'
+        }, {
+            new: true
+        }, function(err, users) {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
       }
 
