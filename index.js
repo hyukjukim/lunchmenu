@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
-var hero = require("./modules/Hero");
+var Kakaouser = require("./models/Kakaouser");
+var Kakaomsg = require("./models/Kakaomsg");
 var name_flag_array = new Array("");
 var name_array = new Array("");
 
@@ -22,56 +23,8 @@ db.on('error', function(err) {
     console.log("** DB CONNECTION ERR : **", err);
 });
 
-
-var kakaomsgSchema = mongoose.Schema({
-    user_key: {
-        type: String
-    },
-    name: {
-        type: String
-    },
-    type: {
-        type: String
-    },
-    content: {
-        type: String
-    }
-});
-//mongoose.model함수를 사용하여 kakaomsg schema의 model을 생성합니다 kakaomsg에 일반적으로 s가 붙어서 테이블 생성
-var Kakaomsg = mongoose.model("kakaomsg", kakaomsgSchema);
-
-//user 관리를 위한 Schema를 생성합니다.
-var kakaouserSchema = mongoose.Schema({
-    user_key: {
-        type: String,
-        unique: true
-    },
-    name: {
-        type: String,
-    },
-    password: {
-        type: String
-    },
-    email: {
-        type: String
-    },
-    name_flag: {
-        type: String
-    },
-    password_flag: {
-        type: String
-    },
-    email_flag: {
-        type: String
-    }
-});
-//Kakaouser 변수로 테이블에 접근
-var Kakaouser = mongoose.model("kakaouser", kakaouserSchema);
-
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
-//ejs파일을 사용하기 위해서는 res.render 함수를 사용해야 하며, 첫번째 parameter로 ejs의 이름을,
-//두번째 parameter로 ejs에서 사용될 object를 전달합니다. res.render함수는 ejs를 /views 폴더에서 찾으므로 views폴더의 이름은 변경되면 안됩니다.
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/"));
 // bodyParser로 stream의 form data중  json data를 req.body에 옮겨 담습니다
