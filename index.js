@@ -367,14 +367,18 @@ app.post('/message', function(req, res) {
         Kakaouser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
-            'name': null,
+            'name': '',
             'name_flag': '1'
         }, {
             new: true
         }, function(err, users) {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
+
       }
       else {
 
