@@ -144,28 +144,6 @@ app.post('/message', function(req, res) {
 
     else if(req.body.content === '처음으로'){
 
-      if(kakaousers.name_flag === '1'){
-        res.send({
-          "message": {
-            "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
-            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
-            "photo": {
-              "url": "http://khj.heroku.com/images/start.jpg",
-              "width": 640,
-              "height": 480
-            }
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "캐릭터생성",
-              "전투시작",
-              "처음으로",
-              "개발자소개"
-            ]
-          }
-        });
-      }
 
       if(kakaousers.name_flag === '3'){
         res.send({
@@ -189,6 +167,28 @@ app.post('/message', function(req, res) {
           }
         });
       }
+      else{
+              res.send({
+                "message": {
+                  "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
+                  "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
+                  "photo": {
+                    "url": "http://khj.heroku.com/images/start.jpg",
+                    "width": 640,
+                    "height": 480
+                  }
+                },
+                "keyboard": {
+                  "type": "buttons",
+                  "buttons": [
+                    "캐릭터생성",
+                    "전투시작",
+                    "처음으로",
+                    "개발자소개"
+                  ]
+                }
+              });
+            }
     }
 
     else if (req.body.content === '개발자소개') {
