@@ -159,7 +159,7 @@ app.delete("/kakaomsgs/:id", function(req, res) {
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["시작", "캐릭터생성", "전투시작"]
+        "buttons": ["시작", "캐릭터생성", "전투시작", "개발자소개"]
     });
 });
 
@@ -182,8 +182,8 @@ app.post('/message', function(req, res) {
             "buttons": [
               "캐릭터생성",
               "전투시작",
-              "개발자소개",
-              "처음으로"
+              "처음으로",
+              "개발자소개"
             ]
           }
         });
@@ -273,7 +273,7 @@ app.post('/message', function(req, res) {
       if (req.body.content === 'PvP'){
         res.send({
           "message": {
-            "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. (닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
+            "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. \n(닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
             "photo": {
               "url": "http://khj.heroku.com/images/pvp.jpg",
               "width": 640,
