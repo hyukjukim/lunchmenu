@@ -123,7 +123,7 @@ app.post('/message', function(req, res) {
 
       res.send({
         "message": {
-          "text": "4차 혁명의 시작. 머드게임의 부활. 지금, 시작합니다.\n"
+          "text": "4차 혁명의 시작. 자동응답 머드게임의 부활. 지금, 시작합니다.\n"
         },
         "keyboard": {
           "type": "buttons",
@@ -133,6 +133,17 @@ app.post('/message', function(req, res) {
         }
       });
 
+        Kakaouser.create({
+            user_key: req.body.user_key,
+            name_flag: '1',
+            password_flag: '0',
+            email_flag: '0',
+            name: null
+        },{
+            new: true
+        }, function(err, users) {
+        });
+        
         Kakaouser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
@@ -219,16 +230,6 @@ app.post('/message', function(req, res) {
               }
           });
 
-          Kakaouser.create({
-              user_key: req.body.user_key,
-              name_flag: '1',
-              password_flag: '0',
-              email_flag: '0',
-              name: null
-          },{
-              new: true
-          }, function(err, users) {
-          });
     }
 
 
