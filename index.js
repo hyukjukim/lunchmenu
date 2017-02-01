@@ -131,9 +131,6 @@ console.log('1');
           new: true
       }, function(err, users) {
 console.log('2');
-      });
-
-console.log('3');
       res.send({
         "message": {
           "text": "4차 혁명의 시작. 자동응답 머드게임의 부활. 지금, 시작합니다.\n"
@@ -145,6 +142,10 @@ console.log('3');
           ]
         }
       });
+      });
+
+
+
 
 
     }
