@@ -278,7 +278,7 @@ app.post('/message', function(req, res) {
       else if (req.body.content === '생성완료'){
         res.send({
           "message": {
-            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. 아이디 바꾸고 싶으면 다시 생성하면 됩니다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..) "
+            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. 님 아이디는 DB에 저장될거예요. 아이디 바꾸고 싶으면 다시 생성하면 됩니다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..) "
           },
           "keyboard": {
             "type": "buttons",
@@ -302,7 +302,7 @@ app.post('/message', function(req, res) {
           }
         });
 
-        KakaoUser.findOneAndUpdate({
+        Kakaouser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
             'name': null,
@@ -318,20 +318,9 @@ app.post('/message', function(req, res) {
         });
       }
       else {
-        res.send({
-          "message": {
-            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은  [생성취소]\n 버튼을 눌러주세요",
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "생성완료",
-              "캐릭터생성"
-            ]
-          }
-        });
 
-        KakaoUser.findOneAndUpdate({
+
+        Kakaouser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
             'name': req.body.content,
@@ -344,6 +333,19 @@ app.post('/message', function(req, res) {
             }
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        });
+
+        res.send({
+          "message": {
+            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은  [생성취소]\n 버튼을 눌러주세요",
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "생성완료",
+              "생성취소"
+            ]
+          }
         });
       }
 
