@@ -148,7 +148,15 @@ console.log('3');
     }
 
     else if(req.body.content === '배경스토리'){
+      Kakaouser.findOne({
+          'user_key': req.body.user_key
+      }, function(err, users) {
 console.log('4');
+          if (err) return res.json(err);
+          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+      });
+console.log('5');
       res.send({
         "message": {
           "text": "이딴거 생각할 시간이 지금은 없습니다... 천천히 생각해볼게용.. ㅜ\n"
@@ -160,14 +168,7 @@ console.log('4');
           ]
         }
       });
-      Kakaouser.findOne({
-          'user_key': req.body.user_key
-      }, function(err, users) {
-console.log('5');
-          if (err) return res.json(err);
-          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-      });
+
     }
 
     else if(req.body.content === '처음으로'){
