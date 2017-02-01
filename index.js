@@ -209,8 +209,22 @@ app.post('/message', function(req, res) {
     }
 
     if (req.body.content === '캐릭터생성') {
-          hero.creatHero(req,res);
+          //hero.creatHero(req,res);
+          res.send({
+              "message": {
+                  "text": "안녕하세요 용사님 반갑습니다."+
+                          "\n전투 떠날 준비가 되셨나요? \n혹시 아직 닉네임이 없으시다면 생성 부탁 드립니다."
+              }
+          });
     }
+
+
+
+
+
+
+
+
 
         if (req.body.content === '전투시작') {
           res.send({
