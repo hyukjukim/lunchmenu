@@ -128,31 +128,42 @@ app.post('/message', function(req, res) {
         "keyboard": {
           "type": "buttons",
           "buttons": [
-            "처음으로"
+            "배경스토리"
           ]
         }
       });
 
-
-
-        Kakaouser.findOne({
-            'user_key': req.body.user_key
+        Kakaouser.create({
+            user_key: req.body.user_key,
+            name_flag: '1',
+            password_flag: '0',
+            email_flag: '0',
+            name: null
+        },{
+            new: true
         }, function(err, users) {
-            if (err){
-              Kakaouser.create({
-                  user_key: req.body.user_key,
-                  name_flag: '1',
-                  password_flag: '0',
-                  email_flag: '0',
-                  name: null
-              },{
-                  new: true
-              }, function(err, users) {
-              });
-            }
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
+    }
+
+    else if(req.body.content === '배경스토리'){
+      res.send({
+        "message": {
+          "text": "이딴거 생각할 시간이 지금은 없습니다... 천천히 생각해볼게용.. ㅜ\n"
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": [
+            "처음으로"
+          ]
+        }
+      });
+      Kakaouser.findOne({
+          'user_key': req.body.user_key
+      }, function(err, users) {
+          if (err) return res.json(err);
+          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+      });
     }
 
     else if(req.body.content === '처음으로'){
