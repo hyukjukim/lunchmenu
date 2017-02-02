@@ -144,6 +144,23 @@ console.log('2');
       });
       });
     }
+    else if(req.body.content === '▶▶옆으로이동'){
+      res.send({
+        "message": {
+          "text": "옆으로 이동은 누르는 버튼이 아니라 옆으로 넘겨보라는 뜻이예요.",
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": [
+            "캐릭터생성",
+            "전투시작",
+            "▶▶옆으로이동",
+            "처음으로",
+            "개발자소개"
+          ]
+        }
+      });
+    }
     else if(req.body.content === '처음으로'){
 console.log('4');
       Kakaouser.findOne({
@@ -256,7 +273,6 @@ console.log('11');
               "buttons": [
                 "지상계전투",
                 "천상계전투",
-                "▶▶옆으로이동",
                 "PvP",
                 "처음으로"
               ]
