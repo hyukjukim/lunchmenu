@@ -266,7 +266,7 @@ console.log('9');
                   menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
-                              "text": "["+menus.week+"]의 한식 메뉴는\n"+menus.menu+"\n\n입니다."},
+                              "text": "["+req.body.content,+"]의 메뉴는\n"+menus.menu+"\n\n입니다."},
                             "keyboard": {
                               "type": "buttons",
                               "buttons": ["한식","양식","처음으로"]
