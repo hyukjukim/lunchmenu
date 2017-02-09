@@ -187,7 +187,7 @@ console.log('5');
           console.log('7');
                   res.send({
                     "message": {
-                      "text": kakaousers.name+"님!!!\n반갑습니다. 닉네임은 계속 바꿀 수 있으세요. (추후 변경 안되도록 막을 예정이니 선점하시는 것도 좋겠죠?) \n\n 바쁜 일이 많아서 2/7일부터 추가 개발이 있을 예정입니다."},
+                      "text": kakaousers.name+"님!!! 반갑습니다. \n회사 식단 관리 프로그램에 오신 것을 환영합니다."},
                     "keyboard": {
                       "type": "buttons",
                       "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
@@ -198,7 +198,7 @@ console.log('5');
           console.log('8');
                         res.send({
                           "message": {
-                            "text": "안녕하세요...아직 닉네임 생성을 안하셨네요? ㅎㅎ 괜찮아요 아직은 닉네임이 꼭 필요한 것이 아니거든요..^^",
+                            "text": "안녕하세요...아직 닉네임 생성을 안하셨네요? ㅎㅎ 괜찮아요 아직은 닉네임이 꼭 필요한 것이 아니거든요..^^\n회사 식단 관리 프로그램에 오신 것을 환영합니다.",
                           },
                           "keyboard": {
                             "type": "buttons",
@@ -244,19 +244,19 @@ console.log('9');
     else if (req.body.content === '메뉴보기') {
       res.send({
         "message": {
-          "text": "안녕하세요.\n 한식, 양식중에 하나를 선택 해주세요.",
+          "text": "안녕하세요.\n 메뉴 보기를 원하시는\n요일을 선택 해주세요.",
         },
         "keyboard": {
           "type": "buttons",
           "buttons": [
-            "한식","양식"
+            "월","화","수☞☞☞","목","금","처음으로"
           ]
         }
       });
     }
 
 
-    else if (req.body.content === '한식'){
+    else if (req.body.content === '월'){
           //findOne
               menu.findOne({
                   'week': '월',
@@ -276,26 +276,8 @@ console.log('9');
               });
           //findOne
         }
-    else if (req.body.content === '양식'){
-      //findOne
-          menu.findOne({
-              'week': '월',
-          }, function(err, menus) {
-              if (err) return res.json(err);
-              obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                      res.send({
-                        "message": {
-                          "text": "["+menus.week+"]의 양식 메뉴는\n"+menus.menu+"\n\n입니다."},
-                        "keyboard": {
-                          "type": "buttons",
-                          "buttons": ["한식","양식","처음으로"]
-                        }
-                      });
 
-          });
-      //findOne
-    }
+
 
       else if (req.body.content === '생성완료'){
 console.log('16');
