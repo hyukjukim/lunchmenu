@@ -121,6 +121,17 @@ app.post('/message', function(req, res) {
 
 console.log('1');
     if (req.body.content === '시작'){
+      menu.create({
+        name: '주인장',
+        week: '',
+        menu: '',
+        score:''
+    },{
+        new: true
+    }, function(err, menus) {
+
+    });
+
       Kakaouser.create({
           user_key: req.body.user_key,
           name_flag: '1',
