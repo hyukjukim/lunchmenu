@@ -269,7 +269,7 @@ console.log('9');
                               "text": "["+req.body.content,+"]의 메뉴는\n"+menus.menu+"\n\n입니다."},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["한식","양식","처음으로"]
+                              "buttons": ["월요일","화요일","수요일 ☞☞☞","목요일","금요일","처음으로"]
                             }
                           });
 
