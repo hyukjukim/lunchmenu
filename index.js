@@ -121,6 +121,8 @@ app.post('/message', function(req, res) {
 
 console.log('1');
     if (req.body.content === '시작'){
+
+/*
       menu.create({
         name: '주인장',
         week: '',
@@ -131,7 +133,7 @@ console.log('1');
     }, function(err, menus) {
 
     });
-
+*/
       Kakaouser.create({
           user_key: req.body.user_key,
           name_flag: '1',
@@ -230,7 +232,6 @@ console.log('9');
     }
 
     else if (req.body.content === '닉네임설정') {
-console.log('10');
           //hero.creatHero(req,res);
           res.send({
               "message": {
@@ -240,53 +241,32 @@ console.log('10');
 
     }
 
-    else if (req.body.content === '구약QT(랜덤)'){
-
-//findOne
-    Kakaouser.findOne({
-        'user_key': req.body.user_key,
-    }, function(err, users) {
-        if (err) return res.json(err);
-        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        if(kakaousers.date==d.getDay()){
-          res.send({
-            "message": {
-              "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
-            "keyboard": {
-              "type": "buttons",
-              "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-            }
-          });
+    else if (req.body.content === '메뉴보기') {
+      res.send({
+        "message": {
+          "text": "안녕하세요.\n 한식, 양식중에 하나를 선택 해주세요.",
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": [
+            "한식","양식"
+          ]
         }
-        else{
+      });
+    }
 
-          //findOneAndUpdate
-          Kakaouser.findOneAndUpdate({
-              'user_key': req.body.user_key
-          }, {
-              'date': d.getDay(),
-          }, {
-              new: true
-          }, function(err, users) {
-              if (err) {
-                  console.log("Something wrong when updating data!");
-              }
-              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-          });
-          //findOneAndUpdate
+
+    else if (req.body.content === '한식'){
           //findOne
               menu.findOne({
-                  'menu': Math.floor(Math.random() * 23144) + 1,
-              }, function(err, users) {
-                console.log("456");
+                  'week': '월',
+              }, function(err, menus) {
                   if (err) return res.json(err);
-                  obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                  obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                   menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
-                              "text": "["+menus.menu+"]\n"},
+                              "text": "["+menus.week+"]의 한식 메뉴는\n"+menus.menu+"\n\n입니다."},
                             "keyboard": {
                               "type": "buttons",
                               "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
@@ -296,68 +276,25 @@ console.log('10');
               });
           //findOne
         }
-    });
-//findOne
-
-
-    }
-    else if (req.body.content === '신약QT(랜덤)'){
+    else if (req.body.content === '양식'){
       //findOne
-          Kakaouser.findOne({
-              'user_key': req.body.user_key,
-          }, function(err, users) {
+          menu.findOne({
+              'week': '월',
+          }, function(err, menus) {
               if (err) return res.json(err);
-              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-              if(kakaousers.date2==d.getDay()){
-                res.send({
-                  "message": {
-                    "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-                  }
-                });
-              }
-              else{
+              obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+              menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                      res.send({
+                        "message": {
+                          "text": "["+menus.week+"]의 양식 메뉴는\n"+menus.menu+"\n\n입니다."},
+                        "keyboard": {
+                          "type": "buttons",
+                          "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                        }
+                      });
 
-                //findOneAndUpdate
-                Kakaouser.findOneAndUpdate({
-                    'user_key': req.body.user_key
-                }, {
-                    'date2': d.getDay(),
-                }, {
-                    new: true
-                }, function(err, users) {
-                    if (err) {
-                        console.log("Something wrong when updating data!");
-                    }
-                    obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                    kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                });
-                //findOneAndUpdate
-                //findOne
-                    menu.findOne({
-                        'menu': Math.floor(Math.random() * 7957) + 1,
-                    }, function(err, users) {
-                        if (err) return res.json(err);
-                        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                        menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                                res.send({
-                                  "message": {
-                                    "text": "["+menus.menu+"]\n"},
-                                  "keyboard": {
-                                    "type": "buttons",
-                                    "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-                                  }
-                                });
-
-                    });
-                //findOne
-              }
           });
       //findOne
-
     }
 
       else if (req.body.content === '생성완료'){

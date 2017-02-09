@@ -4,10 +4,13 @@ var mongoose = require('mongoose');
 
 //menu 관리를 위한 Schema를 생성합니다.
 var menuSchema = mongoose.Schema({
-    user_key: {
+    name: {
         type: String,
     },
     week: {
+        type: String,
+    },
+    condition: {
         type: String,
     },
     menu: {
