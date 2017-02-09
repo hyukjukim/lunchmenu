@@ -4,12 +4,12 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
+var bible = require("./models/bible");
 var Kakaouser = require("./models/Kakaouser");
 var Kakaomsg = require("./models/Kakaomsg");
-var hero = require("./modules/Hero");
-var name_flag_array = new Array("");
-var name_array = new Array("");
 var kakaousers = '';
+var d = new Date();
+
 
 //DB Setting : 환경 변수를 사용하여 MONGO_DB에 접속합니다.
 mongoose.connect(process.env.MONGO_DB);
@@ -19,10 +19,12 @@ var db = mongoose.connection;
 db.once("open", function() {
     console.log("** MONGO_DB CONNECTED **");
 });
+
 //DB 연결 중 에러가 있는 경우
 db.on('error', function(err) {
     console.log("** DB CONNECTION ERR : **", err);
 });
+
 
 //PORT 지정하는 부분
 app.set('port', (process.env.PORT || 5000));
@@ -98,7 +100,6 @@ app.put("/kakaomsgs/:id", function(req, res) {
         res.redirect("/kakaomsgs/" + req.params.id);
     });
 });
-
 // kakaomsgs - destroy // 7
 app.delete("/kakaomsgs/:id", function(req, res) {
     Kakaomsg.remove({
@@ -108,108 +109,87 @@ app.delete("/kakaomsgs/:id", function(req, res) {
         res.redirect("/kakaomsgs");
     });
 });
-
 //KAKAO TALK
 app.get('/keyboard', function(req, res) {
     res.send({
         "type": "buttons",
-        "buttons": ["게임시작"]
+        "buttons": ["시작"]
     });
 });
 
 app.post('/message', function(req, res) {
 
-    if (req.body.content === '게임시작'){
+console.log('1');
+    if (req.body.content === '시작'){
       Kakaouser.create({
           user_key: req.body.user_key,
           name_flag: '1',
-          password_flag: '0',
-          email_flag: '0',
-          name: null
+          church_name: '0',
+          score: '0',
+          name: '',
+          date: '7',
+          date2: '7',
+          password: '0',
+          email: '0',
+          temp1: '0',
+          temp2: '0'
       },{
           new: true
       }, function(err, users) {
+console.log('2');
       res.send({
         "message": {
-          "text": "4차 혁명의 시작. 자동응답 머드게임의 부활. 지금, 시작합니다.\n"
+          "text": "샬롬.\n자동응답 QT 프로그램에 오신 것을 환영합니다. \n\n\n본 프로그램은 2017년 2월 3일 \n최초 개발 되었으며 다양한 방법으로 \n서비스가 발전되어 나갈 예정입니다.\n\n기본 큐티 이외의\n다양한 명령어를 체험하시려면 \n버튼을 옆으로 이동하여 주세요."
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": [
-            "처음으로"
-          ]
+          "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
       });
     }
-    else if(req.body.content === '▶▶옆으로이동'){
+
+    else if(req.body.content === '☞☞옆으로넘기기'){
       res.send({
         "message": {
-          "text": "옆으로 이동은 누르는 버튼이 아니라 옆으로 넘겨보라는 뜻이예요.",
+          "text": "☞☞옆으로넘기기는 버튼이 아니라 손가락을 사용하여 옆으로 넘겨보라는 뜻이예요.",
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": [
-            "캐릭터생성",
-            "전투시작",
-            "▶▶옆으로이동",
-            "처음으로",
-            "개발자소개"
-          ]
+          "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
     }
     else if(req.body.content === '처음으로'){
+console.log('4');
       Kakaouser.findOne({
           'user_key': req.body.user_key
       }, function(err, users) {
+console.log('5');
           if (err) return res.json(err);
           obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
           kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-
+          console.log('6');
                 if(kakaousers.name_flag === '3'){
+          console.log('7');
                   res.send({
                     "message": {
-                      "text": "안녕하세요..."+kakaousers.name+"님...(흑흑)\n저는 제13지구의 천사예요..\n"+
-                      "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
-                      "photo": {
-                        "url": "http://khj.heroku.com/images/start.jpg",
-                        "width": 640,
-                        "height": 480
-                      }
-                    },
+                      "text": kakaousers.name+"님!!!\n반갑습니다. 닉네임은 계속 바꿀 수 있으세요. (추후 변경 안되도록 막을 예정이니 선점하시는 것도 좋겠죠?) \n\n 바쁜 일이 많아서 2/7일부터 추가 개발이 있을 예정입니다."},
                     "keyboard": {
                       "type": "buttons",
-                      "buttons": [
-                        "캐릭터생성",
-                        "전투시작",
-                        "▶▶옆으로이동",
-                        "처음으로",
-                        "개발자소개"
-                      ]
+                      "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                     }
                   });
                 }
                 else{
+          console.log('8');
                         res.send({
                           "message": {
-                            "text": "안녕하세요...아이디 생성도 안한 초 뉴비님..(흑흑)\n저는 제13지구의 천사예요..\n"+
-                            "바알의 유혹에 빠져 \n지상으로 떨어졌답니다.\n저를 구해주세요..\n제발..\n다시 천국으로 가기 원해요..\n저와 여행을 떠나 주시겠어요?",
-                            "photo": {
-                              "url": "http://khj.heroku.com/images/start.jpg",
-                              "width": 640,
-                              "height": 480
-                            }
+                            "text": "안녕하세요...아직 닉네임 생성을 안하셨네요? ㅎㅎ 괜찮아요 아직은 닉네임이 꼭 필요한 것이 아니거든요..^^",
                           },
                           "keyboard": {
                             "type": "buttons",
-                            "buttons": [
-                              "캐릭터생성",
-                              "전투시작",
-                              "▶▶옆으로이동",
-                              "처음으로",
-                              "개발자소개"
-                            ]
+                            "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                           }
                         });
                       }
@@ -219,9 +199,10 @@ app.post('/message', function(req, res) {
     }
 
     else if (req.body.content === '개발자소개') {
+console.log('9');
       res.send({
         "message": {
-          "text": "안녕하세요.\n 저는 현재 DB 개발자로 재직중인 Programmer 입니다. \n개발 관련 궁금한 사항 및 \n건의or제안사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
+          "text": "안녕하세요.\n 저는 Programmer 입니다. \n컴퓨터과학 전공을 하였으며, \nAI 와 Chatbot을 개발 중입니다. \n개발 관련 궁금한 사항 및 \n건의 or 사업 제안사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
           "photo": {
             "url": "http://khj.heroku.com/images/master.jpg",
             "width": 640,
@@ -237,113 +218,144 @@ app.post('/message', function(req, res) {
       });
     }
 
-    else if (req.body.content === '캐릭터생성') {
+    else if (req.body.content === '닉네임설정') {
+console.log('10');
           //hero.creatHero(req,res);
           res.send({
               "message": {
-                  "text": "안녕하세요 용사님 반갑습니다."+
-                          "\n전투 떠날 준비가 되셨나요? \n사용하실 닉네임을 말씀 해 주세요."
+                  "text": "안녕하세요 \n사용하실 닉네임을 말씀 해 주세요."
               }
           });
 
     }
 
+    else if (req.body.content === '구약QT(랜덤)'){
 
-    else if (req.body.content === '전투시작') {
+//findOne
+    Kakaouser.findOne({
+        'user_key': req.body.user_key,
+    }, function(err, users) {
+        if (err) return res.json(err);
+        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+        kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        if(kakaousers.date==d.getDay()){
           res.send({
             "message": {
-              "text": "용사님, 안돼요..\n이 앞은 너무 무서워요..\n어디로 가시는거죠?",
-              "photo": {
-                "url": "http://khj.heroku.com/images/devilsgate.jpg",
-                "width": 640,
-                "height": 480
-              }
-            },
+              "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
             "keyboard": {
               "type": "buttons",
-              "buttons": [
-                "지상계전투",
-                "천상계전투",
-                "PvP",
-                "처음으로"
-              ]
+              "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
             }
           });
-      }
+        }
+        else{
 
-      else if (req.body.content === '지상계전투'){
-        res.send({
-          "message": {
-            "text": "지상계 전투 입니다. 인간들의 평균 전투력은 천사들을 따라 잡을 수 없으나, 현재 전 저주를 받아 아이템이 전혀 없어 매우 약합니다.\n캐릭터 생성이 필요합니다.",
-            "photo": {
-              "url": "http://khj.heroku.com/images/human.jpg",
-              "width": 640,
-              "height": 480
-            }
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "처음으로"
-            ]
-          }
-        });
-      }
-      else if (req.body.content === '천상계전투'){
-        res.send({
-          "message": {
-            "text": "아직은 너무 빡세...\n캐릭터 생성이 필요합니다.",
-            "photo": {
-              "url": "http://khj.heroku.com/images/sky.jpg",
-              "width": 640,
-              "height": 480
-            }
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "처음으로"
-            ]
-          }
-        });
-      }
-      else if (req.body.content === 'PvP'){
-        res.send({
-          "message": {
-            "text": "맘에 들지 않는 유저를 척살 가능 합니다. 이기면 해당 유저의 정보는 사라집니다. \n(닉네임 차지 가능)\n캐릭터 생성이 필요합니다.",
-            "photo": {
-              "url": "http://khj.heroku.com/images/pvp.jpg",
-              "width": 640,
-              "height": 480
-            }
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "처음으로"
-            ]
-          }
-        });
-      }
+          //findOneAndUpdate
+          Kakaouser.findOneAndUpdate({
+              'user_key': req.body.user_key
+          }, {
+              'date': d.getDay(),
+          }, {
+              new: true
+          }, function(err, users) {
+              if (err) {
+                  console.log("Something wrong when updating data!");
+              }
+              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+          });
+          //findOneAndUpdate
+          //findOne
+              bible.findOne({
+                  'seq': Math.floor(Math.random() * 23144) + 1,
+                  'singu' : "구약"
+              }, function(err, users) {
+                console.log("456");
+                  if (err) return res.json(err);
+                  obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                  bibles = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                          res.send({
+                            "message": {
+                              "text": "["+bibles.name+"]\n"+bibles.content},
+                            "keyboard": {
+                              "type": "buttons",
+                              "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                            }
+                          });
 
-      else if (req.body.content === '뚜벅이전사'||req.body.content === '간지러운궁수'||req.body.content === '몸빵약한법사'||req.body.content === '마스터') {
-              res.send({
-                "message": {
-                  "text": "2017-01-31.. 구현 중 입니다.",
-                },
-                "keyboard": {
-                  "type": "buttons",
-                  "buttons": [
-                    "처음으로"
-                  ]
-                }
               });
-      }
+          //findOne
+        }
+    });
+//findOne
+
+
+    }
+    else if (req.body.content === '신약QT(랜덤)'){
+      //findOne
+          Kakaouser.findOne({
+              'user_key': req.body.user_key,
+          }, function(err, users) {
+              if (err) return res.json(err);
+              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+              if(kakaousers.date2==d.getDay()){
+                res.send({
+                  "message": {
+                    "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                  }
+                });
+              }
+              else{
+
+                //findOneAndUpdate
+                Kakaouser.findOneAndUpdate({
+                    'user_key': req.body.user_key
+                }, {
+                    'date2': d.getDay(),
+                }, {
+                    new: true
+                }, function(err, users) {
+                    if (err) {
+                        console.log("Something wrong when updating data!");
+                    }
+                    obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                    kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                });
+                //findOneAndUpdate
+                //findOne
+                    bible.findOne({
+                        'seq': Math.floor(Math.random() * 7957) + 1,
+                        'singu' : "신약"
+                    }, function(err, users) {
+                        if (err) return res.json(err);
+                        obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                        bibles = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                                res.send({
+                                  "message": {
+                                    "text": "["+bibles.name+"]\n"+bibles.content},
+                                  "keyboard": {
+                                    "type": "buttons",
+                                    "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                                  }
+                                });
+
+                    });
+                //findOne
+              }
+          });
+      //findOne
+
+    }
 
       else if (req.body.content === '생성완료'){
+console.log('16');
         res.send({
           "message": {
-            "text": "아이디 생성을 축하드립니다. 용사님 지금부터 저와 함께 오지게 빡센 게임을 시작 해봅시다. 님 아이디는 DB에 저장될거예요. 아이디 바꾸고 싶으면 다시 생성하면 됩니다. (회사일이 더 오지게 빡세서 개발은 좀 천천히 할게요..) "
+            "text": "닉네임 생성을 축하드립니다. \n 앞으로 방을 나갔다가 다시 들어오셔도, 님의 이름을 항상 기억할 것 입니다. 해당 기능을 사용하여 추후 많은 컨텐츠를 제작 할 예정이니, 기대하셔도 좋습니다. ^^"
           },
           "keyboard": {
             "type": "buttons",
@@ -354,14 +366,15 @@ app.post('/message', function(req, res) {
         });
       }
       else if (req.body.content === '생성취소'){
+console.log('17');
         res.send({
           "message": {
-            "text": "아휴 왜이렇게 한번에 생성을 못하실까... 난 "+ kakaousers.name +"좋은데.. 얼른 다시 생성해봐요.. "
+            "text": "앗 맘에 안드신다구요? 난 "+ kakaousers.name +"좋은데.. 얼른 다시 생성해봐요.. "
           },
           "keyboard": {
             "type": "buttons",
             "buttons": [
-              "캐릭터생성",
+              "닉네임설정",
               "처음으로"
             ]
           }
@@ -375,6 +388,7 @@ app.post('/message', function(req, res) {
         }, {
             new: true
         }, function(err, users) {
+console.log('18');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
@@ -383,7 +397,36 @@ app.post('/message', function(req, res) {
         });
 
       }
+//필살 초기화키
+      else if (req.body.content === '초기화'){
+          //findOneAndUpdate
+          Kakaouser.findOneAndUpdate({
+              'user_key': req.body.user_key
+          }, {
+              'date' : '0',
+              'date2': '0'
+          }, {
+              new: true
+          }, function(err, users) {
+              if (err) {
+                  console.log("Something wrong when updating data!");
+              }
+              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+              kakaousers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+              res.send({
+                "message": {
+                  "text": "예스, 마스터.\n절대 권한으로 초기화 완료 되었습니다."},
+                "keyboard": {
+                  "type": "buttons",
+                  "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                }
+              });
+          });
+          //findOneAndUpdate
+      }
       else {
+
+console.log('19');
         Kakaouser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
@@ -392,6 +435,7 @@ app.post('/message', function(req, res) {
         }, {
             new: true
         }, function(err, users) {
+console.log('20');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
@@ -401,7 +445,7 @@ app.post('/message', function(req, res) {
 
         res.send({
           "message": {
-            "text": "님이 입력하신 아이디는 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은  [생성취소]\n 버튼을 눌러주세요",
+            "text": "입력하신 닉네임은 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은   [생성취소]\n 버튼을 눌러주세요",
           },
           "keyboard": {
             "type": "buttons",
