@@ -269,7 +269,7 @@ console.log('9');
                               "text": "["+menus.week+"]의 한식 메뉴는\n"+menus.menu+"\n\n입니다."},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                              "buttons": ["한식","양식","처음으로"]
                             }
                           });
 
@@ -289,7 +289,7 @@ console.log('9');
                           "text": "["+menus.week+"]의 양식 메뉴는\n"+menus.menu+"\n\n입니다."},
                         "keyboard": {
                           "type": "buttons",
-                          "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                          "buttons": ["한식","양식","처음으로"]
                         }
                       });
 
