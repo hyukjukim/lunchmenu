@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
-var bible = require("./models/bible");
+var menu = require("./models/menu");
 var Kakaouser = require("./models/Kakaouser");
 var Kakaomsg = require("./models/Kakaomsg");
 var kakaousers = '';
@@ -139,11 +139,11 @@ console.log('1');
 console.log('2');
       res.send({
         "message": {
-          "text": "샬롬.\n자동응답 QT 프로그램에 오신 것을 환영합니다. \n\n\n본 프로그램은 2017년 2월 3일 \n최초 개발 되었으며 다양한 방법으로 \n서비스가 발전되어 나갈 예정입니다.\n\n기본 큐티 이외의\n다양한 명령어를 체험하시려면 \n버튼을 옆으로 이동하여 주세요."
+          "text": "안녕하세요.\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+          "buttons": ["이번 주 메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
       });
@@ -156,7 +156,7 @@ console.log('2');
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+          "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
     }
@@ -177,7 +177,7 @@ console.log('5');
                       "text": kakaousers.name+"님!!!\n반갑습니다. 닉네임은 계속 바꿀 수 있으세요. (추후 변경 안되도록 막을 예정이니 선점하시는 것도 좋겠죠?) \n\n 바쁜 일이 많아서 2/7일부터 추가 개발이 있을 예정입니다."},
                     "keyboard": {
                       "type": "buttons",
-                      "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                      "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                     }
                   });
                 }
@@ -189,7 +189,7 @@ console.log('5');
                           },
                           "keyboard": {
                             "type": "buttons",
-                            "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                            "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                           }
                         });
                       }
@@ -244,7 +244,7 @@ console.log('10');
               "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
             "keyboard": {
               "type": "buttons",
-              "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+              "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
             }
           });
         }
@@ -266,20 +266,19 @@ console.log('10');
           });
           //findOneAndUpdate
           //findOne
-              bible.findOne({
-                  'seq': Math.floor(Math.random() * 23144) + 1,
-                  'singu' : "구약"
+              menu.findOne({
+                  'menu': Math.floor(Math.random() * 23144) + 1,
               }, function(err, users) {
                 console.log("456");
                   if (err) return res.json(err);
                   obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                  bibles = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                  menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
-                              "text": "["+bibles.name+"]\n"+bibles.content},
+                              "text": "["+menus.menu+"]\n"},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                              "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                             }
                           });
 
@@ -305,7 +304,7 @@ console.log('10');
                     "text": "신약, 구약 \n각각 하루에 한번만 이용 가능 합니다.\n\n추후 스코어, 교회별 랭크, 초기화 버튼 만들겠습니다."},
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                    "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                   }
                 });
               }
@@ -327,19 +326,18 @@ console.log('10');
                 });
                 //findOneAndUpdate
                 //findOne
-                    bible.findOne({
-                        'seq': Math.floor(Math.random() * 7957) + 1,
-                        'singu' : "신약"
+                    menu.findOne({
+                        'menu': Math.floor(Math.random() * 7957) + 1,
                     }, function(err, users) {
                         if (err) return res.json(err);
                         obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                        bibles = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                        menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                                 res.send({
                                   "message": {
-                                    "text": "["+bibles.name+"]\n"+bibles.content},
+                                    "text": "["+menus.menu+"]\n"},
                                   "keyboard": {
                                     "type": "buttons",
-                                    "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                                    "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                                   }
                                 });
 
@@ -418,7 +416,7 @@ console.log('18');
                   "text": "예스, 마스터.\n절대 권한으로 초기화 완료 되었습니다."},
                 "keyboard": {
                   "type": "buttons",
-                  "buttons": ["구약QT(랜덤)","신약QT(랜덤)","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                  "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                 }
               });
           });
