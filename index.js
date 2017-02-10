@@ -254,7 +254,7 @@ console.log('9');
     else if (req.body.content === '오늘의 메뉴') {
       res.send({
         "message": {
-          "text": "안녕하세요.\n [한식] or [양식/일품] 중에서 선택하세요.",
+          "text": "안녕하세요.\n [한식] or [양식/일품] or [샐러드]\n중에서 선택하세요.",
         },
         "keyboard": {
           "type": "buttons",

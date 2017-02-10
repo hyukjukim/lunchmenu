@@ -39,6 +39,9 @@ var menuSchema = mongoose.Schema({
     },
     score: {
         type: String
+    },
+    edit_flag: {
+        type: String
     }
 });
 
