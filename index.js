@@ -371,20 +371,21 @@ console.log('20');
             }
             obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
             keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+
+                    res.send({
+                      "message": {
+                        "text": "입력하신 닉네임은 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은   [생성취소]\n 버튼을 눌러주세요",
+                      },
+                      "keyboard": {
+                        "type": "buttons",
+                        "buttons": [
+                          "생성완료",
+                          "생성취소"
+                        ]
+                      }
+                    });
         });
 
-        res.send({
-          "message": {
-            "text": "입력하신 닉네임은 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은   [생성취소]\n 버튼을 눌러주세요",
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": [
-              "생성완료",
-              "생성취소"
-            ]
-          }
-        });
       }
 
 
