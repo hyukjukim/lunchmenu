@@ -400,7 +400,7 @@ console.log('16');
           console.log("@@@#$"+menus.menu1 + "!@#!@#"+menus.menu1[1]+"!!#$!@#$@#"+menus.menu1[2]);
         res.send({
           "message": {
-            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1[1]
+            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1
           },
           "keyboard": {
             "type": "buttons",
