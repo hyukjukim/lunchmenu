@@ -258,7 +258,7 @@ console.log('9');
     }
 
 
-    else if (req.body.content === "월요일"||"화요일"||"수요일 ☞☞☞"||"목요일"||"금요일"){
+    else if (req.body.content === "월요일"){
       console.log('@@');
           //findOne
               menu.findOne({
