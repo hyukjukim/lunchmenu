@@ -270,6 +270,8 @@ console.log('9');
 
     else if (req.body.content === "한식"||req.body.content === "양식/일품"){
       console.log(d.getDate());
+      console.log(d.getMonth()+1);
+      console.log(getFullYear());
           //findOne
               menu.findOne({
                   'week': '월요일',
