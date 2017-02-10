@@ -332,28 +332,6 @@ console.log('18');
           //findOneAndUpdate
       }
 
-      else if (req.body.content == '월요일'||'화요일'){
-        console.log('@@'+req.body.content);
-            //findOne
-                menu.findOne({
-                    'week': req.body.content,
-                }, function(err, menus) {
-                    if (err) return res.json(err);
-                    obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                    menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                            res.send({
-                              "message": {
-                                "text": "["+req.body.content+"]의 메뉴는\n"+menus.menu+"입니다."},
-                              "keyboard": {
-                                "type": "buttons",
-                                "buttons": ["월요일","화요일","수요일 ☞☞☞","목요일","금요일","처음으로"]
-                              }
-                            });
-
-                });
-            //findOne
-          }
-
       else {
 
 console.log('19');
