@@ -241,6 +241,16 @@ console.log('9');
 
     }
 
+    else if (req.body.content === '관리자 암호입력') {
+          //hero.creatHero(req,res);
+          res.send({
+              "message": {
+                  "text": "당신은 저의 마스터 이십니까..?"
+              }
+          });
+
+    }
+
     else if (req.body.content === '메뉴보기') {
       res.send({
         "message": {
