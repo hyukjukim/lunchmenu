@@ -259,7 +259,7 @@ console.log('9');
 
 
     else if (req.body.content === '월요일'||'화요일'){
-      console.log('@@');
+      console.log('@@'+req.body.content);
           //findOne
               menu.findOne({
                   'week': req.body.content,
