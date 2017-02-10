@@ -259,6 +259,7 @@ console.log('9');
 
 
     else if (req.body.content === "월요일"||"화요일"||"수요일 ☞☞☞"||"목요일"||"금요일"){
+      console.log('@@');
           //findOne
               menu.findOne({
                   'week': req.body.content,
@@ -377,18 +378,18 @@ console.log('20');
       }
 
 
-            res.send({
-              "message": {
-                "text": "입력하신 닉네임은 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은   [생성취소]\n 버튼을 눌러주세요",
-              },
-              "keyboard": {
-                "type": "buttons",
-                "buttons": [
-                  "생성완료",
-                  "생성취소"
-                ]
-              }
-            });
+          res.send({
+            "message": {
+              "text": "입력하신 닉네임은 " +req.body.content +"입니다. 맘에 드십니까? \n(하하)맘에 드시면 [생성완료]\n(흑흑)재 생성은   [생성취소]\n 버튼을 눌러주세요",
+            },
+            "keyboard": {
+              "type": "buttons",
+              "buttons": [
+                "생성완료",
+                "생성취소"
+              ]
+            }
+          });
 
 
 
