@@ -273,7 +273,7 @@ console.log('9');
           //findOne
               menu.findOne({
                   'year' :d.getFullYear(),
-                  'month': (d.getMonth()+1),
+                  'month': '0'+(d.getMonth()+1),
                   'date': d.getDate()
               }, function(err, menus) {
                   if (err) return res.json(err);
