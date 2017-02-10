@@ -343,6 +343,21 @@ console.log('18');
         });
 
       }
+      else if (req.body.content === '메뉴 점수 주기'){
+console.log('16');
+        res.send({
+          "message": {
+            "text": "아직 구현 중 입니다."
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": [
+              "이전으로","처음으로"
+            ]
+          }
+        });
+      }
+
 //필살 초기화키
       else if (req.body.content === '1200312'){
           //create
@@ -382,9 +397,10 @@ console.log('18');
         }, function(err, menus) {
           obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
           menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+          console.log("@@@#$"+menus.menu1 + "!@#!@#"+menus.menu1[1]+"!!#$!@#$@#"+menus.menu1[2]);
         res.send({
           "message": {
-            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1
+            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1[1]
           },
           "keyboard": {
             "type": "buttons",
