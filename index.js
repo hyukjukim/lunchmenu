@@ -332,7 +332,7 @@ console.log('18');
           //findOneAndUpdate
       }
 
-      else if (req.body.content === '월요일'||'화요일'){
+      else if (req.body.content == '월요일'||'화요일'){
         console.log('@@'+req.body.content);
             //findOne
                 menu.findOne({
@@ -353,7 +353,7 @@ console.log('18');
                 });
             //findOne
           }
-      
+
       else {
 
 console.log('19');
