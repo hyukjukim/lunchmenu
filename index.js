@@ -271,7 +271,9 @@ console.log('9');
         console.log(d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate());
           //findOne
               menu.findOne({
-                  'year' :d.getFullYear()
+                  'year' :d.getFullYear(),
+                  'month': (d.getMonth()+1),
+                  'date': d.getDate()
               }, function(err, menus) {
                   if (err) return res.json(err);
                   obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
