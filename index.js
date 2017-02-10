@@ -392,7 +392,7 @@ console.log('16');
       }
 //필살 초기화키
       else if (req.body.content === '전체 식단보기'){
-        menu.find({'edit_flag':'0'},{
+        menu.findOne({'edit_flag':'0'},{
             new: true
         }, function(err, menus) {
           obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
