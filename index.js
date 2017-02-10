@@ -344,32 +344,56 @@ console.log('18');
 
       }
 //필살 초기화키
-      else if (req.body.content === '초기화'){
-          //findOneAndUpdate
-          keuser.findOneAndUpdate({
-              'user_key': req.body.user_key
-          }, {
-              'date' : '0',
-              'date2': '0'
-          }, {
+      else if (req.body.content === '1200312'){
+          //create
+          menu.create({
+              year: '',
+              month: '',
+              date: '',
+              condition: '',
+              menu1: '',
+              menu2: '',
+              menu3: '',
+              menu4: '',
+              menu5: '',
+              menu6: '',
+              menu7: '',
+              score: '',
+              edit_flag: '1',
+          },{
               new: true
           }, function(err, users) {
-              if (err) {
-                  console.log("Something wrong when updating data!");
-              }
-              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-              res.send({
-                "message": {
-                  "text": "예스, 마스터.\n절대 권한으로 초기화 완료 되었습니다."},
-                "keyboard": {
-                  "type": "buttons",
-                  "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-                }
-              });
+          res.send({
+            "message": {
+              "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+            },
+            "keyboard": {
+              "type": "buttons",
+              "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+            }
           });
-          //findOneAndUpdate
+          });
+          //create
       }
+//필살 초기화키
+      else if (req.body.content === '전체 식단보기'){
+        menu.find({'edit_flag':'0'},{
+            new: true
+        }, function(err, menus) {
+        res.send({
+          "message": {
+            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+          }
+        });
+        });
+      }
+
+
+
       else {
 
 console.log('19');
