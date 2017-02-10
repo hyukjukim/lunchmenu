@@ -269,10 +269,11 @@ console.log('9');
     else if (req.body.content === "한식"||req.body.content === "양식/일품"||req.body.content === "샐러드"){
 
         console.log(d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate());
+        console.log(d.getMonth()+'1');
           //findOne
               menu.findOne({
                   'year' :d.getFullYear(),
-                  //'month': (d.getMonth()+1),
+                  'month': (d.getMonth()+'1'),
                   'date': d.getDate()
               }, function(err, menus) {
                   if (err) return res.json(err);
