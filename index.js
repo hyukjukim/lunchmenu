@@ -270,10 +270,9 @@ console.log('9');
 
     else if (req.body.content === "한식"||req.body.content === "양식/일품"){
       console.log(d.getDate());
-      console.log(d.setDate(d.getDate() + 50));
           //findOne
               menu.findOne({
-                  'week': req.body.content,
+                  'week': '월요일',
               }, function(err, menus) {
                   if (err) return res.json(err);
                   obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
