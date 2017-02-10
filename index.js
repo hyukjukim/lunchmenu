@@ -269,22 +269,25 @@ console.log('9');
     else if (req.body.content === "한식"||req.body.content === "양식/일품"||req.body.content === "샐러드"){
 
         console.log(d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate());
-        console.log(d.getMonth()+1);
+        console.log(d.getMonth()+1); //number타입
+        console.log('0'+(d.getMonth()+1)); //String 타입
+
           //findOne
               menu.findOne({
                   'year' :d.getFullYear(),
                   'month': '0'+(d.getMonth()+1),
-                  'date': d.getDate()
+                  'date': d.getDate(),
+                  'condition' : req.body.content
               }, function(err, menus) {
                   if (err) return res.json(err);
                   obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                   menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
-                              "text": "["+req.body.content+"]의 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"입니다."},
+                              "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"입니다."},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["처음으로"]
+                              "buttons": ["처음으로","메뉴 점수 주기"]
                             }
                           });
 
