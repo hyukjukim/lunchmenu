@@ -1,11 +1,11 @@
 
-// models/Kakaouser.js
+// models/keuser.js
 
 
 var mongoose = require('mongoose');
 
 //user 관리를 위한 Schema를 생성합니다.
-var kakaouserSchema = mongoose.Schema({
+var keuserSchema = mongoose.Schema({
     user_key: {
         type: String,
         unique: true
@@ -13,7 +13,7 @@ var kakaouserSchema = mongoose.Schema({
     name_flag: {
         type: String,
     },
-    church_name: {
+    company_name: {
         type: String
     },
     score: {
@@ -27,7 +27,7 @@ var kakaouserSchema = mongoose.Schema({
     },
     date2: {
         type: String
-    },    
+    },
     password: {
         type: String
     },
@@ -41,7 +41,7 @@ var kakaouserSchema = mongoose.Schema({
         type: String
     }
 });
-//Kakaouser 변수로 테이블에 접근
-var Kakaouser = mongoose.model("kakaouser", kakaouserSchema);
+//keuser 변수로 테이블에 접근
+var keuser = mongoose.model("keuser", keuserSchema);
 
-module.exports = Kakaouser;
+module.exports = keuser;
