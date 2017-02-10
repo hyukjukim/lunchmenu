@@ -156,7 +156,7 @@ console.log('2');
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+          "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
       });
@@ -169,7 +169,7 @@ console.log('2');
         },
         "keyboard": {
           "type": "buttons",
-          "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+          "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
     }
@@ -190,7 +190,7 @@ console.log('5');
                       "text": keusers.name+"님!!! 반갑습니다. \n회사 식단 관리 프로그램에 오신 것을 환영합니다."},
                     "keyboard": {
                       "type": "buttons",
-                      "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                      "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                     }
                   });
                 }
@@ -202,7 +202,7 @@ console.log('5');
                           },
                           "keyboard": {
                             "type": "buttons",
-                            "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                            "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                           }
                         });
                       }
@@ -251,15 +251,15 @@ console.log('9');
 
     }
 
-    else if (req.body.content === '메뉴보기') {
+    else if (req.body.content === '오늘의 메뉴') {
       res.send({
         "message": {
-          "text": "안녕하세요.\n 메뉴 보기를 원하시는\n요일을 선택 해주세요.",
+          "text": "안녕하세요.\n [한식] or [양식/일품] 중에서 선택하세요.",
         },
         "keyboard": {
           "type": "buttons",
           "buttons": [
-            "월요일","화요일","수요일 ☞☞☞","목요일","금요일","처음으로"
+            "한식","양식/일품","처음으로"
           ]
         }
       });
@@ -268,8 +268,9 @@ console.log('9');
     }
 
 
-    else if (req.body.content === "월요일"||req.body.content === "화요일"||req.body.content === "수요일 ☞☞☞"||req.body.content === "목요일"||req.body.content === "금요일"){
-      console.log('@@');
+    else if (req.body.content === "한식"||req.body.content === "양식/일품"){
+      console.log(d.getDate());
+      console.log(d.setDate(d.getDate() + 50));
           //findOne
               menu.findOne({
                   'week': req.body.content,
@@ -282,7 +283,7 @@ console.log('9');
                               "text": "["+req.body.content+"]의 메뉴는\n\n"+menus.menu+"입니다."},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["월요일","화요일","수요일 ☞☞☞","목요일","금요일","처음으로"]
+                              "buttons": ["처음으로"]
                             }
                           });
 
@@ -359,7 +360,7 @@ console.log('18');
                   "text": "예스, 마스터.\n절대 권한으로 초기화 완료 되었습니다."},
                 "keyboard": {
                   "type": "buttons",
-                  "buttons": ["메뉴보기","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                  "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                 }
               });
           });
