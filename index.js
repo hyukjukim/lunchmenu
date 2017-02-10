@@ -272,7 +272,7 @@ console.log('9');
           //findOne
               menu.findOne({
                   'year' :d.getFullYear(),
-                  'month': (d.getMonth()+1),
+                  //'month': (d.getMonth()+1),
                   'date': d.getDate()
               }, function(err, menus) {
                   if (err) return res.json(err);
@@ -280,7 +280,7 @@ console.log('9');
                   menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
-                              "text": "["+req.body.content+"]의 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+" 입니다."},
+                              "text": "["+req.body.content+"]의 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"입니다."},
                             "keyboard": {
                               "type": "buttons",
                               "buttons": ["처음으로"]
