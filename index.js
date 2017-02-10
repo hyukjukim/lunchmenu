@@ -255,7 +255,7 @@ console.log('9');
       });
     }
 
-    else if (req.body.content === '월요일'||'화요일'||'수요일 ☞☞☞'||'목요일'||'금요일'||'처음으로') {
+    else if (req.body.content === '월요일'|'화요일'|'수요일 ☞☞☞'|'목요일'|'금요일'|'처음으로') {
       console.log(req.body.content);
     }
 
