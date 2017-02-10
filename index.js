@@ -259,21 +259,21 @@ console.log('9');
         "keyboard": {
           "type": "buttons",
           "buttons": [
-            "한식","양식/일품","처음으로"
+            "한식","양식/일품","샐러드"
           ]
         }
       });
-
-
     }
 
 
-    else if (req.body.content === "한식"||req.body.content === "양식/일품"){
+    else if (req.body.content === "한식"||req.body.content === "양식/일품"||req.body.content === "샐러드"){
 
         console.log(d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate());
           //findOne
               menu.findOne({
-                  'week': '월요일',
+                  'year' :d.getFullYear(),
+                  'month': d.getMonth()+1,
+                  'date': d.getDate()
               }, function(err, menus) {
                   if (err) return res.json(err);
                   obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
