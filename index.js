@@ -251,7 +251,7 @@ console.log('9');
 
     }
 
-    else if (req.body.content === '오늘의 메뉴') {
+    else if (req.body.content === '오늘의 메뉴'||req.body.content === '이전으로') {
       res.send({
         "message": {
           "text": "안녕하세요.\n [한식] or [양식/일품] or [샐러드]\n중에서 선택하세요.",
@@ -287,7 +287,7 @@ console.log('9');
                               "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"\n입니다."},
                             "keyboard": {
                               "type": "buttons",
-                              "buttons": ["처음으로","메뉴 점수 주기"]
+                              "buttons": ["처음으로","이전으로","메뉴 점수 주기"]
                             }
                           });
 
@@ -380,6 +380,8 @@ console.log('18');
         menu.find({'edit_flag':'0'},{
             new: true
         }, function(err, menus) {
+          obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         res.send({
           "message": {
             "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1
