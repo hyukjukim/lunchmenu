@@ -392,15 +392,15 @@ console.log('16');
       }
 //필살 초기화키
       else if (req.body.content === '전체 식단보기'){
-        menu.findOne({'edit_flag':'0'},{
+        menu.find({'edit_flag':'0'},{
             new: true
         }, function(err, menus) {
           obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
           menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-          console.log("@@@#$"+menus[1].menu1);
+        //  console.log("@@@#$"+menus[1]);
         res.send({
           "message": {
-            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus[1].menu1
+            "text": "주인님. 전체 식단은 아래와 같습니다. \n(준비중)"
           },
           "keyboard": {
             "type": "buttons",
@@ -410,8 +410,24 @@ console.log('16');
         });
       }
 
-
-
+      else if (req.body.content === '신규 식단 입력하기'){
+        menu.find({'edit_flag':'0'},{
+            new: true
+        }, function(err, menus) {
+          obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+          menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+        //  console.log("@@@#$"+menus[1]);
+        res.send({
+          "message": {
+            "text": "주인님. 식단을 입력해 주세요. \n(준비중)"
+          },
+          "keyboard": {
+            "type": "buttons",
+            "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+          }
+        });
+        });
+      }
       else {
 
 console.log('19');
