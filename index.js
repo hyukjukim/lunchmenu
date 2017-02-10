@@ -396,11 +396,11 @@ console.log('16');
             new: true
         }, function(err, menus) {
           obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-          console.log("@@@#$"+menus.menu1 + "!@#!@#"+menus.menu1[1]+"!!#$!@#$@#"+menus.menu1[2]);
+          menu = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+          console.log("@@@#$"+menu.menu1);
         res.send({
           "message": {
-            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menus.menu1
+            "text": "주인님. 전체 식단은 아래와 같습니다. \n"+menu.menu1
           },
           "keyboard": {
             "type": "buttons",
