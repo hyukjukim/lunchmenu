@@ -161,7 +161,7 @@ keuser.findOne({
                   },
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로","로그아웃"]
+                    "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
                   }
                 });
               }
@@ -172,18 +172,7 @@ keuser.findOne({
                   },
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로","로그아웃"]
-                  }
-                });
-              }
-              else if (req.body.content === '처음으로'){
-                res.send({
-                  "message": {
-                    "text": "주인님. 환영합니다. \n처음으로 기능은 구현 중 입니다."
-                  },
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로","로그아웃"]
+                    "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
                   }
                 });
               }
@@ -466,7 +455,7 @@ console.log('16');
                 },
                 "keyboard": {
                   "type": "buttons",
-                  "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로","로그아웃"]
+                  "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
                 }
               });
           });
