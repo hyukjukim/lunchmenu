@@ -152,13 +152,12 @@ console.log('2');
     keuser.findOne({
         'user_key': req.body.user_key
     }, function(err, users) {
-console.log('5');
+
         if (err) return res.json(err);
         obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
         keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         console.log('6');
               if(keusers.temp1 === '1'){
-                if(req.body.content === '☞☞옆으로넘기기'){
                   res.send({
                     "message": {
                       "text": "☞☞마스터님 전용 메뉴 입니다. 과연 될까요?",
@@ -168,7 +167,7 @@ console.log('5');
                       "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
                     }
                   });
-                }
+
               }
 
               else{
@@ -479,9 +478,8 @@ console.log('5');
 
             });
 
-                  }
+      }
 
-    });
 
 app.post('/friend', function(req, res) {
     res.sendStatus(200);
