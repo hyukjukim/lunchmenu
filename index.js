@@ -126,7 +126,35 @@ keuser.findOne({
       obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
       keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             if(keusers.temp1 === '1'){
-              if (req.body.content === '전체 식단보기'){
+              if (req.body.content === '시작'){
+                //findOneAndUpdate
+                          keuser.findOneAndUpdate({
+                              'user_key': req.body.user_key
+                          }, {
+                              'temp1': '0',
+                          }, {
+                              new: true
+                          }, function(err, users) {
+                          console.log('20');
+                              if (err) {
+                                  console.log("Something wrong when updating data!");
+                              }
+                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                              res.send({
+                                "message": {
+                                  "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                },
+                                "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["시작"]
+                                }
+                              });
+                          });
+                //findOneAndUpdate
+              }
+
+              else if (req.body.content === '전체 식단보기'){
                 res.send({
                   "message": {
                     "text": "주인님. 환영합니다. \n전체 식단보기 기능은 구현 중 입니다."
@@ -438,7 +466,7 @@ console.log('16');
                 },
                 "keyboard": {
                   "type": "buttons",
-                  "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+                  "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로","로그아웃"]
                 }
               });
           });
