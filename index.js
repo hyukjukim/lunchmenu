@@ -123,43 +123,77 @@ app.post('/message', function(req, res) {
 
 
 
-        keuser.findOne({
-              'user_key': req.body.user_key
-          }, function(err, users) {
-            console.log("ADSFASDFASDFASDF");
-              if (err) return res.json(err);
-              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                    if(keusers.temp1 === '1'){
-                      res.send({
-                        "message": {
-                          "text":"1"},
-                        "keyboard": {
-                          "type": "buttons",
-                          "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-                        }
-                      });
-                    }
-                    else{
+keuser.findOne({
+      'user_key': req.body.user_key
+  }, function(err, users) {
+    console.log("ADSFASDFASDFASDF");
+      if (err) return res.json(err);
+      obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+      keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+            if(keusers.temp1 === '1'){
+              if (req.body.content === '전체 식단보기'){
+                res.send({
+                  "message": {
+                    "text": "주인님. 환영합니다. \n전체 식단보기 기능은 구현 중 입니다."
+                  },
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+                  }
+                });
+              }
+              else if (req.body.content === '신규 식단 입력하기'){
+                res.send({
+                  "message": {
+                    "text": "주인님. 환영합니다. \n신규 식단 입력하기 기능은 구현 중 입니다."
+                  },
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+                  }
+                });
+              }
+              else if (req.body.content === '처음으로'){
+                res.send({
+                  "message": {
+                    "text": "주인님. 환영합니다. \n처음으로 기능은 구현 중 입니다."
+                  },
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
+                  }
+                });
+              }
+              else if (req.body.content === '로그아웃'){
+                //findOneAndUpdate
+                          keuser.findOneAndUpdate({
+                              'user_key': req.body.user_key
+                          }, {
+                              'temp1': '0',
+                          }, {
+                              new: true
+                          }, function(err, users) {
+                          console.log('20');
+                              if (err) {
+                                  console.log("Something wrong when updating data!");
+                              }
+                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                              res.send({
+                                "message": {
+                                  "text": "로그아웃 되었습니다."
+                                },
+                                "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["시작"]
+                                }
+                              });
+                          });
+                //findOneAndUpdate
+              }
+            else{
 //시작
-
-
     if (req.body.content === '시작'){
-
-
-
-/*
-      menu.create({
-        name: '주인장',
-        week: '',
-        menu: '',
-        score:''
-    },{
-        new: true
-    }, function(err, menus) {
-
-    });
-*/
       keuser.create({
           user_key: req.body.user_key,
           name_flag: '1',
@@ -413,43 +447,6 @@ console.log('16');
               });
           });
 //findOneAndUpdate
-      }
-//필살 초기화키
-      else if (req.body.content === '전체 식단보기'){
-        menu.find({'edit_flag':'0'},{
-            new: true
-        }, function(err, menus) {
-          obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        //  console.log("@@@#$"+menus[1]);
-        res.send({
-          "message": {
-            "text": "주인님. 전체 식단은 아래와 같습니다. \n(준비중)"
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
-          }
-        });
-        });
-      }
-      else if (req.body.content === '신규 식단 입력하기'){
-        menu.find({'edit_flag':'0'},{
-            new: true
-        }, function(err, menus) {
-          obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-        //  console.log("@@@#$"+menus[1]);
-        res.send({
-          "message": {
-            "text": "주인님. 식단을 입력해 주세요. \n(준비중)"
-          },
-          "keyboard": {
-            "type": "buttons",
-            "buttons": ["전체 식단보기","신규 식단 입력하기","처음으로"]
-          }
-        });
-        });
       }
       else {
 
