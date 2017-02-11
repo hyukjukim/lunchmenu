@@ -141,20 +141,9 @@ app.post('/message', function(req, res) {
                       });
                     }
                     else{
-                            res.send({
-                              "message": {
-                                "text": "안녕하세요. 닉네임이 없으시군요. \n닉네임이 있어야 식단 점수에 참여하실 수 있습니다.",
-                              },
-                              "keyboard": {
-                                "type": "buttons",
-                                "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-                              }
-                            });
-                          }
+//시작
 
-          });
 
-console.log('1');
     if (req.body.content === '시작'){
 
 
@@ -501,6 +490,11 @@ console.log('20');
 
 
 
+
+//시작
+                        }
+
+          });
 
 
 });
