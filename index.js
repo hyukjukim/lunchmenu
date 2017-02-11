@@ -472,14 +472,11 @@ console.log('2');
 
                   }
 
-
-
-
-
             });
 
       }
 
+    });
 
 app.post('/friend', function(req, res) {
     res.sendStatus(200);
