@@ -191,6 +191,7 @@ keuser.findOne({
                           });
                 //findOneAndUpdate
               }
+            }
             else{
 //시작
     if (req.body.content === '시작'){
