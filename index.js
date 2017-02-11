@@ -119,6 +119,36 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
+keuser.findOne({
+      'user_key': req.body.user_key
+  }, function(err, users) {
+      if (err) return res.json(err);
+      obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+      keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+            if(keusers.temp1 === '1'){
+              res.send({
+                "message": {
+                  "text":"1"},
+                "keyboard": {
+                  "type": "buttons",
+                  "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                }
+              });
+            }
+            else{
+                    res.send({
+                      "message": {
+                        "text": "안녕하세요. 닉네임이 없으시군요. \n닉네임이 있어야 식단 점수에 참여하실 수 있습니다.",
+                      },
+                      "keyboard": {
+                        "type": "buttons",
+                        "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+                      }
+                    });
+                  }
+
+  });  
+
 console.log('1');
     if (req.body.content === '시작'){
 
@@ -361,7 +391,7 @@ console.log('16');
 //필살 초기화키
 
       else if (req.body.content === '1200312'){
-  
+
 //findOneAndUpdate
           keuser.findOneAndUpdate({
               'user_key': req.body.user_key
