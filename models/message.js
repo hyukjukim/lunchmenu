@@ -5,9 +5,9 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
-var menu = require("./models/menu");
-var keuser = require("./models/keuser");
-var Kakaomsg = require("./models/Kakaomsg");
+var menu = require("./menu");
+var keuser = require("./keuser");
+var Kakaomsg = require("./Kakaomsg");
 var keusers = '';
 var d = new Date();
 
