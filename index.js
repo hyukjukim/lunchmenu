@@ -171,7 +171,7 @@ keuser.findOne({
                               console.log(menus.menu1);
                               res.send({
                                 "message": {
-                                  "text": menus[1]
+                                  "text": obj[1]
                                 },
                                 "keyboard": {
                                   "type": "buttons",
