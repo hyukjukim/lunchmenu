@@ -155,6 +155,23 @@ keuser.findOne({
               }
 
               else if (req.body.content === '전체 식단보기'){
+
+                //findOneAndUpdate
+                          menu.find({
+                              'date': '13'
+                          },function(err, menus) {
+                          console.log('20');
+                              if (err) {
+                                  console.log("Something wrong when updating data!");
+                              }
+                              obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
+                              menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
+                              console.log(obj);
+                              console.log(menus);
+                              console.log(menus.menu1);
+                          });
+                //findOneAndUpdate
+
                 res.send({
                   "message": {
                     "text": "주인님. 환영합니다. \n전체 식단보기 기능은 구현 중 입니다."
