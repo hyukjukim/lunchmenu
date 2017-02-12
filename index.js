@@ -169,6 +169,15 @@ keuser.findOne({
                               console.log(obj);
                               console.log(menus[1]);
                               console.log(menus.menu1);
+                              res.send({
+                                "message": {
+                                  "text": menus[1]
+                                },
+                                "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
+                                }
+                              });
                           });
                 //findOneAndUpdate
 
