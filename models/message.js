@@ -12,7 +12,7 @@ var keusers = '';
 var d = new Date();
 
 
-function message(){
+function message_f(){
 
 keuser.findOne({
       'user_key': req.body.user_key
@@ -399,4 +399,4 @@ console.log('20');
 
 }
 
-module.exports = message;
+module.exports = message_f;

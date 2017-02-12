@@ -4,9 +4,6 @@ var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var app = express();
-var menu = require("./models/menu");
-var keuser = require("./models/keuser");
-var Kakaomsg = require("./models/Kakaomsg");
 var message = require("./models/message");
 var keusers = '';
 var d = new Date();
@@ -120,7 +117,7 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-message.message();
+message.message_f();
 
 });
 
