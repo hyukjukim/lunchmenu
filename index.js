@@ -171,7 +171,7 @@ keuser.findOne({
                               console.log(menus.menu1);
                               res.send({
                                 "message": {
-                                  "text": menus
+                                  "text": menus[1]
                                 },
                                 "keyboard": {
                                   "type": "buttons",
@@ -180,7 +180,7 @@ keuser.findOne({
                               });
                           });
                 //findOneAndUpdate
-
+/*
                 res.send({
                   "message": {
                     "text": "주인님. 환영합니다. \n전체 식단보기 기능은 구현 중 입니다."
@@ -201,6 +201,7 @@ keuser.findOne({
                     "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
                   }
                 });
+                */
               }
               else if (req.body.content === '로그아웃'){
                 //findOneAndUpdate
