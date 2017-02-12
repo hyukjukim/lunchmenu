@@ -242,7 +242,7 @@ keuser.findOne({
 console.log('2');
       res.send({
         "message": {
-          "text": "안녕하세요.\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
+          "text": "안녕하세요.\n순현아!!! 회사 식단 관리 프로그램에 오신 것을 환영합니다."
         },
         "keyboard": {
           "type": "buttons",
