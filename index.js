@@ -167,7 +167,7 @@ keuser.findOne({
                               obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                               menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                               console.log(obj);
-                              console.log(menus);
+                              console.log(menus[1]);
                               console.log(menus.menu1);
                           });
                 //findOneAndUpdate
