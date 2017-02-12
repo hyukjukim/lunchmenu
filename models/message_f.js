@@ -12,8 +12,6 @@ var keusers = '';
 var d = new Date();
 
 
-app.post('/message', function(req, res) {
-
 keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
@@ -396,6 +394,3 @@ console.log('20');
 //else
           });
 //findOne
-});
-
-module.exports = message;
