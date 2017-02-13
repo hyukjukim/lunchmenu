@@ -355,7 +355,7 @@ keuser.findOne({
 */
           //findOne
               menu.findOne({
-                  'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate(),
+                  'date': (d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()),
                   'condition' : req.body.content
               }, function(err, menus) {
                   if (err) return res.json(err);
