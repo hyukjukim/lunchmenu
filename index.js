@@ -123,8 +123,6 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-      obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-      keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
             if(keusers.temp1 === '1'){
               if (req.body.content === '시작'){
                 //findOneAndUpdate
@@ -139,8 +137,6 @@ keuser.findOne({
                               if (err) {
                                   console.log("Something wrong when updating data!");
                               }
-                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                               res.send({
                                 "message": {
                                   "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
@@ -157,11 +153,8 @@ keuser.findOne({
               else if (req.body.content === '전체 식단보기'){
 
                 //findOneAndUpdate
-                          menu.findOne({
-                            'year' :d.getFullYear(),
-                            'month': '0'+(d.getMonth()+1),
-                            'date': d.getDate(),
-                              'condition':'한식'
+                          menu.find({
+                              'date': '13'
                           },function(err, menus) {
                           console.log('20');
                               if (err) {
@@ -169,12 +162,12 @@ keuser.findOne({
                               }
                               //obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
                               //menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-                              //console.log(obj);
-                              //console.log(menus[1]);
-                              //console.log(menus);
+                              console.log(obj);
+                              console.log(menus[1]);
+                              console.log(menus);
                               res.send({
                                 "message": {
-                                  "text": menus.menu1+ "dlqslek"
+                                  "text": menus.toString()
                                 },
                                 "keyboard": {
                                   "type": "buttons",
@@ -219,8 +212,6 @@ keuser.findOne({
                               if (err) {
                                   console.log("Something wrong when updating data!");
                               }
-                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                               res.send({
                                 "message": {
                                   "text": "로그아웃 되었습니다."
@@ -283,8 +274,6 @@ console.log('4');
       }, function(err, users) {
 console.log('5');
           if (err) return res.json(err);
-          obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-          keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
           console.log('6');
                 if(keusers.name_flag === '3'){
           console.log('7');
@@ -383,8 +372,6 @@ console.log('9');
                   'condition' : req.body.content
               }, function(err, menus) {
                   if (err) return res.json(err);
-                  obj = JSON.stringify(menus); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                  menus = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                           res.send({
                             "message": {
                               "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"\n입니다."},
@@ -441,8 +428,6 @@ console.log('18');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
         });
 
       }
@@ -477,8 +462,6 @@ console.log('16');
               if (err) {
                   console.log("Something wrong when updating data!");
               }
-              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
               res.send({
                 "message": {
                   "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
@@ -506,9 +489,6 @@ console.log('20');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
-            obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-            keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-
         });
 
 
