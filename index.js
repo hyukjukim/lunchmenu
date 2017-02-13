@@ -154,7 +154,7 @@ keuser.findOne({
 
                 //findOneAndUpdate
                           menu.find({
-                              'date': d.getDate().toString()
+                              'date': '13'
                           },function(err, menus) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
