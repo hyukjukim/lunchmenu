@@ -358,7 +358,22 @@ keuser.findOne({
                   'date': (d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()).toString(),
                   'condition' : req.body.content
               }, function(err, menus) {
-                  if (err) return res.json(err);
+                  if (err) {
+                    res.send({
+                      "message": {
+                        "text": "데이터가 없어요"
+                      },
+                      "keyboard": {
+                        "type": "buttons",
+                        "buttons": [
+                          "이전으로","처음으로"
+                        ]
+                      }
+                    });
+
+                  }
+
+
                           res.send({
                             "message": {
                               "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"\n입니다."},
