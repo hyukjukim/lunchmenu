@@ -158,7 +158,9 @@ keuser.findOne({
 
                 //findOneAndUpdate
                           menu.find({
-                              'date': '13',
+                            'year' :d.getFullYear(),
+                            'month': '0'+(d.getMonth()+1),
+                            'date': d.getDate(),
                               'condition':'한식'
                           },function(err, menus) {
                           console.log('20');
