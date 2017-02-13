@@ -150,10 +150,12 @@ keuser.findOne({
               }
 
               else if (req.body.content === '전체 식단보기'){
+
+
+
                 //findOneAndUpdate
                           menu.find({
-                              //'date': d.getDate()
-                              'month':'02'
+                              'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()
                           },function(err, menus) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
@@ -169,6 +171,7 @@ keuser.findOne({
                               });
                           });
                 //findOneAndUpdate
+                }
 /*
                 res.send({
                   "message": {
@@ -191,7 +194,7 @@ keuser.findOne({
                   }
                 });
                 */
-              }
+
               else if (req.body.content === '로그아웃'){
                 //findOneAndUpdate
                           keuser.findOneAndUpdate({
@@ -352,9 +355,7 @@ keuser.findOne({
 */
           //findOne
               menu.findOne({
-                  'year' :d.getFullYear(),
-                  'month': '0'+(d.getMonth()+1),
-                  'date': d.getDate(),
+                  'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate(),
                   'condition' : req.body.content
               }, function(err, menus) {
                   if (err) return res.json(err);
