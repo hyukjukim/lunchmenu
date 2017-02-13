@@ -152,7 +152,7 @@ keuser.findOne({
               else if (req.body.content === '전체 식단보기'){
                 //findOneAndUpdate
                           menu.find({
-                              'date': '13'
+                              'date': d.getDate()
                           },function(err, menus) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
@@ -344,11 +344,11 @@ keuser.findOne({
 
 
     else if (req.body.content === "한식"||req.body.content === "양식/일품"||req.body.content === "샐러드"){
-
+/*
         console.log(d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate());
         console.log(d.getMonth()+1); //number타입
         console.log('0'+(d.getMonth()+1)); //String 타입
-
+*/
           //findOne
               menu.findOne({
                   'year' :d.getFullYear(),
