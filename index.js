@@ -123,7 +123,7 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-//마스터 권한 시작
+//마스터 권한 시      
             if(users.temp1 === '1'){
               if (req.body.content === '시작'){
                 //findOneAndUpdate
