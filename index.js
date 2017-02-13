@@ -123,9 +123,7 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-      obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-      keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-            if(keusers.temp1 === '1'){
+            if(users.temp1 === '1'){
               if (req.body.content === '시작'){
                 //findOneAndUpdate
                           keuser.findOneAndUpdate({
@@ -135,12 +133,9 @@ keuser.findOne({
                           }, {
                               new: true
                           }, function(err, users) {
-                          console.log('20');
                               if (err) {
                                   console.log("Something wrong when updating data!");
                               }
-                              obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
-                              keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
                               res.send({
                                 "message": {
                                   "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
@@ -160,7 +155,6 @@ keuser.findOne({
                           menu.find({
                               'date': '13'
                           },function(err, menus) {
-                          console.log('20');
                               if (err) {
                                   console.log("Something wrong when updating data!");
                               }
@@ -212,7 +206,6 @@ keuser.findOne({
                           }, {
                               new: true
                           }, function(err, users) {
-                          console.log('20');
                               if (err) {
                                   console.log("Something wrong when updating data!");
                               }
@@ -249,7 +242,6 @@ keuser.findOne({
       },{
           new: true
       }, function(err, users) {
-console.log('2');
       res.send({
         "message": {
           "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
@@ -274,17 +266,15 @@ console.log('2');
       });
     }
     else if(req.body.content === '처음으로'){
-console.log('4');
+
       keuser.findOne({
           'user_key': req.body.user_key
       }, function(err, users) {
-console.log('5');
+
           if (err) return res.json(err);
           obj = JSON.stringify(users); //객체 또는 배열을 인자로 받아 string을 json 형식으로 변경
           keusers = JSON.parse(obj); //json 파싱하기 위해 변수에 배정
-          console.log('6');
                 if(keusers.name_flag === '3'){
-          console.log('7');
                   res.send({
                     "message": {
                       "text": keusers.name+"님!!! 반갑습니다. \n회사 식단 관리 프로그램에 오신 것을 환영합니다."},
@@ -295,7 +285,6 @@ console.log('5');
                   });
                 }
                 else{
-          console.log('8');
                         res.send({
                           "message": {
                             "text": "안녕하세요. 닉네임이 없으시군요. \n닉네임이 있어야 식단 점수에 참여하실 수 있습니다.",
@@ -312,7 +301,6 @@ console.log('5');
     }
 
     else if (req.body.content === '개발자소개') {
-console.log('9');
       res.send({
         "message": {
           "text": "안녕하세요.\n 저는 Programmer 입니다. \n컴퓨터과학 전공을 하였으며, \nAI 와 Chatbot을 개발 중입니다. \n개발 관련 궁금한 사항 및 \n건의 or 사업 제안사항 있으시면 \nnode-js@naver.com으로 메일 주세요",
@@ -398,7 +386,6 @@ console.log('9');
 
 
       else if (req.body.content === '생성완료'){
-console.log('16');
         res.send({
           "message": {
             "text": "닉네임 생성을 축하드립니다. \n 앞으로 방을 나갔다가 다시 들어오셔도, 님의 이름을 항상 기억할 것 입니다. 해당 기능을 사용하여 추후 많은 컨텐츠를 제작 할 예정이니, 기대하셔도 좋습니다. ^^"
@@ -412,7 +399,6 @@ console.log('16');
         });
       }
       else if (req.body.content === '생성취소'){
-console.log('17');
         res.send({
           "message": {
             "text": "앗 맘에 안드신다구요? 난 "+ keusers.name +"좋은데.. 얼른 다시 생성해봐요.. "
@@ -434,7 +420,6 @@ console.log('17');
         }, {
             new: true
         }, function(err, users) {
-console.log('18');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
@@ -444,7 +429,6 @@ console.log('18');
 
       }
       else if (req.body.content === '메뉴 점수 주기'){
-console.log('16');
         res.send({
           "message": {
             "text": "아직 구현 중 입니다."
@@ -470,7 +454,6 @@ console.log('16');
           }, {
               new: true
           }, function(err, users) {
-          console.log('20');
               if (err) {
                   console.log("Something wrong when updating data!");
               }
@@ -489,8 +472,6 @@ console.log('16');
 //findOneAndUpdate
       }
       else {
-
-console.log('19');
         keuser.findOneAndUpdate({
             'user_key': req.body.user_key
         }, {
@@ -499,7 +480,6 @@ console.log('19');
         }, {
             new: true
         }, function(err, users) {
-console.log('20');
             if (err) {
                 console.log("Something wrong when updating data!");
             }
