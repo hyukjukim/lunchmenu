@@ -123,7 +123,6 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-//마스터 권한 시      
             if(users.temp1 === '1'){
               if (req.body.content === '시작'){
                 //findOneAndUpdate
@@ -223,8 +222,6 @@ keuser.findOne({
                 //findOneAndUpdate
               }
             }
-//마스터 권한 끝
-
             else{
 //시작
     if (req.body.content === '시작'){
@@ -475,6 +472,7 @@ keuser.findOne({
             if (err) {
                 console.log("Something wrong when updating data!");
             }
+
         });
 
 
