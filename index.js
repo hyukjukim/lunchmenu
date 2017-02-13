@@ -373,7 +373,6 @@ keuser.findOne({
         }
 
 
-
       else if (req.body.content === '생성완료'){
         res.send({
           "message": {
