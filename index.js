@@ -158,7 +158,8 @@ keuser.findOne({
 
                 //findOneAndUpdate
                           menu.find({
-                              'date': '13'
+                              'date': '13',
+                              'condition':'한식'
                           },function(err, menus) {
                           console.log('20');
                               if (err) {
