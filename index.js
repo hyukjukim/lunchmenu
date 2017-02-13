@@ -152,7 +152,8 @@ keuser.findOne({
               else if (req.body.content === '전체 식단보기'){
                 //findOneAndUpdate
                           menu.find({
-                              'date': d.getDate()
+                              //'date': d.getDate()
+                              'month':'02'
                           },function(err, menus) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
