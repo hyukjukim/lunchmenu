@@ -532,22 +532,19 @@ keuser.findOne({
                                                           if (err) {
                                                               console.log("Something wrong when updating data!");
                                                           }
-                                                          console.log(menus.length);
-                                                          for(i=0;i<menus.length; i++){
-                                                            console.log(i+"번");
-                                                          }
 
 
-
+                                                        for(i=0;i<menus.length; i++){
                                                           res.send({
                                                             "message": {
-                                                              "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
+                                                              "text": menus[i].date+" 식단 입니다.\n\n"+"["+menus[i].condition+"]"+"\n"+menus[i].menu+"\n입니다."
                                                             },
                                                             "keyboard": {
                                                               "type": "buttons",
                                                               "buttons": ["전체 메뉴보기","이전으로"]
                                                             }
                                                           });
+                                                        }
                                                       });
                                             //findOneAndUpdate
                                           }
