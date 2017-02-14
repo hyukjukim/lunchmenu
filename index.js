@@ -130,7 +130,6 @@ keuser.findOne({
                 }, function(err, users) {
                     if (err) return res.json(err);
                           if(users.temp2 === '1'){
-
                             if (req.body.content === '시작'){
                               //findOneAndUpdate
                                         keuser.findOneAndUpdate({
@@ -182,22 +181,37 @@ keuser.findOne({
                                         });
                               //findOneAndUpdate
                             }
-                            else
+                            //"날짜입력","한식,약식/일품,샐러드 선택","메뉴입력"
+                            else if (req.body.content === '날짜입력')
                             {
-                                res.send({
-                                  "message": {
-                                    "text": "메뉴 입력 화면"
-                                  },
-                                  "keyboard": {
-                                    "type": "buttons",
-                                    "buttons": ["로그아웃"]
-                                  }
-                                });
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp2': '2'
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "날짜를 입력하여 주세요(ex. 20170214)"
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
                             }
                           }
+                          else if(users.temp2 === '2'){
+                            console.log("2번입장");
+                          }
+                          else if(users.temp2 === '3'){
+                            console.log("3번입장");
+                          }
+                          else if(users.temp2 === '4'){
+                            console.log("4번입장");
+                          }
                           else {
-
-
                                           if (req.body.content === '시작'){
                                             //findOneAndUpdate
                                                       keuser.findOneAndUpdate({
@@ -292,11 +306,11 @@ keuser.findOne({
                                               //findOneAndUpdate
                                             res.send({
                                               "message": {
-                                                "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다. 반드시 다음과 같은 순서로 진행하여 주세요.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
+                                                "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
                                               },
                                               "keyboard": {
                                                 "type": "buttons",
-                                                "buttons": ["날짜입력","이전으로"]
+                                                "buttons": ["날짜입력","한식,약식/일품,샐러드 선택","메뉴입력","이전으로"]
                                               }
                                               });
                                             });
