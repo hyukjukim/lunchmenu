@@ -195,7 +195,6 @@ keuser.findOne({
                           });
                 //findOneAndUpdate
               }
-
               else if (req.body.content === '신규 식단 입력하기'){
                 //create
                 menu.create({
@@ -224,7 +223,7 @@ keuser.findOne({
                   },
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["날짜입력"]
+                    "buttons": ["날짜입력","이전으로"]
                   }
                   });
                 });
