@@ -162,7 +162,7 @@ keuser.findOne({
                               }
                               res.send({
                                 "message": {
-                                  "text": menus[1].toString()
+                                  "text": menus[1].menu.toString()
                                 },
                                 "keyboard": {
                                   "type": "buttons",
