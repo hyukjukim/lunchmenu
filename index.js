@@ -181,7 +181,7 @@ keuser.findOne({
                                         });
                               //findOneAndUpdate
                             }
-                            //"날짜입력","한식,약식/일품,샐러드 선택","메뉴입력"
+                            //"날짜입력","한식,양식/일품,샐러드 선택","메뉴입력"
                             else if (req.body.content === '날짜입력')
                             {
                               //findOneAndUpdate
@@ -201,15 +201,210 @@ keuser.findOne({
                                         });
                               //findOneAndUpdate
                             }
+                            else if (req.body.content === '한식,양식/일품,샐러드 선택')
+                            {
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp2': '3'
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "음식 종류를 선택하여 주세요."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["한식","양식/일품","샐러드","로그아웃"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+                            }
+                            else if (req.body.content === '메뉴입력')
+                            {
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp2': '4'
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "메뉴를 입력하여 주세요."
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+                            }
                           }
                           else if(users.temp2 === '2'){
                             console.log("2번입장");
+                            //findOneAndUpdate
+                                      menu.findOneAndUpdate({
+                                          'edit_flag': '1'
+                                      }, {
+                                          'date': req.body.content
+                                      }, function(err, users) {
+                                        //findOneAndUpdate
+                                                  keuser.findOneAndUpdate({
+                                                      'user_key': req.body.user_key
+                                                  }, {
+                                                      'temp2': '1'
+                                                  }, function(err, users) {
+                                                      res.send({
+                                                        "message": {
+                                                          "text": "날짜 입력 완료 되었습니다."
+                                                        },
+                                                        "keyboard": {
+                                                          "type": "buttons",
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","이전으로"]
+                                                        }
+                                                      });
+                                                  });
+                                        //findOneAndUpdate
+                                      });
+                            //findOneAndUpdate
+                            if (req.body.content === '시작'){
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '0',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["시작"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+
+                            }
                           }
                           else if(users.temp2 === '3'){
                             console.log("3번입장");
+                            //findOneAndUpdate
+                                      menu.findOneAndUpdate({
+                                          'edit_flag': '1'
+                                      }, {
+                                          'date': req.body.content
+                                      }, function(err, users) {
+                                        //findOneAndUpdate
+                                                  keuser.findOneAndUpdate({
+                                                      'user_key': req.body.user_key
+                                                  }, {
+                                                      'temp2': '1'
+                                                  }, function(err, users) {
+                                                      res.send({
+                                                        "message": {
+                                                          "text": "메뉴 종류 입력 완료 되었습니다."
+                                                        },
+                                                        "keyboard": {
+                                                          "type": "buttons",
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","이전으로"]
+                                                        }
+                                                      });
+                                                  });
+                                        //findOneAndUpdate
+                                      });
+                            //findOneAndUpdate
+                            if (req.body.content === '시작'){
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '0',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["시작"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+
+                            }
                           }
                           else if(users.temp2 === '4'){
                             console.log("4번입장");
+                            //findOneAndUpdate
+                                      menu.findOneAndUpdate({
+                                          'edit_flag': '1'
+                                      }, {
+                                          'date': req.body.content
+                                      }, function(err, users) {
+                                        //findOneAndUpdate
+                                                  keuser.findOneAndUpdate({
+                                                      'user_key': req.body.user_key
+                                                  }, {
+                                                      'temp2': '1'
+                                                  }, function(err, users) {
+                                                      res.send({
+                                                        "message": {
+                                                          "text": "메뉴 상세 입력 완료 되었습니다."
+                                                        },
+                                                        "keyboard": {
+                                                          "type": "buttons",
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","이전으로"]
+                                                        }
+                                                      });
+                                                  });
+                                        //findOneAndUpdate
+                                      });
+                            //findOneAndUpdate
+                            if (req.body.content === '시작'){
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '0',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["시작"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+
+                            }
                           }
                           else {
                                           if (req.body.content === '시작'){
@@ -306,11 +501,11 @@ keuser.findOne({
                                               //findOneAndUpdate
                                             res.send({
                                               "message": {
-                                                "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
+                                                "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다.\n\n1. 날짜입력\n2.한식,양식/일품,샐러드 선택\n3.메뉴입력"
                                               },
                                               "keyboard": {
                                                 "type": "buttons",
-                                                "buttons": ["날짜입력","한식,약식/일품,샐러드 선택","메뉴입력","이전으로"]
+                                                "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","이전으로"]
                                               }
                                               });
                                             });
