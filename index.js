@@ -175,6 +175,7 @@ keuser.findOne({
                               'user_key': req.body.user_key
                           }, {
                               'temp1': '0',
+                              'temp2': '0'
                           }, {
                               new: true
                           }, function(err, users) {
