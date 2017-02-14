@@ -162,7 +162,7 @@ keuser.findOne({
                               }
                               res.send({
                                 "message": {
-                                  "text": menus[1].menu.toString()
+                                  "text": menus[0].condition+"\n"+menus[0].menu+"\n=========="+menus[1].condition+"\n"+menus[1].menu+"\n=========="+menus[2].condition+"\n"+menus[2].men
                                 },
                                 "keyboard": {
                                   "type": "buttons",
