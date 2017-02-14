@@ -533,10 +533,11 @@ keuser.findOne({
                                                               console.log("Something wrong when updating data!");
                                                           }
 
-                                                          var string = menus[1].date+" 식단 입니다.\n\n";
+                                                          var string = menus[0].date+" 식단 입니다.\n\n";
                                                         for(i=0;i<menus.length; i++){
-                                                            string = string + "["+menus[i].condition+"]"+"\n"+menus[i].menu+"\n입니다.";
+                                                            string = string + "["+menus[i].condition+"]"+"\n"+menus[i].menu+"\n=============";
                                                           }
+                                                          string = string + "\n입니다."
                                                           res.send({
                                                             "message": {
                                                               "text": string
