@@ -168,29 +168,6 @@ keuser.findOne({
                 });
                 }
 
-/*
-                res.send({
-                  "message": {
-                    "text": "주인님. 환영합니다. \n전체 메뉴보기 기능은 구현 중 입니다."
-                  },
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
-                  }
-                });
-              }
-              else if (req.body.content === '신규 식단 입력하기'){
-                res.send({
-                  "message": {
-                    "text": "주인님. 환영합니다. \n신규 식단 입력하기 기능은 구현 중 입니다."
-                  },
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
-                  }
-                });
-                */
-
               else if (req.body.content === '로그아웃'){
                 //findOneAndUpdate
                           keuser.findOneAndUpdate({
@@ -214,6 +191,30 @@ keuser.findOne({
                               });
                           });
                 //findOneAndUpdate
+              }
+
+              else if (req.body.content === '신규 식단 입력하기'){
+                //create
+                menu.create({
+                    date: '0',
+                    condition: '0',
+                    menu: '0',
+                    score: '0',
+                    edit_flag: '1'
+                },{
+                    new: true
+                }, function(err, users) {
+                res.send({
+                  "message": {
+                    "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다. 반드시 다음과 같은 순서로 진행하여 주세요.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
+                  },
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["날짜입력"]
+                  }
+                  });
+                });
+                //create
               }
 
               else{
