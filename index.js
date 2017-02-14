@@ -361,7 +361,7 @@ keuser.findOne({
                   if (err) return res.json(err);
                           res.send({
                             "message": {
-                              "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu1+"\n"+menus.menu2+"\n"+menus.menu3+"\n"+menus.menu4+"\n"+menus.menu5+"\n"+menus.menu6+"\n"+menus.menu7+"\n입니다."},
+                              "text": "오늘의 ["+req.body.content+"] 메뉴는\n\n"+menus.menu+"\n입니다."},
                             "keyboard": {
                               "type": "buttons",
                               "buttons": ["처음으로","이전으로","메뉴 점수 주기"]

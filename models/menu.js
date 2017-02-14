@@ -16,25 +16,7 @@ var menuSchema = mongoose.Schema({
     condition: {
         type: String,
     },
-    menu1: {
-        type: String
-    },
-    menu2: {
-        type: String
-    },
-    menu3: {
-        type: String
-    },
-    menu4: {
-        type: String
-    },
-    menu5: {
-        type: String
-    },
-    menu6: {
-        type: String
-    },
-    menu7: {
+    menu: {
         type: String
     },
     score: {
