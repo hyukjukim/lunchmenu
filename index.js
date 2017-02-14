@@ -184,7 +184,6 @@ keuser.findOne({
                             }
                             else
                             {
-                              else {
                                 res.send({
                                   "message": {
                                     "text": "메뉴 입력 화면"
@@ -194,7 +193,6 @@ keuser.findOne({
                                     "buttons": ["로그아웃"]
                                   }
                                 });
-                              }
                             }
                           }
                           else {
