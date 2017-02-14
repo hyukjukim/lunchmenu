@@ -130,15 +130,7 @@ keuser.findOne({
                 }, function(err, users) {
                     if (err) return res.json(err);
                           if(users.temp2 === '1'){
-                            res.send({
-                              "message": {
-                                "text": "메뉴 입력 화면"
-                              },
-                              "keyboard": {
-                                "type": "buttons",
-                                "buttons": ["로그아웃"]
-                              }
-                            });
+
                             if (req.body.content === '시작'){
                               //findOneAndUpdate
                                         keuser.findOneAndUpdate({
@@ -163,6 +155,7 @@ keuser.findOne({
                                             });
                                         });
                               //findOneAndUpdate
+
                             }
                             else if (req.body.content === '로그아웃'){
                               //findOneAndUpdate
@@ -188,6 +181,20 @@ keuser.findOne({
                                             });
                                         });
                               //findOneAndUpdate
+                            }
+                            else
+                            {
+                              else {
+                                res.send({
+                                  "message": {
+                                    "text": "메뉴 입력 화면"
+                                  },
+                                  "keyboard": {
+                                    "type": "buttons",
+                                    "buttons": ["로그아웃"]
+                                  }
+                                });
+                              }
                             }
                           }
                           else {
