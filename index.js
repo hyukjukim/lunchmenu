@@ -125,20 +125,6 @@ keuser.findOne({
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
-              menu.find({
-                    'edit_flag': '0'
-                }, function(err, menu) {
-                    if (err) return res.json(err);
-                          if(menu.edit_flag === '1'){
-                          console.log("있으면 여기고");
-                          }
-                          else{
-                            //20170214
-                            console.log("없으면 여기지");
-                            //20170214
-                          }
-                          });
-
               if (req.body.content === '시작'){
                 //findOneAndUpdate
                           keuser.findOneAndUpdate({
@@ -217,6 +203,19 @@ keuser.findOne({
                     score: '0',
                     edit_flag: '1'
                 }, function(err, users) {
+                  //findOneAndUpdate
+                            keuser.findOneAndUpdate({
+                                'user_key': req.body.user_key
+                            }, {
+                                'temp2': '1',
+                            }, {
+                                new: true
+                            }, function(err, users) {
+                                if (err) {
+                                    console.log("Something wrong when updating data!");
+                                }
+                            });
+                  //findOneAndUpdate
                 res.send({
                   "message": {
                     "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다. 반드시 다음과 같은 순서로 진행하여 주세요.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
