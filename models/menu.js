@@ -17,8 +17,7 @@ var menuSchema = mongoose.Schema({
         type: String
     },
     edit_flag: {
-        type: String,
-        unique: true
+        type: String
     }
 });
 
