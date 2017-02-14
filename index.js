@@ -125,7 +125,7 @@ keuser.findOne({
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
-              menu.find({
+              menu.findOne({
                     'edit_flag': '1'
                 }, function(err, users) {
                     if (err) return res.json(err);
