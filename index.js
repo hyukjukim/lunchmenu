@@ -533,6 +533,12 @@ keuser.findOne({
                                                               console.log("Something wrong when updating data!");
                                                           }
                                                           console.log(menus.length);
+                                                          for(i=0;i<menus.length; i++){
+                                                            console.log(i+"번");
+                                                          }
+
+
+
                                                           res.send({
                                                             "message": {
                                                               "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
