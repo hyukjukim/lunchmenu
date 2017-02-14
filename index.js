@@ -537,7 +537,7 @@ keuser.findOne({
                                                         for(i=0;i<menus.length; i++){
                                                             string = string + "["+menus[i].condition+"]"+"\n"+menus[i].menu+"\n=============";
                                                           }
-                                                          string = string + "\n입니다."
+                                                          string = string + "\n입니다.";
                                                           res.send({
                                                             "message": {
                                                               "text": string
