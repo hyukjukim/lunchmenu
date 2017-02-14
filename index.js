@@ -145,6 +145,8 @@ keuser.findOne({
                               'user_key': req.body.user_key
                           }, {
                               'temp1': '0',
+                          }, {
+                              new: true
                           }, function(err, users) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
@@ -214,8 +216,6 @@ keuser.findOne({
                     menu: '0',
                     score: '0',
                     edit_flag: '1'
-                },{
-                    new: true
                 }, function(err, users) {
                 res.send({
                   "message": {
