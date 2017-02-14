@@ -127,7 +127,7 @@ keuser.findOne({
 
               menu.findOne({
                     'edit_flag': '1'
-                }, function(err, users) {
+                }, function(err, menu) {
                     if (err) return res.json(err);
                           if(menu.edit_flag === '1'){
                           console.log("있으면 여기고");
@@ -145,8 +145,6 @@ keuser.findOne({
                               'user_key': req.body.user_key
                           }, {
                               'temp1': '0',
-                          }, {
-                              new: true
                           }, function(err, users) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
