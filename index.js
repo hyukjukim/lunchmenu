@@ -148,38 +148,34 @@ keuser.findOne({
                           });
                 //findOneAndUpdate
               }
-
-              else if (req.body.content === '전체 식단보기'){
-
-
-
-                //findOneAndUpdate
-                          menu.find({
-                              'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()
-                          },function(err, menus) {
-                              if (err) {
-                                  console.log("Something wrong when updating data!");
-                              }
-                              res.send({
-                                "message": {
-                                  "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
-                                },
-                                "keyboard": {
-                                  "type": "buttons",
-                                  "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
-                                }
-                              });
-                          });
-                //findOneAndUpdate
-                }
-/*
+              else if (req.body.content === '이전으로'){
                 res.send({
                   "message": {
-                    "text": "주인님. 환영합니다. \n전체 식단보기 기능은 구현 중 입니다."
+                    "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
                   },
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
+                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
+                  }
+                });
+              }
+
+              else if (req.body.content === '전체 메뉴보기'){
+                res.send({
+                    "message": {
+                        "text": "메뉴보기 원하시는 날짜를 입력하여 주세요. (ex. 20170214)"
+                    }
+                });
+                }
+
+/*
+                res.send({
+                  "message": {
+                    "text": "주인님. 환영합니다. \n전체 메뉴보기 기능은 구현 중 입니다."
+                  },
+                  "keyboard": {
+                    "type": "buttons",
+                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
                   }
                 });
               }
@@ -190,7 +186,7 @@ keuser.findOne({
                   },
                   "keyboard": {
                     "type": "buttons",
-                    "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
+                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
                   }
                 });
                 */
@@ -219,6 +215,28 @@ keuser.findOne({
                           });
                 //findOneAndUpdate
               }
+
+              else{
+                //findOneAndUpdate
+                          menu.find({
+                              'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()
+                          },function(err, menus) {
+                              if (err) {
+                                  console.log("Something wrong when updating data!");
+                              }
+                              res.send({
+                                "message": {
+                                  "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
+                                },
+                                "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["전체 메뉴보기","이전으로"]
+                                }
+                              });
+                          });
+                //findOneAndUpdate
+              }
+
             }
             else{
 //시작
@@ -449,7 +467,7 @@ keuser.findOne({
                 },
                 "keyboard": {
                   "type": "buttons",
-                  "buttons": ["전체 식단보기","신규 식단 입력하기","로그아웃"]
+                  "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
                 }
               });
           });
