@@ -139,8 +139,32 @@ keuser.findOne({
                                 "buttons": ["로그아웃"]
                               }
                             });
-
-                            if (req.body.content === '로그아웃'){
+                            if (req.body.content === '시작'){
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '0',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["시작"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+                            }
+                            else if (req.body.content === '로그아웃'){
                               //findOneAndUpdate
                                         keuser.findOneAndUpdate({
                                             'user_key': req.body.user_key
