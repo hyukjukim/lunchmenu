@@ -243,6 +243,18 @@ keuser.findOne({
                                         });
                               //findOneAndUpdate
                             }
+                            else if (req.body.content === '이전으로')
+                            {
+                              res.send({
+                                "message": {
+                                  "text": "음식 종류를 선택하여 주세요."
+                                },
+                                "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","로그아웃"]
+                                }
+                              });
+                            }
                           }
                           else if(users.temp2 === '2'){
                             console.log("2번입장");
@@ -304,7 +316,7 @@ keuser.findOne({
                                       menu.findOneAndUpdate({
                                           'edit_flag': '1'
                                       }, {
-                                          'date': req.body.content
+                                          'condition': req.body.content
                                       }, function(err, users) {
                                         //findOneAndUpdate
                                                   keuser.findOneAndUpdate({
@@ -358,7 +370,7 @@ keuser.findOne({
                                       menu.findOneAndUpdate({
                                           'edit_flag': '1'
                                       }, {
-                                          'date': req.body.content
+                                          'menu': req.body.content
                                       }, function(err, users) {
                                         //findOneAndUpdate
                                                   keuser.findOneAndUpdate({
