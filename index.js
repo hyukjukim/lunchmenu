@@ -125,131 +125,177 @@ keuser.findOne({
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
-              if (req.body.content === '시작'){
-                //findOneAndUpdate
-                          keuser.findOneAndUpdate({
-                              'user_key': req.body.user_key
-                          }, {
-                              'temp1': '0',
-                              'temp2': '0'
-                          }, {
-                              new: true
-                          }, function(err, users) {
-                              if (err) {
-                                  console.log("Something wrong when updating data!");
-                              }
-                              res.send({
-                                "message": {
-                                  "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
-                                },
-                                "keyboard": {
-                                  "type": "buttons",
-                                  "buttons": ["시작"]
-                                }
-                              });
-                          });
-                //findOneAndUpdate
-              }
-              else if (req.body.content === '이전으로'){
-                res.send({
-                  "message": {
-                    "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
-                  },
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
-                  }
-                });
-              }
-
-              else if (req.body.content === '전체 메뉴보기'){
-                res.send({
-                    "message": {
-                        "text": "메뉴보기 원하시는 날짜를 입력하여 주세요. (ex. 20170214)"
-                    }
-                });
-                }
-
-              else if (req.body.content === '로그아웃'){
-                //findOneAndUpdate
-                          keuser.findOneAndUpdate({
-                              'user_key': req.body.user_key
-                          }, {
-                              'temp1': '0',
-                              'temp2': '0'
-                          }, {
-                              new: true
-                          }, function(err, users) {
-                              if (err) {
-                                  console.log("Something wrong when updating data!");
-                              }
-                              res.send({
-                                "message": {
-                                  "text": "로그아웃 되었습니다."
-                                },
-                                "keyboard": {
-                                  "type": "buttons",
-                                  "buttons": ["시작"]
-                                }
-                              });
-                          });
-                //findOneAndUpdate
-              }
-              else if (req.body.content === '신규 식단 입력하기'){
-                //create
-                menu.create({
-                    date: '0',
-                    condition: '0',
-                    menu: '0',
-                    score: '0',
-                    edit_flag: '1'
+              keuser.findOne({
+                    'user_key': req.body.user_key
                 }, function(err, users) {
-                  //findOneAndUpdate
-                            keuser.findOneAndUpdate({
-                                'user_key': req.body.user_key
-                            }, {
-                                'temp2': '1',
-                            }, {
-                                new: true
-                            }, function(err, users) {
-                                if (err) {
-                                    console.log("Something wrong when updating data!");
-                                }
-                            });
-                  //findOneAndUpdate
-                res.send({
-                  "message": {
-                    "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다. 반드시 다음과 같은 순서로 진행하여 주세요.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
-                  },
-                  "keyboard": {
-                    "type": "buttons",
-                    "buttons": ["날짜입력","이전으로"]
-                  }
-                  });
-                });
-                //create
-              }
-
-              else{
-                //findOneAndUpdate
-                          menu.find({
-                              'date': req.body.content
-                          },function(err, menus) {
-                              if (err) {
-                                  console.log("Something wrong when updating data!");
+                    if (err) return res.json(err);
+                          if(users.temp2 === '1'){
+                            res.send({
+                              "message": {
+                                "text": "메뉴 입력 화면"
+                              },
+                              "keyboard": {
+                                "type": "buttons",
+                                "buttons": ["로그아웃"]
                               }
-                              res.send({
-                                "message": {
-                                  "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
-                                },
-                                "keyboard": {
-                                  "type": "buttons",
-                                  "buttons": ["전체 메뉴보기","이전으로"]
-                                }
-                              });
-                          });
-                //findOneAndUpdate
-              }
+                            });
+
+                            if (req.body.content === '로그아웃'){
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '0',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            res.send({
+                                              "message": {
+                                                "text": "로그아웃 되었습니다."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["시작"]
+                                              }
+                                            });
+                                        });
+                              //findOneAndUpdate
+                            }
+                          }
+                          else {
+
+
+                                          if (req.body.content === '시작'){
+                                            //findOneAndUpdate
+                                                      keuser.findOneAndUpdate({
+                                                          'user_key': req.body.user_key
+                                                      }, {
+                                                          'temp1': '0',
+                                                          'temp2': '0'
+                                                      }, {
+                                                          new: true
+                                                      }, function(err, users) {
+                                                          if (err) {
+                                                              console.log("Something wrong when updating data!");
+                                                          }
+                                                          res.send({
+                                                            "message": {
+                                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                                            },
+                                                            "keyboard": {
+                                                              "type": "buttons",
+                                                              "buttons": ["시작"]
+                                                            }
+                                                          });
+                                                      });
+                                            //findOneAndUpdate
+                                          }
+                                          else if (req.body.content === '이전으로'){
+                                            res.send({
+                                              "message": {
+                                                "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
+                                              }
+                                            });
+                                          }
+
+                                          else if (req.body.content === '전체 메뉴보기'){
+                                            res.send({
+                                                "message": {
+                                                    "text": "메뉴보기 원하시는 날짜를 입력하여 주세요. (ex. 20170214)"
+                                                }
+                                            });
+                                            }
+
+                                          else if (req.body.content === '로그아웃'){
+                                            //findOneAndUpdate
+                                                      keuser.findOneAndUpdate({
+                                                          'user_key': req.body.user_key
+                                                      }, {
+                                                          'temp1': '0',
+                                                          'temp2': '0'
+                                                      }, {
+                                                          new: true
+                                                      }, function(err, users) {
+                                                          if (err) {
+                                                              console.log("Something wrong when updating data!");
+                                                          }
+                                                          res.send({
+                                                            "message": {
+                                                              "text": "로그아웃 되었습니다."
+                                                            },
+                                                            "keyboard": {
+                                                              "type": "buttons",
+                                                              "buttons": ["시작"]
+                                                            }
+                                                          });
+                                                      });
+                                            //findOneAndUpdate
+                                          }
+                                          else if (req.body.content === '신규 식단 입력하기'){
+                                            //create
+                                            menu.create({
+                                                date: '0',
+                                                condition: '0',
+                                                menu: '0',
+                                                score: '0',
+                                                edit_flag: '1'
+                                            }, function(err, users) {
+                                              //findOneAndUpdate
+                                                        keuser.findOneAndUpdate({
+                                                            'user_key': req.body.user_key
+                                                        }, {
+                                                            'temp2': '1',
+                                                        }, {
+                                                            new: true
+                                                        }, function(err, users) {
+                                                            if (err) {
+                                                                console.log("Something wrong when updating data!");
+                                                            }
+                                                        });
+                                              //findOneAndUpdate
+                                            res.send({
+                                              "message": {
+                                                "text": "신규 식단 입력 프로그램에 오신 것을 환엽합니다. 반드시 다음과 같은 순서로 진행하여 주세요.\n\n1. 날짜입력\n2.한식,약식/일품,샐러드 선택\n3.메뉴입력"
+                                              },
+                                              "keyboard": {
+                                                "type": "buttons",
+                                                "buttons": ["날짜입력","이전으로"]
+                                              }
+                                              });
+                                            });
+                                            //create
+                                          }
+
+                                          else{
+                                            //findOneAndUpdate
+                                                      menu.find({
+                                                          'date': req.body.content
+                                                      },function(err, menus) {
+                                                          if (err) {
+                                                              console.log("Something wrong when updating data!");
+                                                          }
+                                                          res.send({
+                                                            "message": {
+                                                              "text": menus[0].date+" 식단 입니다.\n\n"+"["+menus[0].condition+"]"+"\n"+menus[0].menu+"\n==========\n"+"["+menus[1].condition+"]"+"\n"+menus[1].menu+"\n==========\n"+"["+menus[2].condition+"]"+"\n"+menus[2].menu
+                                                            },
+                                                            "keyboard": {
+                                                              "type": "buttons",
+                                                              "buttons": ["전체 메뉴보기","이전으로"]
+                                                            }
+                                                          });
+                                                      });
+                                            //findOneAndUpdate
+                                          }
+                          }
+                        });
 
             }
             else{
