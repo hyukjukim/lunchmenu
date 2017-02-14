@@ -219,7 +219,7 @@ keuser.findOne({
               else{
                 //findOneAndUpdate
                           menu.find({
-                              'date': d.getFullYear()+'0'+(d.getMonth()+1)+d.getDate()
+                              'date': req.body.content
                           },function(err, menus) {
                               if (err) {
                                   console.log("Something wrong when updating data!");
