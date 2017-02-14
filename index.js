@@ -125,9 +125,7 @@ keuser.findOne({
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
-              menu.findOne({
-                    'edit_flag': '1'
-                }, function(err, menu) {
+              menu.find({}, function(err, menu) {
                     if (err) return res.json(err);
                           if(menu.edit_flag === '1'){
                           console.log("있으면 여기고");
