@@ -172,7 +172,7 @@ keuser.findOne({
                                             menu.findOneAndUpdate({
                                                 'edit_flag': '1'
                                             }, {
-                                                'date': req.body.content
+                                                'edit_flag': '0'
                                             }, function(err, users) {
                                               res.send({
                                                 "message": {
