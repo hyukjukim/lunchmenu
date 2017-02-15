@@ -260,7 +260,7 @@ keuser.findOne({
                             console.log("2번입장");
                             //findOneAndUpdate
                                       menu.findOneAndUpdate({
-                                          'edit_flag': '1'
+                                          'edit_flag': '0'
                                       }, {
                                           'date': req.body.content
                                       }, function(err, users) {
@@ -314,7 +314,7 @@ keuser.findOne({
                             console.log("3번입장");
                             //findOneAndUpdate
                                       menu.findOneAndUpdate({
-                                          'edit_flag': '1'
+                                          'edit_flag': '0'
                                       }, {
                                           'condition': req.body.content
                                       }, function(err, users) {
@@ -368,7 +368,7 @@ keuser.findOne({
                             console.log("4번입장");
                             //findOneAndUpdate
                                       menu.findOneAndUpdate({
-                                          'edit_flag': '1'
+                                          'edit_flag': '0'
                                       }, {
                                           'menu': req.body.content
                                       }, function(err, users) {
