@@ -252,15 +252,37 @@ keuser.findOne({
                             }
                             else if (req.body.content === '이전으로'||req.body.content === '입력완료')
                             {
-                              res.send({
-                                "message": {
-                                  "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
-                                },
-                                "keyboard": {
-                                  "type": "buttons",
-                                  "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
-                                }
-                              });
+                              //findOneAndUpdate
+                                        keuser.findOneAndUpdate({
+                                            'user_key': req.body.user_key
+                                        }, {
+                                            'temp1': '1',
+                                            'temp2': '0'
+                                        }, {
+                                            new: true
+                                        }, function(err, users) {
+                                            if (err) {
+                                                console.log("Something wrong when updating data!");
+                                            }
+                                            menu.findOneAndUpdate({
+                                                'edit_flag': '1'
+                                            }, {
+                                                'edit_flag': '0'
+                                            }, function(err, users) {
+                                              res.send({
+                                                "message": {
+                                                  "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+                                                },
+                                                "keyboard": {
+                                                  "type": "buttons",
+                                                  "buttons": ["전체 메뉴보기","신규 식단 입력하기","로그아웃"]
+                                                }
+                                              });
+                                            });
+
+                                        });
+                              //findOneAndUpdate
+
                             }
                           }
                           else if(users.temp2 === '2'){
