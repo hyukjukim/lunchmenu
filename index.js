@@ -250,7 +250,7 @@ keuser.findOne({
                                         });
                               //findOneAndUpdate
                             }
-                            else if (req.body.content === '이전으로')
+                            else if (req.body.content === '이전으로'||req.body.content === '입력완료')
                             {
                               res.send({
                                 "message": {
@@ -283,7 +283,7 @@ keuser.findOne({
                                                         },
                                                         "keyboard": {
                                                           "type": "buttons",
-                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","로그아웃"]
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","입력완료"]
                                                         }
                                                       });
                                                   });
@@ -311,7 +311,7 @@ keuser.findOne({
                                                         },
                                                         "keyboard": {
                                                           "type": "buttons",
-                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","로그아웃"]
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","입력완료"]
                                                         }
                                                       });
                                                   });
@@ -339,7 +339,7 @@ keuser.findOne({
                                                         },
                                                         "keyboard": {
                                                           "type": "buttons",
-                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","로그아웃"]
+                                                          "buttons": ["날짜입력","한식,양식/일품,샐러드 선택","메뉴입력","입력완료"]
                                                         }
                                                       });
                                                   });
