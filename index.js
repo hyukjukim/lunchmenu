@@ -119,38 +119,9 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-
-
 keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
-
-    if (req.body.content === '시작'){
-      keuser.create({
-          user_key: req.body.user_key,
-          name_flag: '1',
-          company_name: '0',
-          score: '0',
-          name: '',
-          date: '7',
-          date2: '7',
-          password: '0',
-          email: '0',
-          temp1: '0',
-          temp2: '0'
-      }, function(err, users) {
-      res.send({
-        "message": {
-          "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
-        },
-        "keyboard": {
-          "type": "buttons",
-          "buttons": ["Start"]
-        }
-      });
-      });
-    }
-
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
@@ -159,7 +130,7 @@ keuser.findOne({
                 }, function(err, users) {
                     if (err) return res.json(err);
                           if(users.temp2 === '1'){
-                            if (req.body.content === 'Start'){
+                            if (req.body.content === '시작'){
                               //findOneAndUpdate
                                         keuser.findOneAndUpdate({
                                             'user_key': req.body.user_key
@@ -178,7 +149,7 @@ keuser.findOne({
                                               },
                                               "keyboard": {
                                                 "type": "buttons",
-                                                "buttons": ["Start"]
+                                                "buttons": ["시작"]
                                               }
                                             });
                                         });
@@ -209,7 +180,7 @@ keuser.findOne({
                                                 },
                                                 "keyboard": {
                                                   "type": "buttons",
-                                                  "buttons": ["Start"]
+                                                  "buttons": ["시작"]
                                                 }
                                               });
                                             });
@@ -399,7 +370,7 @@ keuser.findOne({
                             //findOneAndUpdate
                           }
                           else {
-                                          if (req.body.content === 'Start'){
+                                          if (req.body.content === '시작'){
                                             //findOneAndUpdate
                                                       keuser.findOneAndUpdate({
                                                           'user_key': req.body.user_key
@@ -418,7 +389,7 @@ keuser.findOne({
                                                             },
                                                             "keyboard": {
                                                               "type": "buttons",
-                                                              "buttons": ["Start"]
+                                                              "buttons": ["시작"]
                                                             }
                                                           });
                                                       });
@@ -463,7 +434,7 @@ keuser.findOne({
                                                             },
                                                             "keyboard": {
                                                               "type": "buttons",
-                                                              "buttons": ["Start"]
+                                                              "buttons": ["시작"]
                                                             }
                                                           });
                                                       });
@@ -538,8 +509,20 @@ keuser.findOne({
             else{
 
 //시작
-    if (req.body.content === 'Start'){
-
+    if (req.body.content === '시작'){
+      keuser.create({
+          user_key: req.body.user_key,
+          name_flag: '1',
+          company_name: '0',
+          score: '0',
+          name: '',
+          date: '7',
+          date2: '7',
+          password: '0',
+          email: '0',
+          temp1: '0',
+          temp2: '0'
+      }, function(err, users) {
       res.send({
         "message": {
           "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
@@ -549,7 +532,8 @@ keuser.findOne({
           "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
       });
-}
+      });
+    }
 
     else if(req.body.content === '☞☞옆으로넘기기'){
       res.send({
