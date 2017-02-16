@@ -119,35 +119,38 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-  if (req.body.content === '시작'){
-    keuser.create({
-        user_key: req.body.user_key,
-        name_flag: '1',
-        company_name: '0',
-        score: '0',
-        name: '',
-        date: '7',
-        date2: '7',
-        password: '0',
-        email: '0',
-        temp1: '0',
-        temp2: '0'
-    }, function(err, users) {
-    res.send({
-      "message": {
-        "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
-      },
-      "keyboard": {
-        "type": "buttons",
-        "buttons": ["Start"]
-      }
-    });
-    });
 
 
 keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
+
+    if (req.body.content === '시작'){
+      keuser.create({
+          user_key: req.body.user_key,
+          name_flag: '1',
+          company_name: '0',
+          score: '0',
+          name: '',
+          date: '7',
+          date2: '7',
+          password: '0',
+          email: '0',
+          temp1: '0',
+          temp2: '0'
+      }, function(err, users) {
+      res.send({
+        "message": {
+          "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": ["Start"]
+        }
+      });
+      });
+    }
+
       if (err) return res.json(err);
             if(users.temp1 === '1'){
 
@@ -792,7 +795,7 @@ keuser.findOne({
 //else
           });
 //find
-  }
+
 });
 
 app.post('/friend', function(req, res) {
