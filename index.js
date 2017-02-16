@@ -143,7 +143,7 @@ app.post('/message', function(req, res) {
       }
     });
     });
-  }
+
 
 keuser.findOne({
       'user_key': req.body.user_key
@@ -792,7 +792,7 @@ keuser.findOne({
 //else
           });
 //find
-
+  }
 });
 
 app.post('/friend', function(req, res) {
