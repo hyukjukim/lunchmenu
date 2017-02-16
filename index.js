@@ -119,20 +119,31 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
-  keuser.create({
-      user_key: req.body.user_key,
-      name_flag: '1',
-      company_name: '0',
-      score: '0',
-      name: '',
-      date: '7',
-      date2: '7',
-      password: '0',
-      email: '0',
-      temp1: '0',
-      temp2: '0'
-  }, function(err, users) {
-  });
+  if (req.body.content === '시작'){
+    keuser.create({
+        user_key: req.body.user_key,
+        name_flag: '1',
+        company_name: '0',
+        score: '0',
+        name: '',
+        date: '7',
+        date2: '7',
+        password: '0',
+        email: '0',
+        temp1: '0',
+        temp2: '0'
+    }, function(err, users) {
+    res.send({
+      "message": {
+        "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
+      },
+      "keyboard": {
+        "type": "buttons",
+        "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+      }
+    });
+    });
+  }
 
 keuser.findOne({
       'user_key': req.body.user_key
@@ -524,33 +535,9 @@ keuser.findOne({
             else{
 
 //시작
-    if (req.body.content === '시작'){
-      keuser.create({
-          user_key: req.body.user_key,
-          name_flag: '1',
-          company_name: '0',
-          score: '0',
-          name: '',
-          date: '7',
-          date2: '7',
-          password: '0',
-          email: '0',
-          temp1: '0',
-          temp2: '0'
-      }, function(err, users) {
-      res.send({
-        "message": {
-          "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
-        },
-        "keyboard": {
-          "type": "buttons",
-          "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
-        }
-      });
-      });
-    }
 
-    else if(req.body.content === '☞☞옆으로넘기기'){
+
+    if(req.body.content === '☞☞옆으로넘기기'){
       res.send({
         "message": {
           "text": "☞☞옆으로넘기기는 버튼이 아니라 손가락을 사용하여 옆으로 넘겨보라는 뜻이예요.",
