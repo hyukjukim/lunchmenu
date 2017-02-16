@@ -507,6 +507,7 @@ keuser.findOne({
 
             }
             else{
+              
 //시작
     if (req.body.content === '시작'){
       keuser.create({
