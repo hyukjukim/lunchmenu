@@ -139,7 +139,7 @@ app.post('/message', function(req, res) {
       },
       "keyboard": {
         "type": "buttons",
-        "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+        "buttons": ["Start"]
       }
     });
     });
@@ -156,7 +156,7 @@ keuser.findOne({
                 }, function(err, users) {
                     if (err) return res.json(err);
                           if(users.temp2 === '1'){
-                            if (req.body.content === '시작'){
+                            if (req.body.content === 'Start'){
                               //findOneAndUpdate
                                         keuser.findOneAndUpdate({
                                             'user_key': req.body.user_key
@@ -175,7 +175,7 @@ keuser.findOne({
                                               },
                                               "keyboard": {
                                                 "type": "buttons",
-                                                "buttons": ["시작"]
+                                                "buttons": ["Start"]
                                               }
                                             });
                                         });
@@ -206,7 +206,7 @@ keuser.findOne({
                                                 },
                                                 "keyboard": {
                                                   "type": "buttons",
-                                                  "buttons": ["시작"]
+                                                  "buttons": ["Start"]
                                                 }
                                               });
                                             });
@@ -396,7 +396,7 @@ keuser.findOne({
                             //findOneAndUpdate
                           }
                           else {
-                                          if (req.body.content === '시작'){
+                                          if (req.body.content === 'Start'){
                                             //findOneAndUpdate
                                                       keuser.findOneAndUpdate({
                                                           'user_key': req.body.user_key
@@ -415,7 +415,7 @@ keuser.findOne({
                                                             },
                                                             "keyboard": {
                                                               "type": "buttons",
-                                                              "buttons": ["시작"]
+                                                              "buttons": ["Start"]
                                                             }
                                                           });
                                                       });
@@ -460,7 +460,7 @@ keuser.findOne({
                                                             },
                                                             "keyboard": {
                                                               "type": "buttons",
-                                                              "buttons": ["시작"]
+                                                              "buttons": ["Start"]
                                                             }
                                                           });
                                                       });
@@ -535,9 +535,20 @@ keuser.findOne({
             else{
 
 //시작
+    if (req.body.content === 'Start'){
 
+      res.send({
+        "message": {
+          "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
+        },
+        "keyboard": {
+          "type": "buttons",
+          "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
+        }
+      });
+}
 
-    if(req.body.content === '☞☞옆으로넘기기'){
+    else if(req.body.content === '☞☞옆으로넘기기'){
       res.send({
         "message": {
           "text": "☞☞옆으로넘기기는 버튼이 아니라 손가락을 사용하여 옆으로 넘겨보라는 뜻이예요.",
