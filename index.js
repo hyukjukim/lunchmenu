@@ -118,7 +118,7 @@ app.get('/keyboard', function(req, res) {
 });
 
 app.post('/message', function(req, res) {
-
+/*
 keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
@@ -507,7 +507,7 @@ keuser.findOne({
 
             }
             else{
-
+*/
 //시작
     if (req.body.content === '시작'){
       keuser.create({
@@ -775,8 +775,8 @@ keuser.findOne({
 
 
 
-                        }
-//else
+//else                        }
+
           });
 //find
 
