@@ -115,23 +115,25 @@ app.get('/keyboard', function(req, res) {
         "type": "buttons",
         "buttons": ["시작"]
     });
-    keuser.create({
-        user_key: req.body.user_key,
-        name_flag: '1',
-        company_name: '0',
-        score: '0',
-        name: '',
-        date: '7',
-        date2: '7',
-        password: '0',
-        email: '0',
-        temp1: '0',
-        temp2: '0'
-    }, function(err, users) {
-    });
 });
 
 app.post('/message', function(req, res) {
+
+
+  keuser.create({
+      user_key: req.body.user_key,
+      name_flag: '1',
+      company_name: '0',
+      score: '0',
+      name: '',
+      date: '7',
+      date2: '7',
+      password: '0',
+      email: '0',
+      temp1: '0',
+      temp2: '0'
+  }, function(err, users) {
+
 
 
 
@@ -798,6 +800,8 @@ keuser.findOne({
 //find
 
 });
+
+  });
 
 app.post('/friend', function(req, res) {
     res.sendStatus(200);
