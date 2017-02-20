@@ -131,8 +131,6 @@ app.post('/message', function(req, res) {
       email: '0',
       temp1: '0',
       temp2: '0'
-  },{
-      new: true
   }, function(err, users) {
   });
 
