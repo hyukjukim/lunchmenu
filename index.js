@@ -119,11 +119,28 @@ app.get('/keyboard', function(req, res) {
 
 app.post('/message', function(req, res) {
 
+  keuser.create({
+      user_key: req.body.user_key,
+      name_flag: '1',
+      company_name: '0',
+      score: '0',
+      name: '',
+      date: '7',
+      date2: '7',
+      password: '0',
+      email: '0',
+      temp1: '0',
+      temp2: '0'
+  },{
+      new: true
+  }, function(err, users) {
+  });
+
 keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-            if(req.body.content === '시작'){
+            if(users.temp1 === '1'){
 
               keuser.findOne({
                     'user_key': req.body.user_key
@@ -722,8 +739,7 @@ keuser.findOne({
           keuser.findOneAndUpdate({
               'user_key': req.body.user_key
           }, {
-              'temp1': '1',
-              'temp2': '1'
+              'temp1': '1'
           }, {
               new: true
           }, function(err, users) {
