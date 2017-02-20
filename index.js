@@ -123,7 +123,7 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-            if(users.temp1 === '1'){
+            if(req.body.content === '시작'){
 
               keuser.findOne({
                     'user_key': req.body.user_key
