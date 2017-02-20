@@ -123,7 +123,7 @@ keuser.findOne({
       'user_key': req.body.user_key
   }, function(err, users) {
       if (err) return res.json(err);
-            if(req.body.user_key === '1'){
+            if(users.temp1 === '1'){
 
               keuser.findOne({
                     'user_key': req.body.user_key
@@ -256,7 +256,7 @@ keuser.findOne({
                                         keuser.findOneAndUpdate({
                                             'user_key': req.body.user_key
                                         }, {
-                                            'temp1': '1',
+                                            'temp1': '0',
                                             'temp2': '0'
                                         }, {
                                             new: true
@@ -507,7 +507,6 @@ keuser.findOne({
 
             }
             else{
-
 //시작
     if (req.body.content === '시작'){
       keuser.create({
@@ -522,6 +521,8 @@ keuser.findOne({
           email: '0',
           temp1: '0',
           temp2: '0'
+      },{
+          new: true
       }, function(err, users) {
       res.send({
         "message": {
@@ -722,6 +723,7 @@ keuser.findOne({
               'user_key': req.body.user_key
           }, {
               'temp1': '1',
+              'temp2': '1'
           }, {
               new: true
           }, function(err, users) {
