@@ -527,21 +527,6 @@ keuser.findOne({
             else{
 //시작
     if (req.body.content === '시작'){
-      keuser.create({
-          user_key: req.body.user_key,
-          name_flag: '1',
-          company_name: '0',
-          score: '0',
-          name: '',
-          date: '7',
-          date2: '7',
-          password: '0',
-          email: '0',
-          temp1: '0',
-          temp2: '0'
-      },{
-          new: true
-      }, function(err, users) {
       res.send({
         "message": {
           "text": "안녕하세요\n회사 식단 관리 프로그램에 오신 것을 환영합니다."
@@ -550,7 +535,6 @@ keuser.findOne({
           "type": "buttons",
           "buttons": ["오늘의 메뉴","관리자 암호입력","☞☞옆으로넘기기","닉네임설정","처음으로","개발자소개"]
         }
-      });
       });
     }
 
