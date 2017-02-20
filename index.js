@@ -274,7 +274,7 @@ keuser.findOne({
                                         keuser.findOneAndUpdate({
                                             'user_key': req.body.user_key
                                         }, {
-                                            'temp1': '0',
+                                            'temp1': '1',
                                             'temp2': '0'
                                         }, {
                                             new: true
