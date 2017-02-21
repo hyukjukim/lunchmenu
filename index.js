@@ -685,6 +685,7 @@ app.post('/message', function(req, res) {
                         'condition': req.body.content
                     }, function(err, menus) {
                         if (err) return res.json(err);
+                        console.log('타입은 '+ menus);
                         res.send({
                             "message": {
                                 "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다."
