@@ -138,7 +138,6 @@ app.post('/message', function(req, res) {
         }, function(err, users) {
             if (err) return res.json(err);
             if (users.temp1 === '1') {
-
                 keuser.findOne({
                     'user_key': req.body.user_key
                 }, function(err, users) {
@@ -304,6 +303,32 @@ app.post('/message', function(req, res) {
                             }, {
                                 'temp2': '1'
                             }, function(err, users) {
+                              if (req.body.content === '시작') {
+                                  //findOneAndUpdate
+                                  keuser.findOneAndUpdate({
+                                      'user_key': req.body.user_key
+                                  }, {
+                                      'temp1': '0',
+                                      'temp2': '0'
+                                  }, {
+                                      new: true
+                                  }, function(err, users) {
+                                      if (err) {
+                                          console.log("Something wrong when updating data!");
+                                      }
+                                      res.send({
+                                          "message": {
+                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                          },
+                                          "keyboard": {
+                                              "type": "buttons",
+                                              "buttons": ["시작"]
+                                          }
+                                      });
+                                  });
+                                  //findOneAndUpdate
+
+                              }
                                 res.send({
                                     "message": {
                                         "text": "날짜 입력 완료 되었습니다."
@@ -331,6 +356,32 @@ app.post('/message', function(req, res) {
                             }, {
                                 'temp2': '1'
                             }, function(err, users) {
+                              if (req.body.content === '시작') {
+                                  //findOneAndUpdate
+                                  keuser.findOneAndUpdate({
+                                      'user_key': req.body.user_key
+                                  }, {
+                                      'temp1': '0',
+                                      'temp2': '0'
+                                  }, {
+                                      new: true
+                                  }, function(err, users) {
+                                      if (err) {
+                                          console.log("Something wrong when updating data!");
+                                      }
+                                      res.send({
+                                          "message": {
+                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                          },
+                                          "keyboard": {
+                                              "type": "buttons",
+                                              "buttons": ["시작"]
+                                          }
+                                      });
+                                  });
+                                  //findOneAndUpdate
+
+                              }
                                 res.send({
                                     "message": {
                                         "text": "메뉴 종류 입력 완료 되었습니다."
@@ -358,6 +409,32 @@ app.post('/message', function(req, res) {
                             }, {
                                 'temp2': '1'
                             }, function(err, users) {
+                              if (req.body.content === '시작') {
+                                  //findOneAndUpdate
+                                  keuser.findOneAndUpdate({
+                                      'user_key': req.body.user_key
+                                  }, {
+                                      'temp1': '0',
+                                      'temp2': '0'
+                                  }, {
+                                      new: true
+                                  }, function(err, users) {
+                                      if (err) {
+                                          console.log("Something wrong when updating data!");
+                                      }
+                                      res.send({
+                                          "message": {
+                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                          },
+                                          "keyboard": {
+                                              "type": "buttons",
+                                              "buttons": ["시작"]
+                                          }
+                                      });
+                                  });
+                                  //findOneAndUpdate
+
+                              }
                                 res.send({
                                     "message": {
                                         "text": "메뉴 상세 입력 완료 되었습니다."
