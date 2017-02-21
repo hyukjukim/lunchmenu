@@ -691,12 +691,19 @@ app.post('/message', function(req, res) {
                     }, function(err, menus) {
                         if (err) return res.json(err);
                         console.log('타입은 '+ menus);
+                        //null은 undefinde와 == 로 비교 해야 한다 ===로 비교하면 안된다.
                         if(menus == undefined){
-                          console.log('1@@@@');
-                        }
-                        if(menus === undefined){
-                          console.log('1@@@@12312');
-                        }
+                          res.send({
+                              "message": {
+                                  "text": d.getFullYear() + '0' + (d.getMonth() + 1) + d.getDate() + "에 해당하는 날짜에 저장된 메뉴가 없습니다."
+                              },
+                              "keyboard": {
+                                  "type": "buttons",
+                                  "buttons": ["처음으로", "이전으로", "메뉴 점수 주기"]
+                              }
+                          });
+                        }else{
+
                         res.send({
                             "message": {
                                 "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다."
@@ -706,7 +713,7 @@ app.post('/message', function(req, res) {
                                 "buttons": ["처음으로", "이전으로", "메뉴 점수 주기"]
                             }
                         });
-
+                      }
                     });
                     //findOne
                 } else if (req.body.content === '생성완료') {
