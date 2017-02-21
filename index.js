@@ -328,7 +328,7 @@ app.post('/message', function(req, res) {
                                   });
                                   //findOneAndUpdate
 
-                              }
+                              }else{
                                 res.send({
                                     "message": {
                                         "text": "날짜 입력 완료 되었습니다."
@@ -338,6 +338,7 @@ app.post('/message', function(req, res) {
                                         "buttons": ["날짜입력", "한식,양식/일품,샐러드 선택", "메뉴입력", "입력완료"]
                                     }
                                 });
+                              }
                             });
                             //findOneAndUpdate
                         });
@@ -381,7 +382,9 @@ app.post('/message', function(req, res) {
                                   });
                                   //findOneAndUpdate
 
-                              }
+                              }else {
+
+
                                 res.send({
                                     "message": {
                                         "text": "메뉴 종류 입력 완료 되었습니다."
@@ -391,6 +394,7 @@ app.post('/message', function(req, res) {
                                         "buttons": ["날짜입력", "한식,양식/일품,샐러드 선택", "메뉴입력", "입력완료"]
                                     }
                                 });
+                                  }
                             });
                             //findOneAndUpdate
                         });
@@ -434,7 +438,7 @@ app.post('/message', function(req, res) {
                                   });
                                   //findOneAndUpdate
 
-                              }
+                              }else {
                                 res.send({
                                     "message": {
                                         "text": "메뉴 상세 입력 완료 되었습니다."
@@ -444,6 +448,7 @@ app.post('/message', function(req, res) {
                                         "buttons": ["날짜입력", "한식,양식/일품,샐러드 선택", "메뉴입력", "입력완료"]
                                     }
                                 });
+                                }
                             });
                             //findOneAndUpdate
                         });
