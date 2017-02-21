@@ -695,7 +695,7 @@ app.post('/message', function(req, res) {
                         if(menus == undefined){
                           res.send({
                               "message": {
-                                  "text": d.getFullYear() + '0' + (d.getMonth() + 1) + d.getDate() + "에 해당하는 날짜에 저장된 메뉴가 없습니다."
+                                  "text": d.getFullYear() +'년'+ '0' + (d.getMonth() + 1) +'월'+ d.getDate() + "일에 "+req.body.content+"메뉴가 입력되어 있지 않습니다."
                               },
                               "keyboard": {
                                   "type": "buttons",
