@@ -133,10 +133,6 @@ app.post('/message', function(req, res) {
         temp1: '0',
         temp2: '0'
     }, function(err, users) {
-
-
-
-
         keuser.findOne({
             'user_key': req.body.user_key
         }, function(err, users) {
