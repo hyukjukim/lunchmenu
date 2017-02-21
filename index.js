@@ -691,6 +691,12 @@ app.post('/message', function(req, res) {
                     }, function(err, menus) {
                         if (err) return res.json(err);
                         console.log('타입은 '+ menus);
+                        if(menus == undefined){
+                          console.log('1@@@@');
+                        }
+                        if(menus === undefined){
+                          console.log('1@@@@12312');
+                        }
                         res.send({
                             "message": {
                                 "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다."
