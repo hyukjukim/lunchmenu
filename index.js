@@ -706,12 +706,7 @@ app.post('/message', function(req, res) {
 
                         res.send({
                             "message": {
-                                "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다.",
-                                "photo": {
-                                "url": "http://khj.heroku.com/images/1.png",
-                                "width": 720,
-                                "height": 630
-                              }
+                                "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다."
                             },
                             "keyboard": {
                                 "type": "buttons",
