@@ -785,7 +785,7 @@ app.post('/message', function(req, res) {
                         }
                         res.send({
                             "message": {
-                                "text": "주인님. 환영합니다. \n원하시는 관리자 권한을 입력해 주세요."
+                                "text": "환영합니다. \n원하시는 관리자 권한을 입력해 주세요."
                             },
                             "keyboard": {
                                 "type": "buttons",
