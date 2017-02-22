@@ -708,7 +708,7 @@ app.post('/message', function(req, res) {
                             "message": {
                                 "text": "오늘의 [" + req.body.content + "] 메뉴는\n\n" + menus.menu + "\n입니다.",
                                 "photo": {
-                                "url": "http://khj.heroku.com/images/한식.png",
+                                "url": "http://khj.heroku.com/images/1.png",
                                 "width": 720,
                                 "height": 630
                               }
