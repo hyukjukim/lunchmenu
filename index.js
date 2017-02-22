@@ -158,7 +158,7 @@ app.post('/message', function(req, res) {
                                 }
                                 res.send({
                                     "message": {
-                                        "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                        "text": "관리자님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
                                     },
                                     "keyboard": {
                                         "type": "buttons",
@@ -276,7 +276,7 @@ app.post('/message', function(req, res) {
                                 }, function(err, users) {
                                     res.send({
                                         "message": {
-                                            "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+                                            "text": "주인님. 환영합니다. \n원하시는 관리자 권한을 입력해 주세요."
                                         },
                                         "keyboard": {
                                             "type": "buttons",
@@ -318,7 +318,7 @@ app.post('/message', function(req, res) {
                                       }
                                       res.send({
                                           "message": {
-                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              "text": "관리자님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
                                           },
                                           "keyboard": {
                                               "type": "buttons",
@@ -372,7 +372,7 @@ app.post('/message', function(req, res) {
                                       }
                                       res.send({
                                           "message": {
-                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              "text": "관리자님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
                                           },
                                           "keyboard": {
                                               "type": "buttons",
@@ -428,7 +428,7 @@ app.post('/message', function(req, res) {
                                       }
                                       res.send({
                                           "message": {
-                                              "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                              "text": "관리자님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
                                           },
                                           "keyboard": {
                                               "type": "buttons",
@@ -469,7 +469,7 @@ app.post('/message', function(req, res) {
                                 }
                                 res.send({
                                     "message": {
-                                        "text": "마스터님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
+                                        "text": "관리자님께서 비정상 종료 하여 로그아웃 처리 되었습니다."
                                     },
                                     "keyboard": {
                                         "type": "buttons",
@@ -481,7 +481,7 @@ app.post('/message', function(req, res) {
                         } else if (req.body.content === '이전으로') {
                             res.send({
                                 "message": {
-                                    "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+                                    "text": "주인님. 환영합니다. \n원하시는 관리자 권한을 입력해 주세요."
                                 },
                                 "keyboard": {
                                     "type": "buttons",
@@ -662,7 +662,7 @@ app.post('/message', function(req, res) {
                     //hero.creatHero(req,res);
                     res.send({
                         "message": {
-                            "text": "당신은 저의 마스터 이십니까..?"
+                            "text": "관리자 암호 입력 부탁 드립니다."
                         }
                     });
 
@@ -785,7 +785,7 @@ app.post('/message', function(req, res) {
                         }
                         res.send({
                             "message": {
-                                "text": "주인님. 환영합니다. \n원하시는 마스터 권한을 입력해 주세요."
+                                "text": "주인님. 환영합니다. \n원하시는 관리자 권한을 입력해 주세요."
                             },
                             "keyboard": {
                                 "type": "buttons",
