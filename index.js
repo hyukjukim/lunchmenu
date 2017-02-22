@@ -622,7 +622,7 @@ app.post('/message', function(req, res) {
                         } else {
                             res.send({
                                 "message": {
-                                    "text": "안녕하세요. 닉네임이 없으시군요. \n닉네임이 있어야 식단 점수에 참여하실 수 있습니다.",
+                                    "text": "안녕하세요.\n대한항공 전산센터\n점심메뉴 자동응답\n챗봇입니다.",
                                 },
                                 "keyboard": {
                                     "type": "buttons",
