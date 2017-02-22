@@ -622,7 +622,7 @@ app.post('/message', function(req, res) {
                         } else {
                             res.send({
                                 "message": {
-                                    "text": "안녕하세요.\n대한항공 전산센터\n점심메뉴 자동응답\n챗봇입니다.",
+                                    "text": "안녕하세요.\n대한항공 전산센터\n점심메뉴 자동응답\nChatbot 입니다. ^^\n많은 이용 부탁 드립니다.",
                                 },
                                 "keyboard": {
                                     "type": "buttons",
