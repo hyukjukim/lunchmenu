@@ -769,7 +769,6 @@ app.post('/message', function(req, res) {
                         }
                     });
                 }
-
                 //필살 초기화키
                 else if (req.body.content === '1200312') {
 
