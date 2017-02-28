@@ -777,9 +777,9 @@ app.post('/message', function(req, res) {
                           console.log("Something wrong when updating data!");
                       }
 
-                      var string = menus[0].date + " 식단 입니다.\n";
+                      //var string = menus[0].date + " 식단 입니다.\n";
                       for (i = 0; i < menus.length; i++) {
-                          string = string + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
+                          string = menus[0].date + " 식단 입니다.\n" + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
                       }
                       string = string + "\n입니다.";
                       res.send({
@@ -788,7 +788,7 @@ app.post('/message', function(req, res) {
                           },
                           "keyboard": {
                               "type": "buttons",
-                              "buttons": ["이전으로", "처음으로"]
+                              "buttons": ["처음으로"]
                           }
                       });
 
