@@ -684,6 +684,7 @@ app.post('/message', function(req, res) {
                     console.log(d.getMonth() + 1); //number타입
                     console.log('0' + (d.getMonth() + 1)); //String 타입
                     console.log(d.getDate());
+                    console.log(d.getHours());
 
                     //findOne
                     menu.findOne({
@@ -769,7 +770,7 @@ app.post('/message', function(req, res) {
                         }
                     });
                 }
-                
+
                 //필살 초기화키
                 else if (req.body.content === '1200312') {
 
