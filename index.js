@@ -684,7 +684,7 @@ app.post('/message', function(req, res) {
                     console.log(d.getMonth() + 1); //number타입
                     console.log('0' + (d.getMonth() + 1)); //String 타입
                     console.log(d.getDate());
-                    console.log(d.getHours()-9);
+                    console.log(d.getHours()+9);
 
                     //findOne
                     menu.findOne({
