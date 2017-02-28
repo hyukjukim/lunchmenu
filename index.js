@@ -769,6 +769,8 @@ app.post('/message', function(req, res) {
                         }
                     });
                 }
+/*20170228
+
                 else if (req.body.content === '1'){
                   //findOneAndUpdate
                   menu.find({
@@ -795,7 +797,7 @@ app.post('/message', function(req, res) {
                   });
                   //findOneAndUpdate
                 }
-
+*/
                 //필살 초기화키
                 else if (req.body.content === '1200312') {
 
