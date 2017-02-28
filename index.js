@@ -776,7 +776,7 @@ app.post('/message', function(req, res) {
                       if (err) {
                           console.log("Something wrong when updating data!");
                       }
-
+                      console.log("@@@@@@@@@@"+menus.length);
                       //var string = menus[0].date + " 식단 입니다.\n";
                       for (i = 0; i < menus.length; i++) {
                           string = menus[i].date + " 식단 입니다.\n" + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
