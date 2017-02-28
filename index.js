@@ -683,7 +683,7 @@ app.post('/message', function(req, res) {
                     console.log(d.getFullYear() + '0' + (d.getMonth() + 1) + d.getDate());
                     console.log(d.getMonth() + 1); //number타입
                     console.log('0' + (d.getMonth() + 1)); //String 타입
-                    console.log(d.getDate()+Math.floor((d.getHours()+9)/24));
+                    console.log(d.getDate()+Math.floor((d.getHours()+9)/24)); //서버 시간 +9를 data에 반영하기 위한 방법
                     console.log(Math.floor((d.getHours()+9)/24));
                     //findOne
                     menu.findOne({
@@ -768,6 +768,32 @@ app.post('/message', function(req, res) {
                             ]
                         }
                     });
+                }
+                else if (req.body.content === '1'){
+                  //findOneAndUpdate
+                  menu.find({
+                  }, function(err, menus) {
+                      if (err) {
+                          console.log("Something wrong when updating data!");
+                      }
+
+                      var string = menus[0].date + " 식단 입니다.\n";
+                      for (i = 0; i < menus.length; i++) {
+                          string = string + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
+                      }
+                      string = string + "\n입니다.";
+                      res.send({
+                          "message": {
+                              "text": string
+                          },
+                          "keyboard": {
+                              "type": "buttons",
+                              "buttons": ["이전으로", "처음으로"]
+                          }
+                      });
+
+                  });
+                  //findOneAndUpdate
                 }
 
                 //필살 초기화키
