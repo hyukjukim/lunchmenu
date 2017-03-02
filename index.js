@@ -769,7 +769,6 @@ app.post('/message', function(req, res) {
                         }
                     });
                 }
-/*20170228
 
                 else if (req.body.content === '1'){
                   //findOneAndUpdate
@@ -779,6 +778,7 @@ app.post('/message', function(req, res) {
                           console.log("Something wrong when updating data!");
                       }
                       console.log("@@@@@@@@@@"+menus.length);
+                      console.log("@@@@@@@@@@"+menus);
                       //var string = menus[0].date + " 식단 입니다.\n";
                       for (i = 0; i < menus.length; i++) {
                           string = menus[i].date + " 식단 입니다.\n" + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
@@ -797,7 +797,7 @@ app.post('/message', function(req, res) {
                   });
                   //findOneAndUpdate
                 }
-*/
+
                 //필살 초기화키
                 else if (req.body.content === '1200312') {
 
