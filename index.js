@@ -779,9 +779,10 @@ app.post('/message', function(req, res) {
                       }
                       console.log("@@@@@@@@@@"+menus.length);
                       console.log("@@@@@@@@@@"+menus);
+                      var string = '';
                       //var string = menus[0].date + " 식단 입니다.\n";
-                      for (i = 0; i < 5; i++) {
-                          string = menus[i].date + " 식단 입니다.\n" + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
+                      for (i = 0; i < menus.length; i++) {
+                          string = string + menus[i].date + " 식단 입니다.\n" + "\n[" + menus[i].condition + "]" + "\n" + menus[i].menu + "\n=============";
                       }
                       string = string + "\n입니다.";
                       res.send({
