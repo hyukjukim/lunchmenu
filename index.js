@@ -855,10 +855,6 @@ app.post('/message', function(req, res) {
 
                 }
 
-
-
-
-
             }
             //else
         });
