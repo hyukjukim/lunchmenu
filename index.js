@@ -877,7 +877,7 @@ app.delete('/friend/:user_key', function(req, res) {
 });
 
 app.delete('/chat_room/:user_key', function(req, res) {
-    console.log('바이바이 잘 바이야~');
+    console.log('바이바이 잘 바이야~!');
     res.sendStatus(200);
 });
 
