@@ -687,7 +687,7 @@ app.post('/message', function(req, res) {
                     console.log(Math.floor((d.getHours()+9)/24));
                     //findOne
                     menu.findOne({
-                        'date': (d.getFullYear() + '0' + (d.getMonth() + 1) + (d.getDate()+Math.floor((d.getHours()+9)/24))),
+                        'date': (d.getFullYear() + '0' + (d.getMonth() + 1) + '0'+ (d.getDate()+Math.floor((d.getHours()+9)/24))),
                         'condition': req.body.content
                     }, function(err, menus) {
                         if (err) return res.json(err);
