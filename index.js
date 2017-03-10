@@ -685,6 +685,7 @@ app.post('/message', function(req, res) {
                     console.log('0' + (d.getMonth() + 1)); //String 타입
                     console.log(d.getDate()+Math.floor((d.getHours()+9)/24)); //서버 시간 +9를 data에 반영하기 위한 방법
                     console.log(Math.floor((d.getHours()+9)/24));
+                    console.log("아니 이건 : "+d.getFullYear() + '0' + (d.getMonth() + 1) + '0'+ (d.getDate()+Math.floor((d.getHours()+9)/24)));
                     //findOne
                     menu.findOne({
                         'date': (d.getFullYear() + '0' + (d.getMonth() + 1) + '0'+ (d.getDate()+Math.floor((d.getHours()+9)/24))),
